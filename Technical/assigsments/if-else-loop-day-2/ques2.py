@@ -16,4 +16,12 @@ for i in range(1,n+1):
       fac = fac*i;
 
 print(f"Factorial of {n} is {fac} ")
+
+print("BY the while loop")
+fac =1
+while n:
+     fac *=n
+     n-=1
+
+print(f"Factorial of {n} is {fac} ")
  

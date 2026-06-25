@@ -21,3 +21,9 @@ m=1;
 for i in range(n,n*10+1,n):
     print(f"{n} X {m} = {i}")
     m+=1
+
+print("BY While loop...")
+i=0
+while i<10:
+    i=i+1
+    print(n,"x",i,"=",n*i)
