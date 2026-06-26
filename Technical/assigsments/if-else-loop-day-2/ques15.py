@@ -16,21 +16,21 @@ f8:e1:50:94:e2:1f 50:5a:65:4f:94:df
 
 # Input: 4, 4
 # Output: Already on the same floor   
-# current=int(input("Enter current floor: "))
-# destination=int(input("Enter destination floor: "))
+ current=int(input("Enter current floor: "))
+ destination=int(input("Enter destination floor: "))
 
-# if current<destination:
-#     while current<=destination:
-#         print(current,end=" ")
-#         current=current+1
+ if current<destination:
+     while current<=destination:
+         print(current,end=" ")
+         current=current+1
 
-# elif current>destination:
-#     while current>=destination:
-#         print(current,end=" ")
-#         current=current-1
+ elif current>destination:
+     while current>=destination:
+         print(current,end=" ")
+         current=current-1
 
-# else:
-#     print("Already on the same floor")
+ else:
+     print("Already on the same floor")
 if current==dest:
     print("right now you are at correct floor ..")
 elif current<dest:
