@@ -23,5 +23,5 @@ while n:
      fac *=n
      n-=1
 
-print(f"Factorial of {n} is {fac} ")
+print(f"Factorial of is {fac} ")
  
