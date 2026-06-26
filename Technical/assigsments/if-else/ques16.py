@@ -37,3 +37,4 @@ else:
                  print("your ticket price is 250")
    else:
        print("your ticket price is 200")
+
