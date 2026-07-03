@@ -49,7 +49,6 @@ Student 2 Total = 220
 Class 2
 Student 1 Total = 231
 Student 2 Total = 277
-
 '''
 while True:
      print("Enter 1 to make data Structure ...")
@@ -66,33 +65,20 @@ while True:
                     for k in range(1,nosub+1):
                            mark = int(input(f"Enter the mark {k}:"))
                            sum+=mark
-                    marks +=" "+str(sum)
-      
-     
-                       
+                    marks+=" "+str(sum)
+
+     print("\n\n\n\n")
+
+     count=0
      for i in range(1,nocls+1):
               print(f"Class {i}")
               for j in range(1,nostd+1):
-                    print(f"Student {j}")
-                    for k in range(1,nosub+1):
-                           s=''
-                           count=0 
-                           for l in range(len(marks)+1):
-                               if l == 1:
-                                   s+=marks[l]
-                                   count+=1
-                               else:
-                                   if marks[count]==0:
-                                           break  
-                                   s+=marks[count]
-                                   count+=1
-                                                                    
-                           print(s)         
-                                    
-                          
-                                  
-                                    
-                                                    
-                         
+                     s=''
+                     while count<len(marks) and marks[count]==" ":
+                            count+=1
 
+                     while count<len(marks) and marks[count]!=" ":
+                            s+=marks[count]
+                            count+=1
 
+                     print(f"Student {j} Total = {s}")
