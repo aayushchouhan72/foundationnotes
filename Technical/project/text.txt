@@ -1,0 +1,32 @@
+while True:
+     print("Enter 1 to make data Structure ...")
+     print("Enter 2 to make Print data ...")
+     nocls= int(input("Enter number of classes..."))
+     nostd=int(input("Enter number of  student per Class..."))
+     nosub=int(input("Enter number of subject per student..."))
+     marks=''
+     for i in range(1,nocls+1):
+              print(f"Class {i}")
+              for j in range(1,nostd+1):
+                    print(f"Student {j}")
+                    sum=0
+                    for k in range(1,nosub+1):
+                           mark = int(input(f"Enter the mark {k}:"))
+                           sum+=mark
+                    marks+=" "+str(sum)
+
+     print("\n\n\n\n")
+
+     count=0
+     for i in range(1,nocls+1):
+              print(f"Class {i}")
+              for j in range(1,nostd+1):
+                     s=''
+                     while count<len(marks) and marks[count]==" ":
+                            count+=1
+
+                     while count<len(marks) and marks[count]!=" ":
+                            s+=marks[count]
+                            count+=1
+
+                     print(f"Student {j} Total = {s}")
