@@ -32,7 +32,7 @@ while True:
 
             match choice:
 
-                # New user Register here For First time 
+                # New user Register here For First time ...
                 case 1:
 
                     userid += str(usernumbers) + " "
@@ -50,8 +50,7 @@ while True:
                         f"You Register Successfully. Your User ID is {usernumbers}")
 
                     usernumbers += 1
-
-                # User login here multiple times 
+                # User login here multiple times ...
                 case 2:
 
                     username = input("Enter Your Username :- ").lower()
@@ -107,7 +106,7 @@ while True:
                         loginusers+=s3
                     else:
                         print("Invalid Username, Password or User ID ❌")
-                #  Print the list of books that are avilable 
+                #  Print the list of books that are avilable ...
                 case 3:
                     count=0
                     printcount=0
@@ -125,9 +124,32 @@ while True:
                         printcount+=2
                         if count >=len(booklist):
                              break
+                #Book issue Fuctionality ...
                 case 4:
-                    print("Functionality to be built in future.")
-
+                    #  Take book name as input from user ... 
+                    bookname = input("Enter book name without space use - to combine two words:-").lower()
+                    isavilable=False
+                    bookcounindex=0 
+                    bookcount=0
+                    print(bookname)
+                    #  Check book is avilable or not ...
+                    while True:
+                        s='' 
+                        while bookcount<len(booklist) and booklist[bookcount] == " ":
+                            bookcount+=1
+                            break
+                        while bookcount<len(booklist) and booklist[bookcount] !=" ":
+                            s+=booklist[bookcount]
+                            bookcount+=1
+                        #  Match book name each time 
+                        if s == bookname:
+                            if int(booklistcount[bookcounindex])>0 and s:
+                                print("Book issue Successfully")
+                            break
+                        else:
+                            bookcounindex+=2
+                        if bookcount>=len(booklist):
+                               break
                 case 5:
                     print("Functionality to be built in future.")
 
