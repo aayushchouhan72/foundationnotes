@@ -1,22 +1,25 @@
 
-
-
-
-
+#         1
+#       1 0
+#     1 0 1
+#   1 0 1 0
+# 1 0 1 0 1 
 l=1
 while l<=5:
       
        m=1
-       while m<=5:
+       count=1 
+       while m<=5: 
+             
           if m>=6-l:
-                if m%2 == 0 and l%2==0:
-                   print("0",end=" ")
-                else:
-                   print("1",end=" ")
+            # print(count)
+            var="1" if count%2 != 0 else "0"
+            print(var,end=" ") 
+            count+=1
+            # print(count)
           else:
              print(" ",end=" ")
-          
+            
           m+=1
-       
        l+=1
        print()

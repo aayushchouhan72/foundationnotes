@@ -5,7 +5,12 @@ booklistcount="1 3 5 6 8 9"
 avilablebook = ""
 loginusers = ""
 loginstatus = ""
+
 passwords = ""
+
+#  Issue Book related 
+issuedbook=""
+issuedbookidto=""
 
 usernumbers = 0
 
@@ -17,7 +22,7 @@ while True:
     if usertype == "student":
 
         usernum = usernumbers
-
+        whologgedin=None
         while True:
 
             print("1 -> Register student")
@@ -104,6 +109,7 @@ while True:
 
                     if login:
                         loginusers+=s3
+                        whologgedin=number
                     else:
                         print("Invalid Username, Password or User ID ❌")
                 #  Print the list of books that are avilable ...
@@ -144,13 +150,17 @@ while True:
                         #  Match book name each time 
                         if s == bookname:
                             if int(booklistcount[bookcounindex])>0 and s:
+                                issuedbook+=s
+                                issuedbookidto+=whologgedin
                                 print("Book issue Successfully")
                             break
                         else:
                             bookcounindex+=2
                         if bookcount>=len(booklist):
                                break
+                # Book return functionality ...  
                 case 5:
+                    
                     print("Functionality to be built in future.")
 
                 case 6:
