@@ -11,438 +11,472 @@ Data storage strategy:
 
 # ---------- INITIAL DATA ----------
 
-books = "Python Basics,5|C Programming,3|Java,2"
-students = "ST101,Aayush,1234,None"
+usernames = ""
+userid = ""
+passwords = ""
+studentborrowed = ""
 
-admin_password = "admin123"
+booklist = "python-basics c-programming java"
+booklistcount = "5 3 2 "
 
+adminpassword = "admin123"
 
-# ---------- MAIN PROGRAM LOOP ----------
+usernumbers = 0
 
 while True:
-    print("\n========= LIBRARY =========")
-    print("1. Admin")
-    print("2. Student")
-    print("3. Exit")
-    main_choice = input("Choose: ")
+    print("======================Wellcome to Libary mangement Syteam======================")
 
-    # ================= ADMIN =================
-    if main_choice == "1":
-        entered_pass = input("Enter admin password: ")
+    usertype = input("Enter Your user type admin, student or exit :- ").lower()
 
-        if entered_pass == admin_password:
-            while True:
-                print("\n----- ADMIN MENU -----")
-                print("1. Add Book")
-                print("2. View Books")
-                print("3. Search Book")
-                print("4. Update Quantity")
-                print("5. Total Books")
-                print("6. Logout")
-                admin_choice = input("Choose: ")
+    # =========================== ADMIN ===========================
+    if usertype == "admin":
 
-                # ---- ADD BOOK ----
-                if admin_choice == "1":
-                    new_name = input("Enter new book name: ")
-                    new_qty = input("Enter quantity: ")
+        enteredpass = input("Enter Admin Password :- ")
 
-                    if books == "":
-                        books = new_name + "," + new_qty
-                    else:
-                        books = books + "|" + new_name + "," + new_qty
+        if enteredpass != adminpassword:
+            print("Wrong Password ❌")
+            continue
 
-                    print("Book added successfully!")
+        while True:
 
-                # ---- VIEW BOOKS ----
-                elif admin_choice == "2":
-                    print("\n--- Book List ---")
-                    remaining = books
-                    while remaining != "":
-                        pipe_pos = remaining.find("|")
+            print("1 -> Add Book")
+            print("2 -> View Books")
+            print("3 -> Search Book")
+            print("4 -> Update Quantity")
+            print("5 -> Total Books")
+            print("6 -> Logout")
 
-                        if pipe_pos == -1:
-                            record = remaining
-                            remaining = ""
-                        else:
-                            record = remaining[0:pipe_pos]
-                            remaining = remaining[pipe_pos + 1:]
+            choice = int(input("Enter Your Choice :- "))
 
-                        comma_pos = record.find(",")
-                        book_name = record[0:comma_pos]
-                        book_qty = record[comma_pos + 1:]
-                        print(book_name + " - Qty: " + book_qty)
+            match choice:
 
-                # ---- SEARCH BOOK ----
-                elif admin_choice == "3":
-                    search_name = input("Enter book name to search: ")
-                    remaining = books
-                    found = "no"
+                # Add a new book to the booklist ...
+                case 1:
 
-                    while remaining != "":
-                        pipe_pos = remaining.find("|")
+                    newbook = input(
+                        "Enter new book name without space use - to combine two words:- ").lower()
+                    newqty = input("Enter quantity (single digit 0-9):- ")
 
-                        if pipe_pos == -1:
-                            record = remaining
-                            remaining = ""
-                        else:
-                            record = remaining[0:pipe_pos]
-                            remaining = remaining[pipe_pos + 1:]
+                    booklist += newbook + " "
+                    booklistcount += newqty + " "
 
-                        comma_pos = record.find(",")
-                        book_name = record[0:comma_pos]
-                        book_qty = record[comma_pos + 1:]
+                    print("Book added Successfully ✅")
 
-                        if book_name == search_name:
-                            print("Found! " + book_name + " - Qty: " + book_qty)
-                            found = "yes"
+                # Print the list of books that are avilable ...
+                case 2:
+                    count = 0
+                    bookindex = 0
+                    print("Book Name      Count ")
+                    while True:
+                        s = ""
+                        while count < len(booklist) and booklist[count] == " ":
+                            count += 1
+                        while count < len(booklist) and booklist[count] != " ":
+                            s += booklist[count]
+                            count += 1
+                        if s == "":
+                            break
+                        print(s, " ", booklistcount[bookindex * 2])
+                        bookindex += 1
+                        if count >= len(booklist):
+                            break
 
-                    if found == "no":
-                        print("Book not found.")
+                # Search a single book by name ...
+                case 3:
+                    searchname = input("Enter book name to search:- ").lower()
+                    count = 0
+                    bookindex = 0
+                    found = False
+                    while True:
+                        s = ""
+                        while count < len(booklist) and booklist[count] == " ":
+                            count += 1
+                        while count < len(booklist) and booklist[count] != " ":
+                            s += booklist[count]
+                            count += 1
+                        if s == "":
+                            break
+                        if s == searchname:
+                            print("Found! ", s, " - Qty:", booklistcount[bookindex * 2])
+                            found = True
+                            break
+                        bookindex += 1
+                        if count >= len(booklist):
+                            break
+                    if not found:
+                        print("Book not found ❌")
 
-                # ---- UPDATE QUANTITY ----
-                elif admin_choice == "4":
-                    update_name = input("Enter book name to update: ")
-                    change_type = input("Type 'add' to increase or 'remove' to decrease: ")
-                    change_amount = int(input("Enter amount: "))
+                # Update the quantity of a book (add or remove) ...
+                case 4:
+                    updatename = input("Enter book name to update:- ").lower()
+                    changetype = input(
+                        "Type add to increase or remove to decrease:- ").lower()
+                    changeamount = int(input("Enter amount (single digit):- "))
 
-                    updated_books = ""
-                    remaining = books
-                    found = "no"
+                    count = 0
+                    bookindex = 0
+                    found = False
+                    while True:
+                        s = ""
+                        while count < len(booklist) and booklist[count] == " ":
+                            count += 1
+                        while count < len(booklist) and booklist[count] != " ":
+                            s += booklist[count]
+                            count += 1
+                        if s == "":
+                            break
+                        if s == updatename:
+                            found = True
+                            oldqty = int(booklistcount[bookindex * 2])
 
-                    while remaining != "":
-                        pipe_pos = remaining.find("|")
-
-                        if pipe_pos == -1:
-                            record = remaining
-                            remaining = ""
-                        else:
-                            record = remaining[0:pipe_pos]
-                            remaining = remaining[pipe_pos + 1:]
-
-                        comma_pos = record.find(",")
-                        book_name = record[0:comma_pos]
-                        book_qty = int(record[comma_pos + 1:])
-
-                        if book_name == update_name:
-                            found = "yes"
-                            if change_type == "add":
-                                book_qty = book_qty + change_amount
-                            elif change_type == "remove":
-                                if book_qty - change_amount >= 0:
-                                    book_qty = book_qty - change_amount
+                            if changetype == "add":
+                                newqty = oldqty + changeamount
+                            elif changetype == "remove":
+                                if oldqty - changeamount >= 0:
+                                    newqty = oldqty - changeamount
                                 else:
-                                    print("Not enough quantity to remove!")
+                                    print("Not enough quantity to remove ❌")
+                                    newqty = oldqty
+                            else:
+                                newqty = oldqty
 
-                        new_record = book_name + "," + str(book_qty)
+                            newbooklistcount = ""
+                            rebuildindex = 0
+                            while rebuildindex < len(booklistcount):
+                                if rebuildindex == bookindex * 2:
+                                    newbooklistcount += str(newqty)
+                                else:
+                                    newbooklistcount += booklistcount[rebuildindex]
+                                rebuildindex += 1
+                            booklistcount = newbooklistcount
 
-                        if updated_books == "":
-                            updated_books = new_record
-                        else:
-                            updated_books = updated_books + "|" + new_record
+                            print("Quantity Updated Successfully ✅")
+                            break
+                        bookindex += 1
+                        if count >= len(booklist):
+                            break
+                    if not found:
+                        print("Book not found ❌")
 
-                    books = updated_books
+                # Show total distinct titles and total copies ...
+                case 5:
+                    count = 0
+                    bookindex = 0
+                    totaltitles = 0
+                    totalcopies = 0
+                    while True:
+                        s = ""
+                        while count < len(booklist) and booklist[count] == " ":
+                            count += 1
+                        while count < len(booklist) and booklist[count] != " ":
+                            s += booklist[count]
+                            count += 1
+                        if s == "":
+                            break
+                        totaltitles += 1
+                        totalcopies += int(booklistcount[bookindex * 2])
+                        bookindex += 1
+                        if count >= len(booklist):
+                            break
+                    print("Total distinct titles:", totaltitles)
+                    print("Total copies (all books):", totalcopies)
 
-                    if found == "yes":
-                        print("Quantity updated successfully!")
-                    else:
-                        print("Book not found.")
-
-                # ---- TOTAL BOOKS ----
-                elif admin_choice == "5":
-                    remaining = books
-                    total_titles = 0
-                    total_copies = 0
-
-                    while remaining != "":
-                        pipe_pos = remaining.find("|")
-
-                        if pipe_pos == -1:
-                            record = remaining
-                            remaining = ""
-                        else:
-                            record = remaining[0:pipe_pos]
-                            remaining = remaining[pipe_pos + 1:]
-
-                        comma_pos = record.find(",")
-                        book_qty = int(record[comma_pos + 1:])
-
-                        total_titles = total_titles + 1
-                        total_copies = total_copies + book_qty
-
-                    print("Total distinct titles: " + str(total_titles))
-                    print("Total copies (all books): " + str(total_copies))
-
-                # ---- LOGOUT ----
-                elif admin_choice == "6":
-                    print("Logging out of admin...")
+                case 6:
+                    print("Logout Successfully... ✅")
                     break
 
-                else:
-                    print("Invalid choice, try again.")
+                case _:
+                    print("Enter Valid Choice.")
 
-        else:
-            print("Wrong password!")
+    # =========================== STUDENT ===========================
+    elif usertype == "student":
 
-    # ================= STUDENT =================
-    elif main_choice == "2":
-        print("\n1. Login")
-        print("2. Register")
-        student_action = input("Choose: ")
+        whologgedin = None
+        currentborrowed = "none"
 
-        # ---- REGISTER ----
-        if student_action == "2":
-            new_id = input("Enter new Student ID: ")
-            new_name = input("Enter your name: ")
-            new_pass = input("Set a password: ")
-            new_record = new_id + "," + new_name + "," + new_pass + ",None"
+        while True:
 
-            if students == "":
-                students = new_record
-            else:
-                students = students + "|" + new_record
+            print("1 -> Register student")
+            print("2 -> Login using Student ID")
+            print("3 -> View available books")
+            print("4 -> Borrow a book")
+            print("5 -> Return a book")
+            print("6 -> Check borrowed book")
+            print("7 -> Logout")
 
-            print("Registration successful! You can now login.")
+            choice = int(input("Enter Your Choice :- "))
 
-        # ---- LOGIN ----
-        elif student_action == "1":
-            login_id = input("Enter Student ID: ")
-            login_pass = input("Enter Password: ")
+            match choice:
 
-            remaining = students
-            logged_in = "no"
-            current_name = ""
-            current_borrowed = ""
+                # New user Register here For First time ...
+                case 1:
 
-            while remaining != "":
-                pipe_pos = remaining.find("|")
+                    userid += str(usernumbers) + " "
 
-                if pipe_pos == -1:
-                    record = remaining
-                    remaining = ""
-                else:
-                    record = remaining[0:pipe_pos]
-                    remaining = remaining[pipe_pos + 1:]
+                    name = input("Enter your name (without spaces):- ").lower()
+                    usernames += name + " "
 
-                c1 = record.find(",")
-                c2 = record.find(",", c1 + 1)
-                c3 = record.find(",", c2 + 1)
+                    pas = input("Enter your password :- ").lower()
+                    passwords += pas + " "
 
-                s_id = record[0:c1]
-                s_name = record[c1 + 1:c2]
-                s_pass = record[c2 + 1:c3]
-                s_borrowed = record[c3 + 1:]
+                    studentborrowed += "none "
 
-                if s_id == login_id and s_pass == login_pass:
-                    logged_in = "yes"
-                    current_name = s_name
-                    current_borrowed = s_borrowed
+                    print(f"You Register Successfully. Your User ID is {usernumbers}")
 
-            if logged_in == "yes":
-                print("Welcome, " + current_name + "!")
+                    usernumbers += 1
 
-                while True:
-                    print("\n----- STUDENT MENU -----")
-                    print("1. View Books")
-                    print("2. Borrow Book")
-                    print("3. Return Book")
-                    print("4. My Book")
-                    print("5. Logout")
-                    student_choice = input("Choose: ")
+                # User login here multiple times ...
+                case 2:
 
-                    # ---- VIEW BOOKS ----
-                    if student_choice == "1":
-                        remaining_books = books
-                        while remaining_books != "":
-                            pipe_pos = remaining_books.find("|")
+                    username = input("Enter Your Username :- ").lower()
+                    password = input("Enter Your Password :- ").lower()
+                    number = input("Enter Your User Number :- ")
 
-                            if pipe_pos == -1:
-                                record = remaining_books
-                                remaining_books = ""
-                            else:
-                                record = remaining_books[0:pipe_pos]
-                                remaining_books = remaining_books[pipe_pos + 1:]
+                    countname = 0
+                    countpass = 0
+                    countid = 0
+                    countborrow = 0
 
-                            comma_pos = record.find(",")
-                            book_name = record[0:comma_pos]
-                            book_qty = record[comma_pos + 1:]
-                            print(book_name + " - Qty: " + book_qty)
+                    login = False
 
-                    # ---- BORROW BOOK ----
-                    elif student_choice == "2":
-                        if current_borrowed != "None":
-                            print("You already have a borrowed book: " + current_borrowed)
-                            print("Return it first before borrowing another.")
-                        else:
-                            borrow_name = input("Enter book name to borrow: ")
+                    while True:
 
-                            updated_books = ""
-                            remaining_books = books
-                            success = "no"
+                        # Check Username ..
+                        s1 = ""
+                        while countname < len(usernames) and usernames[countname] == " ":
+                            countname += 1
+                        while countname < len(usernames) and usernames[countname] != " ":
+                            s1 += usernames[countname]
+                            countname += 1
 
-                            while remaining_books != "":
-                                pipe_pos = remaining_books.find("|")
+                        # Check password ..
+                        s2 = ""
+                        while countpass < len(passwords) and passwords[countpass] == " ":
+                            countpass += 1
+                        while countpass < len(passwords) and passwords[countpass] != " ":
+                            s2 += passwords[countpass]
+                            countpass += 1
 
-                                if pipe_pos == -1:
-                                    record = remaining_books
-                                    remaining_books = ""
-                                else:
-                                    record = remaining_books[0:pipe_pos]
-                                    remaining_books = remaining_books[pipe_pos + 1:]
+                        # this loop run or userid ..
+                        s3 = ""
+                        while countid < len(userid) and userid[countid] == " ":
+                            countid += 1
+                        while countid < len(userid) and userid[countid] != " ":
+                            s3 += userid[countid]
+                            countid += 1
 
-                                comma_pos = record.find(",")
-                                book_name = record[0:comma_pos]
-                                book_qty = int(record[comma_pos + 1:])
+                        # this loop run for studentborrowed ..
+                        s4 = ""
+                        while countborrow < len(studentborrowed) and studentborrowed[countborrow] == " ":
+                            countborrow += 1
+                        while countborrow < len(studentborrowed) and studentborrowed[countborrow] != " ":
+                            s4 += studentborrowed[countborrow]
+                            countborrow += 1
 
-                                if book_name == borrow_name and book_qty > 0:
-                                    book_qty = book_qty - 1
-                                    success = "yes"
+                        if s1 == "" and s2 == "" and s3 == "":
+                            break
 
-                                new_record = book_name + "," + str(book_qty)
+                        if s1 == username and s2 == password and s3 == number:
+                            login = True
+                            whologgedin = s3
+                            currentborrowed = s4
+                            break
 
-                                if updated_books == "":
-                                    updated_books = new_record
-                                else:
-                                    updated_books = updated_books + "|" + new_record
-
-                            books = updated_books
-
-                            if success == "yes":
-                                current_borrowed = borrow_name
-                                print("Book Borrowed Successfully")
-
-                                # update the students string with new borrowed value
-                                updated_students = ""
-                                remaining_students = students
-
-                                while remaining_students != "":
-                                    pipe_pos = remaining_students.find("|")
-
-                                    if pipe_pos == -1:
-                                        record = remaining_students
-                                        remaining_students = ""
-                                    else:
-                                        record = remaining_students[0:pipe_pos]
-                                        remaining_students = remaining_students[pipe_pos + 1:]
-
-                                    c1 = record.find(",")
-                                    c2 = record.find(",", c1 + 1)
-                                    c3 = record.find(",", c2 + 1)
-                                    s_id = record[0:c1]
-                                    s_name = record[c1 + 1:c2]
-                                    s_pass = record[c2 + 1:c3]
-                                    s_borrowed = record[c3 + 1:]
-
-                                    if s_id == login_id:
-                                        s_borrowed = current_borrowed
-
-                                    new_record = s_id + "," + s_name + "," + s_pass + "," + s_borrowed
-
-                                    if updated_students == "":
-                                        updated_students = new_record
-                                    else:
-                                        updated_students = updated_students + "|" + new_record
-
-                                students = updated_students
-                            else:
-                                print("Book Not Available")
-
-                    # ---- RETURN BOOK ----
-                    elif student_choice == "3":
-                        if current_borrowed == "None":
-                            print("You have no book to return.")
-                        else:
-                            return_name = current_borrowed
-
-                            updated_books = ""
-                            remaining_books = books
-
-                            while remaining_books != "":
-                                pipe_pos = remaining_books.find("|")
-
-                                if pipe_pos == -1:
-                                    record = remaining_books
-                                    remaining_books = ""
-                                else:
-                                    record = remaining_books[0:pipe_pos]
-                                    remaining_books = remaining_books[pipe_pos + 1:]
-
-                                comma_pos = record.find(",")
-                                book_name = record[0:comma_pos]
-                                book_qty = int(record[comma_pos + 1:])
-
-                                if book_name == return_name:
-                                    book_qty = book_qty + 1
-
-                                new_record = book_name + "," + str(book_qty)
-
-                                if updated_books == "":
-                                    updated_books = new_record
-                                else:
-                                    updated_books = updated_books + "|" + new_record
-
-                            books = updated_books
-                            current_borrowed = "None"
-                            print("Book Returned Successfully")
-
-                            # update students string
-                            updated_students = ""
-                            remaining_students = students
-
-                            while remaining_students != "":
-                                pipe_pos = remaining_students.find("|")
-
-                                if pipe_pos == -1:
-                                    record = remaining_students
-                                    remaining_students = ""
-                                else:
-                                    record = remaining_students[0:pipe_pos]
-                                    remaining_students = remaining_students[pipe_pos + 1:]
-
-                                c1 = record.find(",")
-                                c2 = record.find(",", c1 + 1)
-                                c3 = record.find(",", c2 + 1)
-                                s_id = record[0:c1]
-                                s_name = record[c1 + 1:c2]
-                                s_pass = record[c2 + 1:c3]
-                                s_borrowed = record[c3 + 1:]
-
-                                if s_id == login_id:
-                                    s_borrowed = "None"
-
-                                new_record = s_id + "," + s_name + "," + s_pass + "," + s_borrowed
-
-                                if updated_students == "":
-                                    updated_students = new_record
-                                else:
-                                    updated_students = updated_students + "|" + new_record
-
-                            students = updated_students
-
-                    # ---- MY BOOK ----
-                    elif student_choice == "4":
-                        if current_borrowed == "None":
-                            print("You haven't borrowed any book.")
-                        else:
-                            print("Your borrowed book: " + current_borrowed)
-
-                    # ---- LOGOUT ----
-                    elif student_choice == "5":
-                        print("Logging out...")
-                        break
-
+                    if login:
+                        print("Login Successfully ✅ Welcome", username)
                     else:
-                        print("Invalid choice, try again.")
+                        print("Invalid Username, Password or User ID ❌")
 
-            else:
-                print("Invalid ID or password.")
+                # Print the list of books that are avilable ...
+                case 3:
+                    count = 0
+                    bookindex = 0
+                    print("Book Name      Count ")
+                    while True:
+                        s = ""
+                        while count < len(booklist) and booklist[count] == " ":
+                            count += 1
+                        while count < len(booklist) and booklist[count] != " ":
+                            s += booklist[count]
+                            count += 1
+                        if s == "":
+                            break
+                        print(s, " ", booklistcount[bookindex * 2])
+                        bookindex += 1
+                        if count >= len(booklist):
+                            break
 
-        else:
-            print("Invalid choice.")
+                # Book issue Fuctionality ...
+                case 4:
+                    if whologgedin is None:
+                        print("Please login first ❌")
+                    elif currentborrowed != "none":
+                        print("You already have a borrowed book:", currentborrowed)
+                        print("Return it first before borrowing another.")
+                    else:
+                        bookname = input(
+                            "Enter book name without space use - to combine two words:- ").lower()
 
-    # ================= EXIT =================
-    elif main_choice == "3":
-        print("Thank you for using the Library System. Goodbye!")
+                        count = 0
+                        bookindex = 0
+                        foundbook = False
+                        issued = False
+
+                        # Check book is avilable or not ...
+                        while True:
+                            s = ""
+                            while count < len(booklist) and booklist[count] == " ":
+                                count += 1
+                            while count < len(booklist) and booklist[count] != " ":
+                                s += booklist[count]
+                                count += 1
+                            if s == "":
+                                break
+                            # Match book name each time
+                            if s == bookname:
+                                foundbook = True
+                                if int(booklistcount[bookindex * 2]) > 0:
+                                    newqty = int(booklistcount[bookindex * 2]) - 1
+                                    newbooklistcount = ""
+                                    rebuildindex = 0
+                                    while rebuildindex < len(booklistcount):
+                                        if rebuildindex == bookindex * 2:
+                                            newbooklistcount += str(newqty)
+                                        else:
+                                            newbooklistcount += booklistcount[rebuildindex]
+                                        rebuildindex += 1
+                                    booklistcount = newbooklistcount
+                                    currentborrowed = s
+                                    issued = True
+                                    print("Book issued Successfully ✅")
+                                else:
+                                    print("Book not Available ❌")
+                                break
+                            bookindex += 1
+                            if count >= len(booklist):
+                                break
+
+                        if not foundbook:
+                            print("Book not found ❌")
+
+                        # Save the borrowed book against the logged in student ..
+                        if issued:
+                            countid2 = 0
+                            countborrow2 = 0
+                            newstudentborrowed = ""
+                            while True:
+                                s3 = ""
+                                while countid2 < len(userid) and userid[countid2] == " ":
+                                    countid2 += 1
+                                while countid2 < len(userid) and userid[countid2] != " ":
+                                    s3 += userid[countid2]
+                                    countid2 += 1
+
+                                s4 = ""
+                                while countborrow2 < len(studentborrowed) and studentborrowed[countborrow2] == " ":
+                                    countborrow2 += 1
+                                while countborrow2 < len(studentborrowed) and studentborrowed[countborrow2] != " ":
+                                    s4 += studentborrowed[countborrow2]
+                                    countborrow2 += 1
+
+                                if s3 == "" and s4 == "":
+                                    break
+
+                                if s3 == whologgedin:
+                                    newstudentborrowed += currentborrowed + " "
+                                else:
+                                    newstudentborrowed += s4 + " "
+
+                            studentborrowed = newstudentborrowed
+
+                # Book return functionality ...
+                case 5:
+                    if whologgedin is None:
+                        print("Please login first ❌")
+                    elif currentborrowed == "none":
+                        print("You have no book to return ❌")
+                    else:
+                        returnname = currentborrowed
+
+                        count = 0
+                        bookindex = 0
+
+                        # Check book is String and bump its count back up ..
+                        while True:
+                            s = ""
+                            while count < len(booklist) and booklist[count] == " ":
+                                count += 1
+                            while count < len(booklist) and booklist[count] != " ":
+                                s += booklist[count]
+                                count += 1
+                            if s == "":
+                                break
+                            if s == returnname:
+                                newqty = int(booklistcount[bookindex * 2]) + 1
+                                newbooklistcount = ""
+                                rebuildindex = 0
+                                while rebuildindex < len(booklistcount):
+                                    if rebuildindex == bookindex * 2:
+                                        newbooklistcount += str(newqty)
+                                    else:
+                                        newbooklistcount += booklistcount[rebuildindex]
+                                    rebuildindex += 1
+                                booklistcount = newbooklistcount
+                                break
+                            bookindex += 1
+                            if count >= len(booklist):
+                                break
+
+                        currentborrowed = "none"
+                        print("Book Returned Successfully ✅")
+
+                        countid2 = 0
+                        countborrow2 = 0
+                        newstudentborrowed = ""
+                        while True:
+                            s3 = ""
+                            while countid2 < len(userid) and userid[countid2] == " ":
+                                countid2 += 1
+                            while countid2 < len(userid) and userid[countid2] != " ":
+                                s3 += userid[countid2]
+                                countid2 += 1
+
+                            s4 = ""
+                            while countborrow2 < len(studentborrowed) and studentborrowed[countborrow2] == " ":
+                                countborrow2 += 1
+                            while countborrow2 < len(studentborrowed) and studentborrowed[countborrow2] != " ":
+                                s4 += studentborrowed[countborrow2]
+                                countborrow2 += 1
+
+                            if s3 == "" and s4 == "":
+                                break
+
+                            if s3 == whologgedin:
+                                newstudentborrowed += currentborrowed + " "
+                            else:
+                                newstudentborrowed += s4 + " "
+
+                        studentborrowed = newstudentborrowed
+
+                # Check what book is currently borrowed ...
+                case 6:
+                    if whologgedin is None:
+                        print("Please login first ❌")
+                    elif currentborrowed == "none":
+                        print("You haven't borrowed any book.")
+                    else:
+                        print("Your borrowed book:", currentborrowed)
+
+                case 7:
+                    print("Logout Successfully... ✅")
+                    break
+
+                case _:
+                    print("Enter Valid Choice.")
+
+    elif usertype == "exit":
+        print("Thank you for using the Library System. Goodbye! ✅")
         break
 
     else:
-        print("Invalid choice, please select 1, 2 or 3.")
+        print("Enter Valid User Type.")
