@@ -160,7 +160,27 @@ while True:
                                break
                 # Book return functionality ...  
                 case 5:
-                    
+                    bookname= input("Enter book you went to return ..")
+                    #  Check book is String ..
+                    while True:
+                        s='' 
+                        while bookcount<len(booklist) and booklist[bookcount] == " ":
+                            bookcount+=1
+                            break
+                        while bookcount<len(booklist) and booklist[bookcount] !=" ":
+                            s+=booklist[bookcount]
+                            bookcount+=1
+                        #  Match book name each time 
+                        if s == bookname:
+                            if int(booklistcount[bookcounindex])>0 and s:
+                                issuedbook+=s
+                                issuedbookidto+=whologgedin
+                                print("Book issue Successfully")
+                            break
+                        else:
+                            bookcounindex+=2
+                        if bookcount>=len(booklist):
+                               break
                     print("Functionality to be built in future.")
 
                 case 6:
