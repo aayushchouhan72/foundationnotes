@@ -1,202 +1,473 @@
 usernames = ""
 userid = ""
-booklist = "the-book java-basic python-basic c++ sql-database oprating-syteam"
-booklistcount="1 3 5 6 8 9"
-avilablebook = ""
-loginusers = ""
-loginstatus = ""
-
 passwords = ""
+studentborrowed = ""
 
-#  Issue Book related 
-issuedbook=""
-issuedbookidto=""
+booklist = "python-basics c-programming java "
+booklistcount = "5 3 2 "
+
+adminpassword = "admin123"
 
 usernumbers = 0
 
 while True:
     print("======================Wellcome to Libary mangement Syteam======================")
 
-    usertype = input("Enter Your user type admin or student:- ").lower()
+    usertype = input("Enter Your user type admin, student or exit :- ").lower()
 
-    if usertype == "student":
+    match usertype:
+        case "admin":
+            enteredpass = input("Enter Admin Password :- ")
 
-        usernum = usernumbers
-        whologgedin=None
-        while True:
+            match enteredpass == adminpassword:
+                case False:
+                    print("Wrong Password ❌")
+                    continue
 
-            print("1 -> Register student")
-            print("2 -> Login using Student ID")
-            print("3 -> View available books")
-            print("4 -> Borrow a book")
-            print("5 -> Return a book")
-            print("6 -> Check borrowed book")
-            print("7 -> Logout")
+            while True:
+                print("1 -> Add Book")
+                print("2 -> View Books")
+                print("3 -> Search Book")
+                print("4 -> Update Quantity")
+                print("5 -> Total Books")
+                print("6 -> Logout")
 
-            choice = int(input("Enter Your Choice :- "))
+                choice = int(input("Enter Your Choice :- "))
 
-            match choice:
+                match choice:
+                    #  Add new book for the user...
+                    case 1:
 
-                # New user Register here For First time ...
-                case 1:
+                        newbook = input("Enter new book name without space use - to combine two words:- ").lower()
+                        newqty = input("Enter quantity (single digit 0-9):- ")
 
-                    userid += str(usernumbers) + " "
+                        booklist += newbook + " "
+                        booklistcount += newqty + " "
 
-                    name = input(
-                        "Enter your name (without spaces):- ").lower()
+                        print("Book added Successfully ✅")
+                    #  View all book as admin ...
+                    case 2:
+                        count = 0
+                        bookindex = 0
+                        print("Book Name      Count ")
+                        while True:
+                            s = ""
+                            while count < len(booklist) and booklist[count] == " ":
+                                count += 1
+                            while count < len(booklist) and booklist[count] != " ":
+                                s += booklist[count]
+                                count += 1
+                            match s == "":
+                                case True:
+                                    break
+                            print(s, " ", booklistcount[bookindex * 2])
+                            bookindex += 1
+                            match count >= len(booklist):
+                                case True:
+                                    break
+                    #  Search Books as Admin ...
+                    case 3:
+                        searchname = input("Enter book name to search:- ").lower()
+                        count = 0
+                        bookindex = 0
+                        found = False
+                        while True:
+                            s = ""
+                            while count < len(booklist) and booklist[count] == " ":
+                                count += 1
+                            while count < len(booklist) and booklist[count] != " ":
+                                s += booklist[count]
+                                count += 1
+                            match s == "":
+                                case True:
+                                    break
+                            match s == searchname:
+                                case True:
+                                    print("Found! ", s, " - Qty:", booklistcount[bookindex * 2])
+                                    found = True
+                                    break
+                            bookindex += 1
+                            match count >= len(booklist):
+                                case True:
+                                    break
+                        match found:
+                            case False:
+                                print("Book not found ❌")
+                    #  Update book quentity
+                    case 4:
+                        updatename = input("Enter book name to update:- ").lower()
+                        changetype = input("Type add to increase or remove to decrease:- ").lower()
+                        changeamount = int(input("Enter amount (single digit):- "))
 
-                    usernames += name + " "
+                        count = 0
+                        bookindex = 0
+                        found = False
+                        while True:
+                            s = ""
+                            while count < len(booklist) and booklist[count] == " ":
+                                count += 1
+                            while count < len(booklist) and booklist[count] != " ":
+                                s += booklist[count]
+                                count += 1
+                            match s == "":
+                                case True:
+                                    break
+                            match s == updatename:
+                                case True:
+                                    found = True
+                                    oldqty = int(booklistcount[bookindex * 2])
 
-                    pas = input("Enter your password :- ").lower()
+                                    match changetype:
+                                        case "add":
+                                            newqty = oldqty + changeamount
+                                        case "remove":
+                                            match oldqty - changeamount >= 0:
+                                                case True:
+                                                    newqty = oldqty - changeamount
+                                                case False:
+                                                    print("Not enough quantity to remove ❌")
+                                                    newqty = oldqty
+                                        case _:
+                                            newqty = oldqty
 
-                    passwords += pas + " "
+                                    newbooklistcount = ""
+                                    rebuildindex = 0
+                                    while rebuildindex < len(booklistcount):
+                                        match rebuildindex == bookindex * 2:
+                                            case True:
+                                                newbooklistcount += str(newqty)
+                                            case False:
+                                                newbooklistcount += booklistcount[rebuildindex]
+                                        rebuildindex += 1
+                                    booklistcount = newbooklistcount
 
-                    print(
-                        f"You Register Successfully. Your User ID is {usernumbers}")
+                                    print("Quantity Updated Successfully ✅")
+                                    break
+                            bookindex += 1
+                            match count >= len(booklist):
+                                case True:
+                                    break
+                        match found:
+                            case False:
+                                print("Book not found ❌")
+                    #  Total bools print .. 
+                    case 5:
+                        count = 0
+                        bookindex = 0
+                        totaltitles = 0
+                        totalcopies = 0
+                        while True:
+                            s = ""
+                            while count < len(booklist) and booklist[count] == " ":
+                                count += 1
+                            while count < len(booklist) and booklist[count] != " ":
+                                s += booklist[count]
+                                count += 1
+                            match s == "":
+                                case True:
+                                    break
+                            totaltitles += 1
+                            totalcopies += int(booklistcount[bookindex * 2])
+                            bookindex += 1
+                            match count >= len(booklist):
+                                case True:
+                                    break
+                        print("Total distinct titles:", totaltitles)
+                        print("Total copies (all books):", totalcopies)
+                    #  Logout ...
+                    case 6:
+                        print("Logout Successfully... ✅")
+                        break
 
-                    usernumbers += 1
-                # User login here multiple times ...
-                case 2:
+                    case _:
+                        print("Enter Valid Choice.")
 
-                    username = input("Enter Your Username :- ").lower()
-                    password = input("Enter Your Password :- ").lower()
-                    number = input("Enter Your User Number :- ")
+        case "student":
+            whologgedin = None
+            currentborrowed = "none"
 
-                    countname = 0
-                    countpass = 0
-                    countid = 0
+            while True:
+                print("1 -> Register student")
+                print("2 -> Login using Student ID")
+                print("3 -> View available books")
+                print("4 -> Borrow a book")
+                print("5 -> Return a book")
+                print("6 -> Check borrowed book")
+                print("7 -> Logout")
 
-                    login = False
+                choice = int(input("Enter Your Choice :- "))
 
-                    while True:
+                match choice:
+                    #  User register functionality first time..
+                    case 1:
+                        userid += str(usernumbers) + " "
+                        name = input("Enter your name (without spaces):- ").lower()
+                        usernames += name + " "
+                        pas = input("Enter your password :- ").lower()
+                        passwords += pas + " "
+                        studentborrowed += "none "
+                        print(f"You Register Successfully. Your User ID is {usernumbers}")
+                        usernumbers += 1
+                    #  User login multiple functionality multiple times..
+                    case 2:
+                        username = input("Enter Your Username :- ").lower()
+                        password = input("Enter Your Password :- ").lower()
+                        number = input("Enter Your User Number :- ")
 
-                        # Check Username ..
-                        s1 = ""
+                        countname = 0
+                        countpass = 0
+                        countid = 0
+                        countborrow = 0
+                        login = False
 
-                        while countname < len(usernames) and usernames[countname] == " ":
-                            countname += 1
+                        while True:
+                            #  Search user name in  String ..
+                            s1 = ""
+                            while countname < len(usernames) and usernames[countname] == " ":
+                                countname += 1
+                            while countname < len(usernames) and usernames[countname] != " ":
+                                s1 += usernames[countname]
+                                countname += 1
+                            #  Mach corresponding password ...
+                            s2 = ""
+                            while countpass < len(passwords) and passwords[countpass] == " ":
+                                countpass += 1
+                            while countpass < len(passwords) and passwords[countpass] != " ":
+                                s2 += passwords[countpass]
+                                countpass += 1
+                            #  Match user id in string ..
+                            s3 = ""
+                            while countid < len(userid) and userid[countid] == " ":
+                                countid += 1
+                            while countid < len(userid) and userid[countid] != " ":
+                                s3 += userid[countid]
+                                countid += 1
+                            #  Currecnt book borrow ...
+                            s4 = ""
+                            while countborrow < len(studentborrowed) and studentborrowed[countborrow] == " ":
+                                countborrow += 1
+                            while countborrow < len(studentborrowed) and studentborrowed[countborrow] != " ":
+                                s4 += studentborrowed[countborrow]
+                                countborrow += 1
 
-                        while countname < len(usernames) and usernames[countname] != " ":
-                            s1 += usernames[countname]
-                            countname += 1
+                            match s1 == "" and s2 == "" and s3 == "":
+                                case True:
+                                    break
 
-                        # Check password ..
-                        s2 = ""
+                            match s1 == username and s2 == password and s3 == number:
+                                case True:
+                                    login = True
+                                    whologgedin = s3
+                                    currentborrowed = s4
+                                    break
+                        #  Login in user if above all conditions are True ..
+                        match login:
+                            case True:
+                                print("Login Successfully ✅ Welcome", username)
+                            case False:
+                                print("Invalid Username, Password or User ID ❌")
+                    #  View avilable Book in libarry functionality...
+                    case 3:
+                        count = 0
+                        bookindex = 0
+                        print("Book Name      Count ")
+                        while True:
+                            s = ""
+                            while count < len(booklist) and booklist[count] == " ":
+                                count += 1
+                            while count < len(booklist) and booklist[count] != " ":
+                                s += booklist[count]
+                                count += 1
+                            match s == "":
+                                case True:
+                                    break
+                            print(s, " ", booklistcount[bookindex * 2])
+                            bookindex += 1
+                            if  count >= len(booklist):
+                                break
+                   # Issue book fucntionality for user ...
+                    case 4:
+                        match whologgedin is None:
+                            case True:
+                                print("Please login first ❌")
+                            case False:
+                                match currentborrowed != "none":
+                                    case True:
+                                        print("You already have a borrowed book:", currentborrowed)
+                                        print("Return it first before borrowing another.")
+                                    case False:
+                                        bookname = input("Enter book name without space use - to combine two words:- ").lower()
+                                        count = 0
+                                        bookindex = 0
+                                        foundbook = False
+                                        issued = False
 
-                        while countpass < len(passwords) and passwords[countpass] == " ":
-                            countpass += 1
+                                        while True:
+                                            s = ""
+                                            while count < len(booklist) and booklist[count] == " ":
+                                                count += 1
+                                            while count < len(booklist) and booklist[count] != " ":
+                                                s += booklist[count]
+                                                count += 1
+                                            match s == "":
+                                                case True:
+                                                    break
+                                            match s == bookname:
+                                                case True:
+                                                    foundbook = True
+                                                    match int(booklistcount[bookindex * 2]) > 0:
+                                                        case True:
+                                                            newqty = int(booklistcount[bookindex * 2]) - 1
+                                                            newbooklistcount = ""
+                                                            rebuildindex = 0
+                                                            while rebuildindex < len(booklistcount):
+                                                                match rebuildindex == bookindex * 2:
+                                                                    case True:
+                                                                        newbooklistcount += str(newqty)
+                                                                    case False:
+                                                                        newbooklistcount += booklistcount[rebuildindex]
+                                                                rebuildindex += 1
+                                                            booklistcount = newbooklistcount
+                                                            currentborrowed = s
+                                                            issued = True
+                                                            print("Book issued Successfully ✅")
+                                                        case False:
+                                                            print("Book not Available ❌")
+                                                    break
+                                            bookindex += 1
+                                            match count >= len(booklist):
+                                                case True:
+                                                    break
 
-                        while countpass < len(passwords) and passwords[countpass] != " ":
-                            s2 += passwords[countpass]
-                            countpass += 1
+                                        match foundbook:
+                                            case False:
+                                                print("Book not found ❌")
 
-                        #  this loop run or userid 
-                        s3 = ""
+                                        match issued:
+                                            case True:
+                                                countid2 = 0
+                                                countborrow2 = 0
+                                                newstudentborrowed = ""
+                                                while True:
+                                                    s3 = ""
+                                                    while countid2 < len(userid) and userid[countid2] == " ":
+                                                        countid2 += 1
+                                                    while countid2 < len(userid) and userid[countid2] != " ":
+                                                        s3 += userid[countid2]
+                                                        countid2 += 1
 
-                        while countid < len(userid) and userid[countid] == " ":
-                            countid += 1
+                                                    s4 = ""
+                                                    while countborrow2 < len(studentborrowed) and studentborrowed[countborrow2] == " ":
+                                                        countborrow2 += 1
+                                                    while countborrow2 < len(studentborrowed) and studentborrowed[countborrow2] != " ":
+                                                        s4 += studentborrowed[countborrow2]
+                                                        countborrow2 += 1
 
-                        while countid < len(userid) and userid[countid] != " ":
-                            s3 += userid[countid]
-                            countid += 1
+                                                    match s3 == "" and s4 == "":
+                                                        case True:
+                                                            break
 
-                        if s1 == "" and s2 == "" and s3 == "":
-                            break
+                                                    match s3 == whologgedin:
+                                                        case True:
+                                                            newstudentborrowed += currentborrowed + " "
+                                                        case False:
+                                                            newstudentborrowed += s4 + " "
+                                                studentborrowed = newstudentborrowed
+                  # Return book by user...
+                    case 5:
+                        match whologgedin is None:
+                            case True:
+                                print("Please login first ❌")
+                            case False:
+                                match currentborrowed == "none":
+                                    case True:
+                                        print("You have no book to return ❌")
+                                    case False:
+                                        returnname = currentborrowed
+                                        count = 0
+                                        bookindex = 0
 
-                        if s1 == username and s2 == password and s3 == number:
-                            login = True
-                            break
+                                        while True:
+                                            s = ""
+                                            while count < len(booklist) and booklist[count] == " ":
+                                                count += 1
+                                            while count < len(booklist) and booklist[count] != " ":
+                                                s += booklist[count]
+                                                count += 1
+                                            match s == "":
+                                                case True:
+                                                    break
+                                            match s == returnname:
+                                                case True:
+                                                    newqty = int(booklistcount[bookindex * 2]) + 1
+                                                    newbooklistcount = ""
+                                                    rebuildindex = 0
+                                                    while rebuildindex < len(booklistcount):
+                                                        match rebuildindex == bookindex * 2:
+                                                            case True:
+                                                                newbooklistcount += str(newqty)
+                                                            case False:
+                                                                newbooklistcount += booklistcount[rebuildindex]
+                                                        rebuildindex += 1
+                                                    booklistcount = newbooklistcount
+                                                    break
+                                            bookindex += 1
+                                            match count >= len(booklist):
+                                                case True:
+                                                    break
 
-                    if login:
-                        loginusers+=s3
-                        whologgedin=number
-                    else:
-                        print("Invalid Username, Password or User ID ❌")
-                #  Print the list of books that are avilable ...
-                case 3:
-                    count=0
-                    printcount=0
-                    print("Book Name      Count ")
-                    while True:
-                        s=""
-                        while count<len(booklist) and booklist[count] == " ":
-                               count+=1
-                               break
-                        
-                        while count<len(booklist)and booklist[count] != " ":
-                                  s+=booklist[count]  
-                                  count+=1   
-                        print(s," ",booklistcount[printcount])
-                        printcount+=2
-                        if count >=len(booklist):
-                             break
-                #Book issue Fuctionality ...
-                case 4:
-                    #  Take book name as input from user ... 
-                    bookname = input("Enter book name without space use - to combine two words:-").lower()
-                    isavilable=False
-                    bookcounindex=0 
-                    bookcount=0
-                    print(bookname)
-                    #  Check book is avilable or not ...
-                    while True:
-                        s='' 
-                        while bookcount<len(booklist) and booklist[bookcount] == " ":
-                            bookcount+=1
-                            break
-                        while bookcount<len(booklist) and booklist[bookcount] !=" ":
-                            s+=booklist[bookcount]
-                            bookcount+=1
-                        #  Match book name each time 
-                        if s == bookname:
-                            if int(booklistcount[bookcounindex])>0 and s:
-                                issuedbook+=s
-                                issuedbookidto+=whologgedin
-                                print("Book issue Successfully")
-                            break
-                        else:
-                            bookcounindex+=2
-                        if bookcount>=len(booklist):
-                               break
-                # Book return functionality ...  
-                case 5:
-                    bookname= input("Enter book you went to return ..")
-                    #  Check book is String ..
-                    while True:
-                        s='' 
-                        while bookcount<len(booklist) and booklist[bookcount] == " ":
-                            bookcount+=1
-                            break
-                        while bookcount<len(booklist) and booklist[bookcount] !=" ":
-                            s+=booklist[bookcount]
-                            bookcount+=1
-                        #  Match book name each time 
-                        if s == bookname:
-                            if int(booklistcount[bookcounindex])>0 and s:
-                                issuedbook+=s
-                                issuedbookidto+=whologgedin
-                                print("Book issue Successfully")
-                            break
-                        else:
-                            bookcounindex+=2
-                        if bookcount>=len(booklist):
-                               break
-                    print("Functionality to be built in future.")
+                                        currentborrowed = "none"
+                                        print("Book Returned Successfully ✅")
 
-                case 6:
-                    print("Functionality to be built in future.")
+                                        countid2 = 0
+                                        countborrow2 = 0
+                                        newstudentborrowed = ""
+                                        while True:
+                                            s3 = ""
+                                            while countid2 < len(userid) and userid[countid2] == " ":
+                                                countid2 += 1
+                                            while countid2 < len(userid) and userid[countid2] != " ":
+                                                s3 += userid[countid2]
+                                                countid2 += 1
 
-                case 7:
-                    print("Logout Successfully... ✅")
-                    break
+                                            s4 = ""
+                                            while countborrow2 < len(studentborrowed) and studentborrowed[countborrow2] == " ":
+                                                countborrow2 += 1
+                                            while countborrow2 < len(studentborrowed) and studentborrowed[countborrow2] != " ":
+                                                s4 += studentborrowed[countborrow2]
+                                                countborrow2 += 1
 
-                case _:
-                    print("Enter Valid Choice.")
+                                            match s3 == "" and s4 == "":
+                                                case True:
+                                                    break
 
-    elif usertype == "admin":
-        print("Functionality to be built in future.")
+                                            match s3 == whologgedin:
+                                                case True:
+                                                    newstudentborrowed += currentborrowed + " "
+                                                case False:
+                                                    newstudentborrowed += s4 + " "
+                                        studentborrowed = newstudentborrowed
+                  # Check current borrowed books ...
+                    case 6:
+                        match whologgedin is None:
+                            case True:
+                                print("Please login first ❌")
+                            case False:
+                                match currentborrowed == "none":
+                                    case True:
+                                        print("You haven't borrowed any book.")
+                                    case False:
+                                        print("Your borrowed book:", currentborrowed)
+                    #  Logout user ...
+                    case 7:
+                        print("Logout Successfully... ✅")
+                        break
 
-    else:
-        print("Enter Valid User Type.")
-        
-        
+                    case _:
+                        print("Enter Valid Choice.")
+        case "exit":
+            print("Thank you for using the Library System. Goodbye! ✅")
+            break
+
+        case _:
+            print("Enter Valid User Type.")
