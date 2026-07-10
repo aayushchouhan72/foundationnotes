@@ -1,9 +1,9 @@
-userdata="ayush@gmail.com,ayush|data@gmail.com,kaka|dtaa@gmail.com,kaka|daa@gmail.com,kaka"
+userdata="ayush@gmail.com,ayush|"
 
-noteswithtitle = "Python,Basic language,ayush@gmail.com,1|Java,OOP language,ayush@gmail.com,2|HTML,Markup language,ayush@gmail.com,3|CSS,Styles web pages,ayush@gmail.com,4|SQL,Database language,ayush@gmail.com,5"
+noteswithtitle = "Python,Basic language,ayush@gmail.com,1|Java,OOP language,ayush@gmail.com,2|HTML,Markup language,ayush@gmail.com,3|CSS,Styles web pages,ayush@gmail.com,4|SQL,Database language,ayush@gmail.com,5|"
 
 logineduser=""
-noteid=10
+noteid=5
 while True:
      print("....................  Wellcome to notes applications  .....................")
      print("1. login..\n2. Register..\n2. Exit ..")
@@ -67,23 +67,40 @@ while True:
                                    print("There is not any note please create an note...")
                         #  Delete not functionality build from Here ....
                          case 3:
-                               notid = int(input("Enter the note id to delete "))
+                               flag=True
+                               notesexistflag=False
                                notes =  noteswithtitle
                                noteswithtitle=""
                                datas = notes.split("|")
-                               flag=True
+                              #   first check not are there to delete or not ....
                                for data in datas:
-                                  if data == " " or data == "":
-                                       continue
-                                  title,content,idd,notnum= data.split(",")
-                                  if int(notnum) == notid:
-                                      print(f"{notenum} :- {title} :- {content}")
-                                      flag=False
-                                      continue 
-                                  else:
-                                       noteswithtitle += data+"|"
-                               if flag == False:
-                                    print("Your not deleted sucessfully ✅✅")
+                                   if data == " " or data == "":
+                                        continue
+                                   title,content,idd,notenum= data.split(",")
+                                   if idd == logineduser:
+                                        notesexistflag=True
+                                        flag=False
+                                   else:
+                                        pass
+                               if flag:
+                                   print("There is not any note please create an note...")
+                               
+                               if notesexistflag:
+                                       notid = int(input("Enter the note id to delete "))
+                                       
+                                       for data in datas:
+                                          if data == " " or data == "":
+                                               continue
+                                          title,content,idd,notnum= data.split(",")
+                                          if int(notnum) == notid:
+                                              print(f"{notenum} :- {title} :- {content}")
+                                              flag=False
+                                              continue 
+                                          else:
+                                               noteswithtitle += data+"|"
+                                               
+                                       if flag == False:
+                                             print("Your not deleted sucessfully ✅✅")
                         #   Edit note functionality build from Here ...
                          case 4:
                                notid = int(input("Enter the note id which you wont to edit :- "))
@@ -108,17 +125,26 @@ while True:
                          case 5:  
                               print("You are logged out successfully 😎😎😎...")
                               break
+                         # default ...
+                         case __:
+                                  print("Enter vlaid choice ....😓😓😓")
                 else:
                      print("Enter valid password and username❌❌❌ ...")
            #  New user register form here .... 
            case 2:
-            while True:    
+            loopbreakflag=None
+            while True:   
+               #   Flag to break the loop ... 
+                if  loopbreakflag:
+                     print("How are you ...")
+                     break
                 email = input("Enter Your email :- ").lower().strip()
                 pas = input("Enter your password :- ").strip()
                 validemail=False
                 uservalid=False
                 # check email in data string ...
                 isexistemail=False
+               
                 
                 recs=userdata.split("|")
                 
@@ -174,23 +200,40 @@ while True:
                                    print("There is not any note please create an note...")
                         #  Delete not functionality build from Here ....
                          case 3:
-                               notid = int(input("Enter the note id to delete "))
+                               flag=True
+                               notesexistflag=False
                                notes =  noteswithtitle
                                noteswithtitle=""
                                datas = notes.split("|")
-                               flag=True
+                              #   first check not are there to delete or not ....
                                for data in datas:
-                                  if data == " " or data == "":
-                                       continue
-                                  title,content,idd,notnum= data.split(",")
-                                  if int(notnum) == notid:
-                                      print(f"{notenum} :- {title} :- {content}")
-                                      flag=False
-                                      continue 
-                                  else:
-                                       noteswithtitle += data+"|"
-                               if flag == False:
-                                    print("Your not deleted sucessfully ✅✅")
+                                   if data == " " or data == "":
+                                        continue
+                                   title,content,idd,notenum= data.split(",")
+                                   if idd == logineduser:
+                                        notesexistflag=True
+                                        flag=False
+                                   else:
+                                        pass
+                               if flag:
+                                   print("There is not any note please create an note...")
+                               
+                               if notesexistflag:
+                                       notid = int(input("Enter the note id to delete "))
+                                       
+                                       for data in datas:
+                                          if data == " " or data == "":
+                                               continue
+                                          title,content,idd,notnum= data.split(",")
+                                          if int(notnum) == notid:
+                                              print(f"{notenum} :- {title} :- {content}")
+                                              flag=False
+                                              continue 
+                                          else:
+                                               noteswithtitle += data+"|"
+                                               
+                                       if flag == False:
+                                             print("Your not deleted sucessfully ✅✅") 
                         #   Edit note functionality build from Here ...
                          case 4:
                                notid = int(input("Enter the note id which you wont to edit :- "))
@@ -214,13 +257,12 @@ while True:
                         #  Logout user functionality build from Here...
                          case 5:  
                               print("You are logged out successfully 😎😎😎...")
+                              loopbreakflag=True
                               break
                 else:
                      print("Enter valid password and username❌❌❌ ...")
-           
-               
-                 
-                print("Hii")
+        
+          # Application closing code ...   
            case 3:
                  print("Thankyou for using application 😊😊")
                  print("Aplication closing ....")
