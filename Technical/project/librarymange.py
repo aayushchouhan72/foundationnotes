@@ -33,13 +33,13 @@ while True:
                 match ch:
                 #  Add Book functionality Here ...
                     case 1:
-                        name = input("📖 Book Name : ").lower().strip()
-                        qty = input("🔢 Quantity : ")
+                        name = input(" Book Name : ").lower().strip()
+                        qty = input(" Quantity : ")
                         books += f"{name},{qty}|"
                         print("✅ Book Added Successfully")
                 #  View Book functionality Here ...
                     case 2:
-                        print("\n📖 Book Name\t🔢 Quantity")
+                        print("\n Book Name\t Quantity")
                         for rec in books.split("|"):
                             if rec == "":
                                 continue
@@ -47,23 +47,23 @@ while True:
                             print(b, "\t", q)
                 #  Search Book functionality Here ...
                     case 3:
-                        s = input("🔍 Search Book : ").lower().strip()
+                        s = input(" Search Book : ").lower().strip()
                         found = False
                         for rec in books.split("|"):
                             if rec == "":
                                 continue
                             b, q = rec.split(",")
                             if b == s:
-                                print("🔍 Found :", b, "| 🔢 Qty :", q)
+                                print(" Found :", b, "|  Qty :", q)
                                 found = True
                                 break
                         if not found:
                             print("❌ Book Not Found")
                 #  Update book functionality Here ...
                     case 4:
-                        s = input("📖 Book Name : ").lower().strip()
-                        op = input("➕ add / ➖ remove : ").lower().strip()
-                        amt = int(input("🔢 Amount : "))
+                        s = input(" Book Name : ").lower().strip()
+                        op = input(" add /  remove : ").lower().strip()
+                        amt = int(input(" Amount : "))
                         newbooks = ""
                         found = False
 
@@ -83,7 +83,7 @@ while True:
                             newbooks += f"{b},{q}|"
 
                         books = newbooks
-                        print("🔄 Updated" if found else "❌ Book Not Found")
+                        print(" Updated" if found else " Book Not Found")
                 #  Logout User fuctionality Here ...
                     case 5:
                         break
@@ -108,17 +108,17 @@ while True:
                 match ch:
                 #  Register user fuctionality Here ...
                     case 1:
-                        name = input("👤 Name : ").lower().strip()
-                        pw = input("🔑 Password : ")
+                        name = input(" Name : ").lower().strip()
+                        pw = input(" Password : ")
                         users += f"{userid},{name},{pw},none|"
-                        print("✅ Registration Successful")
-                        print("🪪 Your ID :", userid)
+                        print(" Registration Successful")
+                        print(" Your ID :", userid)
                         userid += 1
                 #  Login user fuctionality Here...
                     case 2:
-                        uid = input("🪪 ID : ")
-                        name = input("👤 Name : ").lower().strip()
-                        pw = input("🔑 Password : ")
+                        uid = input(" ID : ")
+                        name = input(" Name : ").lower().strip()
+                        pw = input(" Password : ")
 
                         ok = False
 
@@ -138,7 +138,7 @@ while True:
                             print("❌ Invalid Credentials")
                 #  View Books fuctionality Here ...
                     case 3:
-                        print("\n📖 Book Name\t🔢 Quantity")
+                        print("\n Book Name\t Quantity")
                         for rec in books.split("|"):
                             if rec == "":
                                 continue
@@ -146,15 +146,15 @@ while True:
                             print(b, "\t", q)
                 #  Borrow Books Funtionality Here ...
                     case 4:
-                        print("📥 Borrow feature placeholder.")
+                        print("Borrow feature placeholder.")
                         print("Extend using same string-record logic.")
                 #  Return Books functionality Here ...
                     case 5:
-                        print("📤 Return feature placeholder.")
+                        print("Return feature placeholder.")
                         print("Extend using same string-record logic.")
                 #  check my Borrowed  functionality Here ...
                     case 6:
-                        print("📖 Borrowed Book :", borrowed)
+                        print("Borrowed Book :", borrowed)
                 # Logout  User functionality Here ..
                     case 7:
                         break
