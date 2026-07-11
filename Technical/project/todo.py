@@ -1,15 +1,15 @@
-userdata="ayush@gmail.com,ayush|"
+userdata="ayush@gmail.com,ayush|demoapp@gmail.com,demo|" 
 
 noteswithtitle = "Python,Basic language,ayush@gmail.com,1|Java,OOP language,ayush@gmail.com,2|HTML,Markup language,ayush@gmail.com,3|CSS,Styles web pages,ayush@gmail.com,4|SQL,Database language,ayush@gmail.com,5|"
 
 logineduser=""
 noteid=5
 while True:
-     print("....................  Wellcome to notes applications  .....................")
+     print("....................  Wellcome to ToDo applications  .....................")
      print("1. login..\n2. Register..\n2. Exit ..")
      choice = int(input("Enter Your Choice ..."))
      match choice:
-        #    Login user fuctionalty..
+           #    Login user fuctionalty..
            case 1:
                 email = input("Enter Your email :- ").lower().strip()
                 pas = input("Enter your password :- ").strip()
@@ -27,6 +27,8 @@ while True:
 
                 #  Loop to itrate over sting 
                 for record in records:
+                     if record == " " or record=="":
+                           continue
                      useremail,userpass=record.split(",")
                      if useremail == email  and pas == userpass:
                             uservalid=True
@@ -42,13 +44,13 @@ while True:
                         match choice:
                         #  Create note ...
                          case 1:
-                              title = input("Enter The Note Title :- ").strip()
-                              notedata=  input("Enter The Note Data Here :- ").strip()
+                              title = input("Enter The Note Title :- ").strip().title()
+                              notedata=  input("Enter The Note Data Here :- ").strip().title()
                               noteid+=1
                               data=f"{title},{notedata},{logineduser},{noteid}|"
                               noteswithtitle+=data
                               print("Your note is created :- ")
-                              print(f"{notid} :- {title} :- {notedata}")
+                              print(f"{noteid} :- {title} :- {notedata}")
                         #  To print all sotores notes in data stirng ...
                          case 2:
                               notes =  noteswithtitle
@@ -93,7 +95,7 @@ while True:
                                                continue
                                           title,content,idd,notnum= data.split(",")
                                           if int(notnum) == notid:
-                                              print(f"{notenum} :- {title} :- {content}")
+                                              print(f"{notid} :- {title} :- {content}")
                                               flag=False
                                               continue 
                                           else:
@@ -139,7 +141,7 @@ while True:
                      print("How are you ...")
                      break
                 email = input("Enter Your email :- ").lower().strip()
-                pas = input("Enter your password :- ").strip()
+                password = input("Enter your password :- ").strip()
                 validemail=False
                 uservalid=False
                 # check email in data string ...
@@ -148,7 +150,9 @@ while True:
                 
                 recs=userdata.split("|")
                 
-                for rec in recs:  
+                for rec in recs: 
+                    if rec == "" or rec == " ":
+                        continue
                     idd,pas=rec.split(",")
                     if idd == email:
                          print("Email already exist ....")
@@ -161,12 +165,13 @@ while True:
                 if "@gmail.com" in email or "@yahoo.com" in email:
                     validemail = True
                 else:
-                    print("Enter valid Email ...")
+                    print("Enter valid Email ❌❌ ...")
                     continue
                #   Register the new user in data string ...
-                data=f"{email},{pas}|"
+                data=f"{email},{password}|"
                 userdata+=data
                 uservalid=True
+                print("Account Created Sucessfully ✅✅...\n")
                 if uservalid:
                     while True:
                         logineduser=email 
@@ -175,8 +180,8 @@ while True:
                         match choice:
                         #  Create note ...
                          case 1:
-                              title = input("Enter The Note Title :- ").strip()
-                              notedata=  input("Enter The Note Data Here :- ").strip()
+                              title = input("Enter The Note Title :- ").strip().title()
+                              notedata=  input("Enter The Note Data Here :- ").strip().title()
                               noteid+=1
                               data=f"{title},{notedata},{logineduser},{noteid}|"
                               noteswithtitle+=data
@@ -261,7 +266,6 @@ while True:
                               break
                 else:
                      print("Enter valid password and username❌❌❌ ...")
-        
           # Application closing code ...   
            case 3:
                  print("Thankyou for using application 😊😊")
