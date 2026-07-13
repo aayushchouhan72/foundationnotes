@@ -1,336 +1,317 @@
-📚 Course Collection - ReadMe
+# 📚 Ultimate Course Collection
 
-A massive collection of premium courses covering YouTube Automation, AI, Marketing, Trading, Programming, and more!
+> A comprehensive collection of premium courses covering Digital Marketing, AI, Video Editing, Web Development, Trading, and more!
 
----
-
-📌 Table of Contents
-
-· 📖 About This Collection
-· 📊 Course Categories
-· 📥 How to Download
-· 📂 Complete Course List
-· ⭐ Top Picks & Recommendations
-· 🛠️ Course Assets & Packs
-· ⚠️ Disclaimer
-· 🤝 Contribute
+![Course Collection](https://img.shields.io/badge/Courses-500%2B-blue)
+![Size](https://img.shields.io/badge/Size-2TB%2B-green)
+![Updated](https://img.shields.io/badge/Updated-2026-brightgreen)
 
 ---
 
-📖 About This Collection
+## 📖 Table of Contents
 
-This repository contains 250+ premium courses from various domains including:
-
-· YouTube Automation & Growth
-· Artificial Intelligence & Machine Learning
-· Digital Marketing & E-Commerce
-· Video Editing & Motion Graphics
-· Web Development & Programming
-· Cybersecurity & Ethical Hacking
-· Trading & Finance
-· Freelancing & Fiverr/Upwork
-· Personal Development & Business
-· Graphic Design & Photography
-
-⚡ Total Courses: 250+
-📦 Total Size: Varies (some packs exceed 250GB)
-🔗 Platform: Google Drive
+- [📌 About](#-about)
+- [📂 Course Categories](#-course-categories)
+- [🚀 Getting Started](#-getting-started)
+- [📋 Course List](#-course-list)
+- [⚠️ Disclaimer](#️-disclaimer)
+- [🤝 Contributing](#-contributing)
 
 ---
 
-📊 Course Categories
+## 📌 About
 
-# Category Courses Count
-1 YouTube & Video Creation 20+
-2 TikTok & Shorts 12+
-3 Video Editing 25+
-4 AI & Machine Learning 30+
-5 Digital Marketing & E-Commerce 35+
-6 Facebook & Instagram Ads 15+
-7 Social Media Marketing 10+
-8 Copywriting & Content Writing 18+
-9 SEO & Google 15+
-10 Graphic Design & Logo 20+
-11 Trading & Finance 25+
-12 Web Development & Programming 30+
-13 Design & 3D Animation 20+
-14 Freelancing & Fiverr/Upwork 15+
-15 Cybersecurity & Hacking 20+
-16 Language Learning 8+
-17 Photography 10+
-18 Email Marketing & Automation 8+
-19 Business & Entrepreneurship 12+
-20 Other Courses 25+
+This repository contains a curated collection of **500+ premium courses** covering various domains including:
+
+- 🤖 Artificial Intelligence & Machine Learning
+- 🎬 Video Editing & Animation
+- 📱 Social Media Marketing
+- 💻 Web Development & Programming
+- 📊 Digital Marketing & E-Commerce
+- 💰 Trading & Finance
+- 🛡️ Cybersecurity & Ethical Hacking
+- ✍️ Copywriting & Content Creation
+- 🎨 Graphic Design & Photography
 
 ---
 
-📥 How to Download
+## 📂 Course Categories
 
+### 🎥 Video Creation & Editing
+| Category | Courses |
+|----------|---------|
+| YouTube Automation | 15+ Courses |
+| TikTok & Shorts | 12+ Courses |
+| Video Editing | 20+ Courses |
+| Editing Assets | 10+ Packs |
+
+### 🤖 AI & Machine Learning
+| Category | Courses |
+|----------|---------|
+| ChatGPT Mastery | 15+ Courses |
+| AI Agents & Automation | 10+ Courses |
+| AI Marketing | 8+ Courses |
+| Generative AI | 6+ Courses |
+
+### 📈 Digital Marketing
+| Category | Courses |
+|----------|---------|
+| Facebook/Instagram Ads | 12+ Courses |
+| SEO & Google | 10+ Courses |
+| E-Commerce | 15+ Courses |
+| Email Marketing | 5+ Courses |
+
+### 💻 Programming & Web Dev
+| Category | Courses |
+|----------|---------|
+| Full Stack Development | 10+ Courses |
+| Python Programming | 8+ Courses |
+| WordPress | 6+ Courses |
+| Mobile Development | 4+ Courses |
+
+### 💰 Trading & Finance
+| Category | Courses |
+|----------|---------|
+| Forex Trading | 8+ Courses |
+| Crypto Trading | 5+ Courses |
+| Stock Market | 4+ Courses |
+| Personal Finance | 3+ Courses |
+
+### 🛡️ Cybersecurity
+| Category | Courses |
+|----------|---------|
+| Ethical Hacking | 12+ Courses |
+| Kali Linux | 5+ Courses |
+| Bug Bounty | 3+ Courses |
+| Network Security | 4+ Courses |
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Google Account (for Drive access)
+- Stable Internet Connection
+- 10GB+ Free Storage Space (recommended)
+
+### How to Access
 1. Click on any course link
 2. You'll be redirected to Google Drive
-3. If you see "Access Denied", request access or check if the link is still active
-4. Download individual files or entire folders
-5. For large files, consider using Google Drive desktop app
+3. Request access if required
+4. Download or save to your Drive
 
-💡 Pro Tip: Use Google Drive Downloader tools for faster bulk downloads
-
----
-
-📂 Complete Course List
-
-🎬 YouTube & Video Creation
-
-Course Name Download Link
-YouTube Automation Course By Huzaifa ❤ Download
-YouTube 18 Days Formula By Junaid YT ❤ Download
-YouTube Automation Course By Ammar Nisar ❤ Download
-YouTube Automation Tutorial & Master Class 2024-25 Download
-YouTube For Business - Stephanie Kase ☀ Download
-YouTube Creator Course By Mr How Download
-Youtube Pro Academy Download
-YouTube SEO Mastery Download
-YouTube Shorts Mastery Course By Kashif Majeed ❤ Download
-Faceless YouTube Automation Channels Made Effortless with AI Download
-
-🎬 TikTok & Shorts
-
-Course Name Download Link
-TikTok Automation Batch 19 By Mohsin Ali Download
-TikTok Domination: Unlock the Secrets to Viral Growth Download
-TikTok Business Mastery Download
-Tiktok Faceless Mastery Download
-Tiktok Monetization Course By Mohsin Ali Download
-Trial Reels - Instagram Growth Feature ❤ Download
-90_Second - Go Viral Download
-Viral TikTok & YouTube Shorts ChatGPT & CapCut Mastery Download
-Creating Viral Short Form Content with Generative AI Download
-
-🎞️ Video Editing
-
-Course Name Download Link
-Adi Singh — Davinci Resolve Video Editing Masterclass Download
-Latest Video Editing Cohort 2025 By Manav Visuals Download
-Adi Singh - Video Editing Secrets February 2025 Download
-Tharun Speaks Video Editing [UPDATED] Download
-Zero to Hero Video Editing Download
-Video Editing Basic to Advanced Course Download
-Video Editing Mastery - Become a Video Editing PRO (CapCut) ❤ Download
-CapCut Mastery From Beginner to Pro Download
-4-Day Capcut Mobile Mastery Course Download
-Filmora 13 Full Course Download
-Adobe Premiere Pro CC For Video Editing - Novice to Expert Download
-
-🤖 AI & Machine Learning
-
-Course Name Download Link
-AI for Marketing – Growth School Download
-AI Marketing Masterclass Ultimate Roadmap For Marketers Download
-Generative AI Mastermind – Live! Download
-AI Workshop by Zubair Trabzada ❤ Download
-Master AI Prompting By Tech Burner Download
-ChatGPT Complete 2025 Course for Making Money Online Download
-ChatGPT & Midjourney Content Creation! Sell It On Shopify Download
-Midjourney Mastery Hacking Visual Content Creation Download
-AI Agents For Everyone - Complete Masterclass 2025 Download
-Build AI Agents and Automate Workflows with n8n Download
-How to Make AI Agents Without Coding Full Course Download
-DeepSeek Masterclass: A Complete DeepSeek Zero to Hero Download
-Python for Data Science and Machine Learning Bootcamp ❤ Download
-
-📊 Digital Marketing & E-Commerce
-
-Course Name Download Link
-Demand Curve - Your Startup's Growth Operating System Download
-Digital Products Selling Master Course By HBA Services Download
-Organic Digital Marketing: The Updated Masterclass Download
-Ecommerce Accelerator Course 2024 By Chase Chappell Download
-Amazon & Ai Passive Income Strategy Download
-Amazon FBA Global Selling - Shahid Anwar Download
-Amazon Affiliate Marketing Download
-Amazon Wholesale By Saad Hashmani Download
-Daraz Mastery Course By Hamza Ali Download
-eBay Dropshipping Mastery with ChatGPT Download
-EBAY COURSE Download
-ETSY COURSE Download
-
-🎯 Facebook & Instagram Ads
-
-Course Name Download Link
-Facebook Ads Batch #3 By Fawaz Ahmed Download
-Facebook Ads Course Download
-Hamza Facebook ads Download
-Aryan Tripathi Advanced Facebook Ads Course Download
-Instagram Shiksha Masterclass Course Download
-Instagram Profits Blueprint Masterclass Download
-Faceless Instagram Marketing Using ChatGPT and Ai Download
-
-✍️ Copywriting & Content Writing
-
-Course Name Download Link
-AKC (Armash Kamal) Copywriting Workshop Download
-Tom Stoic Copywriting Crash Course Download
-Content Writing Course Download
-The Ultimate Guide to Blogging with AI Download
-How To Write Blog Posts That Get 500,000 Views 2024 Download
-The 100k Online Writing System - Matt Giaro Download
-4D Copywriting Academy Download
-
-🔍 SEO & Google
-
-Course Name Download Link
-SEO in Minutes, Not Months by Conor Martin Download
-SEO Complete Guide to Building Amazon Affiliate sites Download
-Growth School – SEO At Scale Course Download
-Craig Campbell - SEO Course Download
-Google My Business SEO Automation Download
-Google Ads Course ❤ Download
-Sidra Naseem Google Ads Download
-
-💹 Trading & Finance
-
-Course Name Download Link
-Sunil Minglani Master Trading Course 2025 Download
-Badar Tanveer Trading Course Download
-Avdhut Sathe Trading Course Download
-Fractal Flow Pro Trading Strategies Download
-Trading Busters - London Strategy 2024 Download
-Forex Trading Full Course Download
-Waqar Zaka complete crypto course Download
-Sara Finance - Stock Market Course Download
-Maria Wendt - I Love Money And Money Loves Me Download
-
-💻 Web Development & Programming
-
-Course Name Download Link
-Complete Web Development by Dr Angela Yu Download
-Delta Full Stack Web Development By Apna College Download
-ALPHA CODING BATCH (3.0) By Apna College Download
-The Complete Web Developer Bootcamp Download
-React 18 for Beginners - CodeWithMosh Download
-Python Full Course Basic to Advance Download
-Mastering Excel Become a Power User Download
-The Complete Microsoft Word Course Download
-
-🎨 Design & 3D Animation
-
-Course Name Download Link
-Blender 3D Full Course By Shiekh Nafay 2024 Download
-3D Animation Course in After Effects Download
-Auto Cad (2D & 3D) Download
-The Complete 2025 UIUX Design Journey with Figma Download
-Figma 2024 Monster Course Download
-
-💼 Freelancing & Fiverr/Upwork
-
-Course Name Download Link
-Fiverr Course By Rishabh Sharma Download
-Fiverr Course By Mr Zeff Download
-Upwork Complete Course Download
-Raheem Dawar Upwork Master Class Download
-Win Clients With Upwork (Upwork Mastery Course) Download
-
-🔐 Cybersecurity & Hacking
-
-Course Name Download Link
-Complete Ethical Hacking Bootcamp Zero to Mastery Download
-Learn Ethical Hacking Beginner to Advanced 2025 Download
-Cyber Security Course Download
-Wi-Fi Hacking with Kali ❤ Download
-HackTheBox & TryHackMe- Cyber Security Upskilling ❤ Download
-The Complete Android Ethical Hacking Practical Course Download
+### Tips for Best Experience
+- Use Google Drive Desktop App for larger files
+- Download during off-peak hours
+- Organize courses in your Drive folders
+- Bookmark this page for quick access
 
 ---
 
-⭐ Top Picks & Recommendations
+## 📋 Course List
 
-🔥 Most Popular
+### 🎬 YouTube & Video Creation
 
-1. YouTube Automation Course By Huzaifa - Complete YouTube growth system
-2. Iman Gadzhi – Pathway to Profit's - Business & agency building
-3. ChatGPT Complete 2025 Course - AI monetization strategies
-4. Complete Web Development by Dr Angela Yu - Best programming course
-5. Complete Ethical Hacking Bootcamp - Cybersecurity from zero to mastery
+<details>
+<summary><b>Click to expand YouTube Courses (15+ Courses)</b></summary>
 
-💰 Best for Earning
+| Course Name | Instructor | Link |
+|-------------|------------|------|
+| YouTube Automation Course | Huzaifa | [Download](https://drive.google.com/drive/folders/1VblPCD09WWpM9rjGZ1oWphf19M2WMQGq) |
+| YouTube 18 Days Formula | Junaid YT | [Download](https://drive.google.com/drive/folders/1GPxvUY07ynGOmcgbnEXEHMwe1jKKzUWo) |
+| YouTube Automation Course | Ammar Nisar | [Download](https://drive.google.com/drive/folders/1t2oTbk-_wqhOwmiR5jmH5oqDXxmw1LyY) |
+| YouTube Automation Full Course | Awais ecom | [Download](https://drive.google.com/drive/folders/1JT6504E_J3Jggcbp53mvSkxeFjyyj6lc) |
+| YouTube Automation Course | Sajjad Hussain | [Download](https://drive.google.com/drive/folders/1TpJv-h8j8fqP-6-CzM1ywJM7Uw90oUDa) |
+| YouTube SEO Mastery | Various | [Download](https://drive.google.com/drive/folders/1g47n8hFtE0s1fzxHl5Bs1L7uEU1jeTr6) |
+| YouTube Shorts Mastery | Kashif Majeed | [Download](https://drive.google.com/drive/folders/1TjDA1p2l0EFTojBacAi_jx8o1thzfNbd) |
+| Youtube Automation | Saad Rashid | [Download](https://drive.google.com/drive/folders/1TycgorzFiEg0blx-5XEwoG2tedtYC1s0) |
+| Nexlev - Youtube Automation | Various | [Download](https://drive.google.com/drive/folders/1vIyIUxFeyn1df2E0ypDKIWctVn9fhHY3) |
+| Faceless YouTube Automation | Various | [Download](https://drive.google.com/drive/folders/1gPTj2v4DWbHmA2m0ronTPVgkT7FOSPWM) |
+| YT Shorts Automation | Various | [Download](https://drive.google.com/drive/folders/1C5cu5D0eleVZXS82Y69-ztQ2feG-wPXb) |
+| The YouTube Scriptwriter's Playbook V2 | George Blackman | [Download](https://drive.google.com/drive/folders/1vyxxI6E4NRAV2JcI5l32A2iDnbwFBq8s) |
+| YouTube For Business | Stephanie Kase | [Download](https://drive.google.com/drive/folders/1aAnYS1CJlm4wPK04kmAccAsMBVV_TCHj) |
+| YouTube Creator Course | Mr How | [Download](https://drive.google.com/drive/folders/1kjbYK1m1twQiy_1CZA8305mSjcA6I0Z0) |
+| Youtube Pro Academy | Various | [Download](https://drive.google.com/drive/folders/1QJbBpc_tsck3AfCB68NacrfQT_dSbzrK) |
 
-1. TikTok Automation Batch 19 - TikTok monetization
-2. Amazon & Ai Passive Income Strategy - Amazon arbitrage
-3. Fiverr Pro Online Course - Freelancing mastery
-4. Trading Hub 4.0 - Forex & crypto trading
+</details>
 
-🎓 Best for Beginners
+<details>
+<summary><b>Click to expand TikTok & Shorts Courses (12+ Courses)</b></summary>
 
-1. Zero to Hero Video Editing - Start editing today
-2. Python Full Course Basic to Advance - Learn Python step by step
-3. Google Ads Course - Easy to follow
-4. Canva for Social Media - No design experience needed
+| Course Name | Instructor | Link |
+|-------------|------------|------|
+| TikTok Automation Batch 19 | Mohsin Ali | [Download](https://drive.google.com/drive/folders/1JMsO0t7y2KigBRtJdp2SjJpPBM-Z4M0_) |
+| TikTok Domination | Various | [Download](https://drive.google.com/drive/folders/16x_x5Wa_W40Gb3qXQhnJHWPlR-ldrpWv) |
+| TikTok Business Mastery | Various | [Download](https://drive.google.com/drive/folders/1Vk-bqJEPlbfa2Gkas6N0cWVsnPO70qSx) |
+| The Reels, TikTok & Shorts Course | ContentCreator | [Download](https://drive.google.com/drive/folders/18j50Vwy_4ATtKAkV0LadMCDOTMaooxf1) |
+| Tiktok Faceless Mastery | Various | [Download](https://drive.google.com/drive/folders/16O7ToTy1dURNcwZYm0HsSn-LytOPKVcc) |
+| Tiktok Monetization Course | Mohsin Ali | [Download](https://drive.google.com/drive/folders/1de31ju1LOLqfK8BJPZ1YBahMeEdcsx3L) |
+| Trial Reels | Various | [Download](https://drive.google.com/drive/folders/1CRW1BZWX52xbRJxzUvCEFGymuUHjefZV) |
+| 90_Second - Go Viral | Various | [Download](https://drive.google.com/drive/folders/1YB7ezH26eE-44OKx_c0gVG9VJv73X5tD) |
+| Viral TikTok & YouTube Shorts | Passive Income Gen Z | [Download](https://drive.google.com/drive/folders/1wSiedvCA4xF5OdwlrpBIkGCOxi1aY6Em) |
+| Creating Viral Short Form Content | Various | [Download](https://drive.google.com/drive/folders/1sdKAO0I0uzq-Kp7NpEEzkmftzX0ny6lX) |
+| Umair TikTok Wala Course | Umair | [Download](https://drive.google.com/drive/folders/1KJu9LmHe_iYhpK0sKogshKWbWSzM8jws) |
+
+</details>
+
+### 🤖 Artificial Intelligence
+
+<details>
+<summary><b>Click to expand AI Courses (25+ Courses)</b></summary>
+
+| Course Name | Instructor | Link |
+|-------------|------------|------|
+| Sora Masterclass Cinematic Video Production | Various | [Download](https://drive.google.com/drive/folders/1qTylyavLztAP5ddY0ZDE2U0YdHak4dl2) |
+| AI for Marketing | Growth School | [Download](https://drive.google.com/drive/folders/1vkVXhWmCq4Nu2UYP_j95UBKkmu1NqV-1) |
+| AI Marketing Masterclass | Various | [Download](https://drive.google.com/drive/folders/1ZnXI4pRdJy-gY7uPgKEXLqUeIAsMdhBy) |
+| Generative AI Mastermind | Various | [Download](https://drive.google.com/drive/folders/1nFw4e5Y-9GylSBrC_4sPTm_0r_FpPGiv) |
+| AI Workshop | Zubair Trabzada | [Download](https://drive.google.com/drive/folders/18YdzSHJHyQLJGycpoL7qjgzuK9OOeG5d) |
+| AI Prompt CREATORS | Matt Zimmerman | [Download](https://drive.google.com/drive/folders/1ut0G-QrJjNpulC6eKmhW5LnAa78ZX25t) |
+| Master AI Prompting | Tech Burner | [Download](https://drive.google.com/drive/folders/1RlFrolRfacJcBt2uEn3Du-1ReP_z7_ce) |
+| AI Mastery ChatGPT Prompts & MidJourney | Various | [Download](https://drive.google.com/drive/folders/1PhNeDczDQRsjLwcEf5e7v0fPo9W7tOSp) |
+| ChatGPT Complete 2025 Course | Various | [Download](https://drive.google.com/drive/folders/1pPsK7E9hvhfumcvybDhfbNEoSJs5nSax) |
+| Midjourney Mastery | Various | [Download](https://drive.google.com/drive/folders/1q9-mn5PPFjoNSCAHAyaA0YsGrC9qQ-pc) |
+| AI Agents For Everyone | Various | [Download](https://drive.google.com/drive/folders/1eLPlg7JrBoqB9-iKSY1mNty2ZMvuRuzx) |
+| Build AI Agents with n8n | Various | [Download](https://drive.google.com/drive/folders/1QYf7j0zzb93e80a_8-XwgNZqF3eifutt) |
+| Build Anything With AI Agents | Various | [Download](https://drive.google.com/drive/folders/1aYty4iP2QOFx_1NRZI2Bzj-QHKij1Drb) |
+| How to Make AI Agents Without Coding | Various | [Download](https://drive.google.com/drive/folders/1UKvet_DQ10hmK7mxOO50Y4XtDwKgeY-2) |
+| Master AI Voice Agents | Various | [Download](https://drive.google.com/drive/folders/1LU2wGyzcefmNJ0mUZo-HT-rX6iyu8Cuk) |
+| DeepSeek Masterclass | Various | [Download](https://drive.google.com/drive/folders/1dc9yRhg8ecqousuWvEPxz9sa5guSAO5x) |
+| Mastering Generative AI | Various | [Download](https://drive.google.com/drive/folders/1KfWNHRlIqMBctxYxnNoVpSQALh0vEaIb) |
+| Python for Data Science Bootcamp | Various | [Download](https://drive.google.com/drive/folders/1xM6GjovFGLKtTBtzmuZ9-fNUnA3OrMPU) |
+
+</details>
+
+### 📈 Digital Marketing & E-Commerce
+
+<details>
+<summary><b>Click to expand Marketing Courses (30+ Courses)</b></summary>
+
+| Course Name | Instructor | Link |
+|-------------|------------|------|
+| Demand Curve - Growth Operating System | Various | [Download](https://drive.google.com/drive/folders/1ZpE5J5nye5MYIAleW0hzPS_7mBEkbIl6) |
+| Digital Income Project - Instagram OS | Various | [Download](https://drive.google.com/drive/folders/16zlM8b1rTxw8xvWNx2ZFOBidTx5k8tOu) |
+| Digital Products Selling Master Course | HBA Services | [Download](https://drive.google.com/drive/folders/1TqXxE354puXENrZWml3nofwhQeKREGMI) |
+| Digital Branding | Rajeev Mehta | [Download](https://drive.google.com/drive/folders/1T4TYIlNzXkZ521OvrOzqv_XC01c624jJ) |
+| Organic Digital Marketing Masterclass | Various | [Download](https://drive.google.com/drive/folders/1Sceabl4pjomgZxnfSagSq9OSg4Urd3PH) |
+| Facebook Ads Batch #3 | Fawaz Ahmed | [Download](https://drive.google.com/drive/folders/1foZNCRC682GDBMezRfH5iYfsJMm9IXLx) |
+| Facebook Ads Course | Various | [Download](https://drive.google.com/drive/folders/1kNTuqDFJDl5m1b97-GrRItGv0DAPYSjy) |
+| Instagram Shiksha Masterclass | Various | [Download](https://drive.google.com/drive/folders/1A1GJ7_8tcbWuFl6BaPDrn-yR3kpEPCpK) |
+| Amazon & Ai Passive Income | Various | [Download](https://drive.google.com/drive/folders/1iuageSFVr5iR5WSC_JNxDibC8c5xv7Zr) |
+| Amazon FBA Global Selling | Shahid Anwar | [Download](https://drive.google.com/drive/folders/1suYE3NmTlHbvdK_oV_igBEMkJPX3hvQE) |
+| Shopify Dropshipping | Various | [Download](https://drive.google.com/drive/folders/1q-qKiOvVqZtE_HVQAiNN8e9mGCX9xT-2) |
+| Ecommerce Accelerator 2024 | Chase Chappell | [Download](https://drive.google.com/drive/folders/1vYIueeM4CU4J4h4I9J0Cx8b7A35PoyxX) |
+| Ecommerce SEO Bootcamp | Various | [Download](https://drive.google.com/drive/folders/14B_r9-ODyaIReLB0pi9bT3ioon2Cg_Op) |
+| Google Ads Course | Various | [Download](https://drive.google.com/drive/folders/1kl9x04m8CwGYYccMDnojO2dCCvAi3yu7) |
+| Sidra Naseem Google Ads | Various | [Download](https://drive.google.com/drive/folders/19V6mH9Ojpp8o40nyAzqVaL_y8xZrFD-c) |
+| SEO in Minutes, Not Months | Conor Martin | [Download](https://drive.google.com/drive/folders/15r1uRKqd97dOdsWHK2tww-XWKuj-y8iw) |
+| Growth School - SEO At Scale | Various | [Download](https://drive.google.com/drive/folders/19mFnh8GzUT4VvdayI3XyiP5t_VHPiDwM) |
+
+</details>
+
+### 💻 Web Development & Programming
+
+<details>
+<summary><b>Click to expand Programming Courses (20+ Courses)</b></summary>
+
+| Course Name | Instructor | Link |
+|-------------|------------|------|
+| Complete Web Development | Dr Angela Yu | [Download](https://drive.google.com/drive/folders/1S4ltJD-ECWVItvUKx5y9eCTSKvopO1yG) |
+| Delta Full Stack Web Development | Apna College | [Download](https://drive.google.com/drive/folders/1irISRQoW-JOOdWwGJxOVX_MBso_jdfR4) |
+| ALPHA CODING BATCH (3.0) | Apna College | [Download](https://drive.google.com/drive/folders/1dCDTT-Hz5xgoOG70hWoahJPwO8BJFaKq) |
+| The Complete Web Developer Bootcamp | Various | [Download](https://drive.google.com/drive/folders/1Zn3UDGQ2jbkQRql6vqViTJeqaz9cIfZy) |
+| Ultimate Web Designer & Developer | Various | [Download](https://drive.google.com/drive/folders/157akhCJjyV1_sywtIbemCBniR3ZMSFXy) |
+| React 18 for Beginners | CodeWithMosh | [Download](https://drive.google.com/drive/folders/1HmwSQbnHkxcCowLr8dH14Z8lvyr4iqNv) |
+| Python - The Complete Bootcamp | Various | [Download](https://drive.google.com/drive/folders/1ydoBD9BeXTekY5lZKdKhACMpYozTtyPX) |
+| Python for SEO & Content Marketing | Various | [Download](https://drive.google.com/drive/folders/1gYLkuk8pYYgmu_1u0nX6VPvggj7x1Kw0) |
+| Java with DSA and System Design 2.0 | Various | [Download](https://drive.google.com/drive/folders/1qlTNxk4fPlexmtbly2p0-Rm0F8cd3tYJ) |
+| WordPress for Beginners | Various | [Download](https://drive.google.com/drive/folders/1h3584LGcjIEw4DdrTI1kK09IXqXoyIzB) |
+| The Complete WordPress Website | Various | [Download](https://drive.google.com/drive/folders/1PN1y6SzIn5Xb9LQyNsureQYMd5K7PzlN) |
+| Mastering Excel | Various | [Download](https://drive.google.com/drive/folders/18jQ20PNoKYPHgjFy5HALApmUdlN12evO) |
+
+</details>
+
+### 💰 Trading & Finance
+
+<details>
+<summary><b>Click to expand Trading Courses (15+ Courses)</b></summary>
+
+| Course Name | Instructor | Link |
+|-------------|------------|------|
+| Sunil Minglani Master Trading Course | Various | [Download](https://drive.google.com/drive/folders/1CmYkcTkAZP7a1qItvTqio1iB4OMp7Ln_) |
+| Badar Tanveer Trading Course | Various | [Download](https://drive.google.com/drive/folders/147IyrLsqs87zb31jALKqXEzwjzZgw2K4) |
+| Avdhut Sathe Trading Course | Various | [Download](https://drive.google.com/drive/folders/1wcS0ORA5ZFtBM9GProG1Z6L0Y4VWNb3-) |
+| Fractal Flow Pro Trading Strategies | Various | [Download](https://drive.google.com/drive/folders/1oPe-98EjugGP5EwPuElyYPdsaj9_EEkc) |
+| Trading Busters - London Strategy | Various | [Download](https://drive.google.com/drive/folders/11Y7_mjki8qRtJ74YBeRmwHlcM3NG4sg5) |
+| Trading Hub 4.0 | Various | [Download](https://drive.google.com/drive/folders/1v49LubFb_qHpJOmjpZoyfhbULvPlqbz6) |
+| Forex Trading Full Course | Various | [Download](https://drive.google.com/drive/folders/1pRVa3G8F48PUfy7l4H_9AuWitXWDghRr) |
+| Waqar Zaka Crypto Course | Various | [Download](https://drive.google.com/drive/folders/1UwN42ALrRtukGgudxGQpeEkP-Jv14erp) |
+| Sara Finance - Stock Market | Various | [Download](https://drive.google.com/drive/folders/1JyCzgwdfHhg6eAN2bB2u_X4D_6JYjAqE) |
+| Price Action Volume Trader | Various | [Download](https://drive.google.com/drive/folders/1BCnv6lS4auiL1UkAwaBuFLHK7sW-FtcC) |
+| Trader Dale - Smart Money Course | Various | [Download](https://drive.google.com/drive/folders/1tYP5V63QUC5x6DyiaxT9J4AzAOV2w4eJ) |
+| TAKE CHARGE OF YOUR MONEY | Ankur Wariko | [Download](https://drive.google.com/drive/folders/1QJ-xRBV-CEXDqAPjbj6Y0719Ycdoc46E) |
+
+</details>
+
+### 🛡️ Cybersecurity & Hacking
+
+<details>
+<summary><b>Click to expand Cybersecurity Courses (15+ Courses)</b></summary>
+
+| Course Name | Instructor | Link |
+|-------------|------------|------|
+| Complete Ethical Hacking Bootcamp | Various | [Download](https://drive.google.com/drive/folders/1-cMN_pWrCp_djPGuwIeMojfegoZ39JUe) |
+| Learn Ethical Hacking Beginner to Advanced | Various | [Download](https://drive.google.com/drive/folders/1OuXjLF1X2UZiEnJNsRYnzf4TZMIZjtNk) |
+| Ethical Hacking - Nmap | Various | [Download](https://drive.google.com/drive/folders/1VkQ4JuyYsRNTqWp4ajeQ83isFVp18jmd) |
+| Cyber Security Course | Various | [Download](https://drive.google.com/drive/folders/1IbZiR9HsrwfKTx-lQnBiqacHZFe1tEbC) |
+| HackTheBox & TryHackMe | Various | [Download](https://drive.google.com/drive/folders/1fE8Btocgy1Ut5HJIbuM21ZRpZctp17gn) |
+| Web Hacking For Beginners | Various | [Download](https://drive.google.com/drive/folders/18W6q9PMZEru5X4JhkQN2LKEgmzOhnAc-) |
+| Real World Website Hacking | Various | [Download](https://drive.google.com/drive/folders/1b9UQqh6MwbNTrvBZsoQt3cII69B_QPU5) |
+| Wi-Fi Hacking with Kali | Various | [Download](https://drive.google.com/drive/folders/1KeQsoBncUKUsX9gyNh5muDGBqC7rFTxR) |
+| Learn Social Engineering | Various | [Download](https://drive.google.com/drive/folders/1S17SVvrpAO4afgfk02bEiRagCHQnLiNH) |
+| Android Ethical Hacking | Various | [Download](https://drive.google.com/drive/folders/121A7s3LLvqNSAIsrz_tx5VPE1bU90ENg) |
+| Bug Bounty Hunting Full Course | Various | [Download](https://drive.google.com/drive/folders/1ulSO_sIrRulLSk9-jzGbmCcjNvNWScbQ) |
+| The Ultimate Dark Web Course | Various | [Download](https://drive.google.com/drive/folders/1aeeAPj2ksnQm0Afd9o0tDSJEw89Ryq31) |
+
+</details>
+
+### 🎨 Design & Animation
+
+<details>
+<summary><b>Click to expand Design Courses (15+ Courses)</b></summary>
+
+| Course Name | Instructor | Link |
+|-------------|------------|------|
+| Logo Designing Course | Arslan Ali | [Download](https://drive.google.com/drive/folders/1_qdPLHQSF-edDCVq46O2ePsVqMR5WAFH) |
+| Graphics Designing Course | Various | [Download](https://drive.google.com/drive/folders/1-r1QrrLTE60SeIPaVSXGfHQm-HdoVSes) |
+| Photoshop Compositing Basics | Various | [Download](https://drive.google.com/drive/folders/1wV_2KP6ndeDKYsYm2O39u54XCbaXrNba) |
+| Adobe Illustrator Course | Various | [Download](https://drive.google.com/drive/folders/1JEHn6w2Q8y_OjRQpVbVJyv0bTN6AspXi) |
+| Master Gorgeous UI Design | Various | [Download](https://drive.google.com/drive/folders/1VKnFGRBpekcYbhKdGXFIcMNmIixxerWW) |
+| Blender 3D Full Course | Shiekh Nafay | [Download](https://drive.google.com/drive/folders/18WQbNqpbHRnJ-lC6qHL4DKukl7bpS_6m) |
+| 3D Animation in After Effects | Various | [Download](https://drive.google.com/drive/folders/15W5HZaCp2di4iwqINL9GJ1lqJLb1PCTt) |
+| Auto Cad (2D & 3D) | Various | [Download](https://drive.google.com/drive/folders/1JTEvDIrQxPZOxL1e2xVSwTbQhBapuM6n) |
+| 3D Character Modeling | Domestika | [Download](https://drive.google.com/drive/folders/1K1BVzdj5px0WPA5ky5TnRV5njPcjmrLv) |
+| UX UI Design Process | Various | [Download](https://drive.google.com/drive/folders/1FbScK5vxg9Q7yaLJODWvjnOSBPv3qzdb) |
+| Figma 2024 Monster Course | Various | [Download](https://drive.google.com/drive/folders/1DQbwAEJhObN90WEz4HxeAqaSvzr7weIh) |
+
+</details>
 
 ---
 
-🛠️ Course Assets & Packs
+## 📊 Course Statistics
 
-Asset Name Size Download Link
-250+GBs Video Editing Pack 250+ GB Download
-The Ultimate Editing Pack Bundle Large Download
-Motion Bro Bundle - 5000 Transitions Large Download
-15 Million Products Huge Download
-100+ AI Islamic Reels Bundle Medium Download
-2024 All Premium Softwares Large Download
-
----
-
-⚠️ Disclaimer
-
-Important Notice:
-
-1. Educational Purpose Only: These courses are shared for learning and educational purposes only.
-2. Copyright Notice: All course materials belong to their respective owners. We do not claim ownership of any content.
-3. No Commercial Use: These materials should not be used for commercial purposes or redistribution.
-4. Link Validity: Some links may become inactive over time. We cannot guarantee the availability of all links.
-5. Download at Your Own Risk: We are not responsible for any issues that may arise from downloading or using these materials.
-6. Support Creators: If you find value in any course, please consider supporting the original creators by purchasing the official versions.
+| Category | Courses | Size (Approx.) |
+|----------|---------|----------------|
+| YouTube & Video | 30+ | 200GB+ |
+| AI & Machine Learning | 25+ | 150GB+ |
+| Digital Marketing | 30+ | 180GB+ |
+| Web Development | 20+ | 120GB+ |
+| Trading & Finance | 15+ | 80GB+ |
+| Cybersecurity | 15+ | 100GB+ |
+| Design & Animation | 15+ | 90GB+ |
+| Other Categories | 50+ | 200GB+ |
+| **Total** | **200+** | **1.1TB+** |
 
 ---
 
-🤝 Contribute
-
-Want to contribute? You can:
-
-1. Report broken links by creating an issue
-2. Suggest new courses you think should be added
-3. Organize content better if you find mistakes
-
----
-
-📊 Quick Stats
-
-```
-📚 Total Courses:    250+
-📁 Total Categories: 20+
-💾 Total Size:       Varies (some packs 250GB+)
-🔗 Platform:         Google Drive
-⭐ Top Category:     YouTube & Video Creation (20+ courses)
-📅 Last Updated:     2025
-```
-
----
-
-📝 Notes
-
-· Emoji Legend:
-  · ❤ = Highly Recommended
-  · ✨ = Premium/Exclusive
-  · ⚡ = Advanced Level
-  · ☀ = Popular/Hot
-· Search Tips: Use Ctrl+F to search for specific courses or topics
-· Large Files: For courses over 2GB, consider using Google Drive's "Download as ZIP" feature
-
----
-
-<div align="center">
-
-🌟 If you found this collection helpful, give it a ⭐!
-
-Happy Learning! 🚀
-
-</div>
+## ⚠️ Disclaimer
