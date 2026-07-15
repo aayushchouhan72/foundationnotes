@@ -1,275 +1,219 @@
-userdata="ayush@gmail.com,ayush|demoapp@gmail.com,demo|" 
-
+userdata = "ayush@gmail.com,ayush|demoapp@gmail.com,demo|" 
 noteswithtitle = "Python,Basic language,ayush@gmail.com,1|Java,OOP language,ayush@gmail.com,2|HTML,Markup language,ayush@gmail.com,3|CSS,Styles web pages,ayush@gmail.com,4|SQL,Database language,ayush@gmail.com,5|"
 
-logineduser=""
-noteid=5
+logineduser = ""
+
+# Calculate the starting note ID without using lists
+global_note_id = 0
+for note in noteswithtitle.split("|"):
+    if note.strip():
+        parts = note.split(",")
+        if len(parts) == 4:
+            current_id = int(parts[3])
+            if current_id > global_note_id:
+                global_note_id = current_id
+
 while True:
-     print("....................  Wellcome to ToDo applications  .....................")
-     print("1. login..\n2. Register..\n2. Exit ..")
-     choice = int(input("Enter Your Choice ..."))
-     match choice:
-           #    Login user fuctionalty..
-           case 1:
-                email = input("Enter Your email :- ").lower().strip()
-                pas = input("Enter your password :- ").strip()
-                validemail=False
-                uservalid=False
-                #  Check valid email or not ...
-                if "@gmail.com" in email or "@yahoo.com" in email:
-                    validemail = True
-                else:
-                    print("Enter valid Email ...")
-                    continue
-                #  email and password match in data string ...
-                data=userdata
-                records= data.split("|")
+    print("\n" + "="*60)
+    print("🎉 WELCOME TO THE TODO & NOTES APPLICATION 🎉".center(60))
+    print("="*60)
+    print("  1. 🔑 Login")
+    print("  2. 📝 Register")
+    print("  3. 🚪 Exit")
+    print("-"*60)
+    
+    choice_input = input("👉 Enter Your Choice: ")
+    if not choice_input.isdigit():
+        print("\n⚠️  Please enter a valid number.")
+        continue
+    choice = int(choice_input)
 
-                #  Loop to itrate over sting 
-                for record in records:
-                     if record == " " or record=="":
-                           continue
-                     useremail,userpass=record.split(",")
-                     if useremail == email  and pas == userpass:
-                            uservalid=True
-                            logineduser=email
-                            print("Logged in Sucessfully ✅ ✅ ✅")
-                            break
-                #  this block is only execute when the user is login ....
-                if uservalid:
-                    while True:
-                        logineduser=email 
-                        print("1.create note..\n2.read notes..\n3.delete note..\n4.edit note..\n5.Logout..")
-                        choice = int(input("Enter your choice ..."))
-                        match choice:
-                        #  Create note ...
-                         case 1:
-                              title = input("Enter The Note Title :- ").strip().title()
-                              notedata=  input("Enter The Note Data Here :- ").strip().title()
-                              noteid+=1
-                              data=f"{title},{notedata},{logineduser},{noteid}|"
-                              noteswithtitle+=data
-                              print("Your note is created :- ")
-                              print(f"{noteid} :- {title} :- {notedata}")
-                        #  To print all sotores notes in data stirng ...
-                         case 2:
-                              notes =  noteswithtitle
-                              datas = notes.split("|")
-                              flag=True
-                              for data in datas:
-                                   if data == " " or data == "":
-                                        continue
-                                   title,content,idd,notenum= data.split(",")
-                                   if idd == logineduser:
-                                        print(f"{notenum} :- {title} :- {content}")
-                                        flag=False
-                                   else:
-                                        pass
-                              if flag:
-                                   print("There is not any note please create an note...")
-                        #  Delete not functionality build from Here ....
-                         case 3:
-                               flag=True
-                               notesexistflag=False
-                               notes =  noteswithtitle
-                               noteswithtitle=""
-                               datas = notes.split("|")
-                              #   first check not are there to delete or not ....
-                               for data in datas:
-                                   if data == " " or data == "":
-                                        continue
-                                   title,content,idd,notenum= data.split(",")
-                                   if idd == logineduser:
-                                        notesexistflag=True
-                                        flag=False
-                                   else:
-                                        pass
-                               if flag:
-                                   print("There is not any note please create an note...")
-                               
-                               if notesexistflag:
-                                       notid = int(input("Enter the note id to delete "))
-                                       
-                                       for data in datas:
-                                          if data == " " or data == "":
-                                               continue
-                                          title,content,idd,notnum= data.split(",")
-                                          if int(notnum) == notid:
-                                              print(f"{notid} :- {title} :- {content}")
-                                              flag=False
-                                              continue 
-                                          else:
-                                               noteswithtitle += data+"|"
-                                               
-                                       if flag == False:
-                                             print("Your not deleted sucessfully ✅✅")
-                        #   Edit note functionality build from Here ...
-                         case 4:
-                               notid = int(input("Enter the note id which you wont to edit :- "))
-                               notes =  noteswithtitle
-                               noteswithtitle=""
-                               datas = notes.split("|")
-                               priin=""
-                               for data in datas:
-                                  if data == " " or data == "":
-                                       continue
-                                  title,content,idd,notnum= data.split(",")
-                                  if int(notnum) == notid:
-                                       title = input("Enter The Note Title :- ").strip()
-                                       notedata=  input("Enter The Note Data Here :- ").strip()
-                                       data= f"{title},{notedata},{logineduser},{notenum}"
-                                       noteswithtitle+=data+"|"
-                                  else:
-                                       noteswithtitle += data+"|"
-                               else:
-                                    print("Note is updated successfully ✅✅...")        
-                        #  Logout user functionality build from Here...
-                         case 5:  
-                              print("You are logged out successfully 😎😎😎...")
-                              break
-                         # default ...
-                         case __:
-                                  print("Enter vlaid choice ....😓😓😓")
-                else:
-                     print("Enter valid password and username❌❌❌ ...")
-           #  New user register form here .... 
-           case 2:
-            loopbreakflag=None
-            while True:   
-               #   Flag to break the loop ... 
-                if  loopbreakflag:
-                     print("How are you ...")
-                     break
-                email = input("Enter Your email :- ").lower().strip()
-                password = input("Enter your password :- ").strip()
-                validemail=False
-                uservalid=False
-                # check email in data string ...
-                isexistemail=False
-               
+    # Setup control flag to manage moving directly into dashboard on registration/login
+    access_granted = False
+
+    match choice:
+        # ==================== 1. LOGIN ====================
+        case 1:
+            email = input("\n📧 Enter Your Email: ").lower().strip()
+            pas = input("🔒 Enter Your Password: ").strip()
+            
+            if "@gmail.com" not in email and "@yahoo.com" not in email:
+                print("\n❌ Error: Please enter a valid Gmail or Yahoo address.")
+                continue
                 
-                recs=userdata.split("|")
+            records = userdata.split("|")
+            for record in records:
+                if not record.strip():
+                    continue
+                useremail, userpass = record.split(",")
+                if useremail == email and pas == userpass:
+                    access_granted = True
+                    logineduser = email
+                    print("\n✅ Logged in Successfully!")
+                    break
+            
+            if not access_granted:
+                print("\n❌ Invalid username or password. Please try again.")
+
+        # ==================== 2. REGISTER ====================
+        case 2:
+            email = input("\n📧 Enter Your Email: ").lower().strip()
+            password = input("🔒 Enter Your Password: ").strip()
+            
+            if "@gmail.com" not in email and "@yahoo.com" not in email:
+                print("\n❌ Error: Valid Gmail or Yahoo address required.")
+                continue
                 
-                for rec in recs: 
-                    if rec == "" or rec == " ":
+            recs = userdata.split("|")
+            email_exists = False
+            for rec in recs: 
+                if not rec.strip():
+                    continue
+                idd, _ = rec.split(",")
+                if idd == email:
+                    print("\n⚠️  Email already exists! Try logging in.")
+                    email_exists = True
+                    break
+
+            if email_exists:
+                continue
+            
+            # Save account details & authorize access
+            userdata += f"{email},{password}|"
+            logineduser = email
+            access_granted = True
+            print("\n✅ Account Created Successfully!")
+
+        # ==================== 3. EXIT ====================
+        case 3:
+            print("\n" + "="*40)
+            print("👋 Application closing... Goodbye!".center(40))
+            print("="*40)
+            break
+            
+        case _:
+            print("\n⚠️  Invalid option selection. Choose 1, 2, or 3.")
+            continue
+
+    # ==================== MAIN DASHBOARD SYSTEM ====================
+    # Runs automatically whether you logged in via choice 1 or registered via choice 2
+    if access_granted:
+        while True:
+            print("\n" + "~"*40)
+            print(f"📱 DASHBOARD | User: {logineduser}".center(40))
+            print("~"*40)
+            print("  1. 📝 Create Note")
+            print("  2. 📖 Read Notes")
+            print("  3. 🗑️  Delete Note")
+            print("  4. ✏️  Edit Note")
+            print("  5. 🚪 Logout")
+            print("-"*40)
+            
+            sub_choice_input = input("👉 Enter your choice: ")
+            if not sub_choice_input.isdigit():
+                print("\n⚠️  Please enter a number.")
+                continue
+            sub_choice = int(sub_choice_input)
+                
+            match sub_choice:
+                case 1:  # Create Note
+                    title = input("\n🏷️  Enter The Note Title: ").strip().title()
+                    notedata = input("🖊️  Enter The Note Content: ").strip()
+                    
+                    global_note_id += 1
+                    noteswithtitle += f"{title},{notedata},{logineduser},{global_note_id}|"
+                    
+                    print("\n" + "-"*40)
+                    print("🎉 Your Note Has Been Created!".center(40))
+                    print(f"🆔 ID: {global_note_id}\n📌 Title: {title}\n📄 Content: {notedata}")
+                    print("-"*40)
+
+                case 2:  # Read Notes
+                    datas = noteswithtitle.split("|")
+                    has_notes = False
+                    
+                    print("\n" + "-"*50)
+                    print(f"📖 YOUR SAVED NOTES".center(50))
+                    print("-"*50)
+                    print(f"{'ID':<6}{'TITLE':<15}{'CONTENT'}")
+                    print("-"*50)
+                    
+                    for data in datas:
+                        if not data.strip():
+                            continue
+                        parts = data.split(",")
+                        if len(parts) == 4:
+                            title, content, idd, notenum = parts
+                            if idd == logineduser:
+                                print(f"{notenum:<6}{title:<15}{content}")
+                                has_notes = True
+                    
+                    if not has_notes:
+                        print("🚫 No notes found. Create your first note!")
+                    print("-"*50)
+
+                case 3:  # Delete Note
+                    datas = noteswithtitle.split("|")
+                    target_input = input("\n🗑️  Enter the Note ID to delete: ")
+                    if not target_input.isdigit():
+                        print("⚠️  Invalid ID format.")
                         continue
-                    idd,pas=rec.split(",")
-                    if idd == email:
-                         print("Email already exist ....")
-                         isexistemail=True
-                         break
+                    target_id = int(target_input)
+                        
+                    noteswithtitle = ""
+                    deleted = False
+                    
+                    for data in datas:
+                        if not data.strip():
+                            continue
+                        parts = data.split(",")
+                        if len(parts) == 4:
+                            title, content, idd, notenum = parts
+                            if idd == logineduser and int(notenum) == target_id:
+                                print(f"\n🗑️  Removed: [{title}]")
+                                deleted = True
+                            else:
+                                noteswithtitle += data + "|"
+                                
+                    if deleted:
+                        print("✅ Note deleted successfully.")
+                    else:
+                        print("❌ Note ID not found or unauthorized.")
 
-                if isexistemail:
-                     continue
-                #  Check valid email or not ...
-                if "@gmail.com" in email or "@yahoo.com" in email:
-                    validemail = True
-                else:
-                    print("Enter valid Email ❌❌ ...")
-                    continue
-               #   Register the new user in data string ...
-                data=f"{email},{password}|"
-                userdata+=data
-                uservalid=True
-                print("Account Created Sucessfully ✅✅...\n")
-                if uservalid:
-                    while True:
-                        logineduser=email 
-                        print("1.create note..\n2.read notes..\n3.delete note..\n4.edit note..\n5.Logout..")
-                        choice = int(input("Enter your choice ..."))
-                        match choice:
-                        #  Create note ...
-                         case 1:
-                              title = input("Enter The Note Title :- ").strip().title()
-                              notedata=  input("Enter The Note Data Here :- ").strip().title()
-                              noteid+=1
-                              data=f"{title},{notedata},{logineduser},{noteid}|"
-                              noteswithtitle+=data
-                              print("Your note is created :- ")
-                              print(f"{noteid} :- {title} :- {notedata}")
-                        #  To print all sotores notes in data stirng ...
-                         case 2:
-                              notes =  noteswithtitle
-                              datas = notes.split("|")
-                              flag=True
-                              for data in datas:
-                                   if data == " " or data == "":
-                                        continue
-                                   title,content,idd,notenum= data.split(",")
-                                   if idd == logineduser:
-                                        print(f"{notenum} :- {title} :- {content}")
-                                        flag=False
-                                   else:
-                                        pass
-                              if flag:
-                                   print("There is not any note please create an note...")
-                        #  Delete not functionality build from Here ....
-                         case 3:
-                               flag=True
-                               notesexistflag=False
-                               notes =  noteswithtitle
-                               noteswithtitle=""
-                               datas = notes.split("|")
-                              #   first check not are there to delete or not ....
-                               for data in datas:
-                                   if data == " " or data == "":
-                                        continue
-                                   title,content,idd,notenum= data.split(",")
-                                   if idd == logineduser:
-                                        notesexistflag=True
-                                        flag=False
-                                   else:
-                                        pass
-                               if flag:
-                                   print("There is not any note please create an note...")
-                               
-                               if notesexistflag:
-                                       notid = int(input("Enter the note id to delete "))
-                                       
-                                       for data in datas:
-                                          if data == " " or data == "":
-                                               continue
-                                          title,content,idd,notnum= data.split(",")
-                                          if int(notnum) == notid:
-                                              print(f"{notenum} :- {title} :- {content}")
-                                              flag=False
-                                              continue 
-                                          else:
-                                               noteswithtitle += data+"|"
-                                               
-                                       if flag == False:
-                                             print("Your not deleted sucessfully ✅✅") 
-                        #   Edit note functionality build from Here ...
-                         case 4:
-                               notid = int(input("Enter the note id which you wont to edit :- "))
-                               notes =  noteswithtitle
-                               noteswithtitle=""
-                               datas = notes.split("|")
-                               priin=""
-                               for data in datas:
-                                  if data == " " or data == "":
-                                       continue
-                                  title,content,idd,notnum= data.split(",")
-                                  if int(notnum) == notid:
-                                       title = input("Enter The Note Title :- ").strip()
-                                       notedata=  input("Enter The Note Data Here :- ").strip()
-                                       data= f"{title},{notedata},{logineduser},{notenum}"
-                                       noteswithtitle+=data+"|"
-                                  else:
-                                       noteswithtitle += data+"|"
-                               else:
-                                    print("Note is updated successfully ✅✅...")        
-                        #  Logout user functionality build from Here...
-                         case 5:  
-                              print("You are logged out successfully 😎😎😎...")
-                              loopbreakflag=True
-                              break
-                else:
-                     print("Enter valid password and username❌❌❌ ...")
-          # Application closing code ...   
-           case 3:
-                 print("Thankyou for using application 😊😊")
-                 print("Aplication closing ....")
-                 break
-           case __:
-                  print("Enter valid Choice to User application")
+                case 4:  # Edit Note
+                    target_input = input("\n✏️  Enter the Note ID you want to edit: ")
+                    if not target_input.isdigit():
+                        print("⚠️  Invalid ID format.")
+                        continue
+                    target_id = int(target_input)
+                        
+                    datas = noteswithtitle.split("|")
+                    noteswithtitle = ""
+                    updated = False
+                    
+                    for data in datas:
+                        if not data.strip():
+                            continue
+                        parts = data.split(",")
+                        if len(parts) == 4:
+                            title, content, idd, notenum = parts
+                            if idd == logineduser and int(notenum) == target_id:
+                                print(f"\nEditing Note: {title}")
+                                new_title = input("🏷️  New Title (Leave blank to keep): ").strip() or title
+                                new_content = input("🖊️  New Content (Leave blank to keep): ").strip() or content
+                                
+                                noteswithtitle += f"{new_title.title()},{new_content},{logineduser},{notenum}|"
+                                updated = True
+                            else:
+                                noteswithtitle += data + "|"
+                                
+                    if updated:
+                        print("\n✅ Note updated successfully.")
+                    else:
+                        print("\n❌ Note ID not found or unauthorized.")
+
+                case 5:  # Logout
+                    print("\n👋 Logged out successfully!")
+                    break
+                case _:
+                    print("\n⚠️  Invalid choice. Please select from options 1-5.")
