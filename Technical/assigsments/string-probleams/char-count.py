@@ -12,10 +12,8 @@ Output: Character 'o' occurs: 4 times
 st,ch = input("Enter your chat Message :::---").strip().split(":")
 count=0
 for i in st:
-     if i !=ch:
-        pass
-     else:
-       print(count)
+     if i == ch:
        count+=1
+       
 else:
     print(f"Character '{ch}'occurs: {count} times ")
