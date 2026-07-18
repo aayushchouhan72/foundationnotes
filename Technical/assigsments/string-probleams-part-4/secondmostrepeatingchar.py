@@ -29,3 +29,19 @@ Program should work for both uppercase and lowercase letters.
 Spaces should be ignored.
 If no second highest frequency exists, print:
 Second highest repeating character not found'''
+
+s= input("Enter the string .")
+letter=''
+prevcount=0
+for ch in s:
+    if s.count(ch)>prevcount and ch not in letter and ch != " " :   
+       prevcount=s.count(ch)
+       letter=ch
+secletter=""
+prevcount=0
+for ch in s:
+    if s.count(ch)>prevcount and ch != letter and ch != " " :   
+       prevcount=s.count(ch)
+       secletter=ch
+
+print(secletter)

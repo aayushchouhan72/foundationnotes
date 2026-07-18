@@ -12,28 +12,18 @@
 n= int(input("Enter the number of lines .."))
 
 i=1
-l=n*2-1
-m=n
-p=n
-k=i
-o=0
+m=n*2+1
+l=6
+k=0
 while i<=n:
      print()
      j=1
      while j<=m:
-         print("*",end="")
-         j+=1
-     j=1
-     while j<=i:
-          print("+",end="")
-          j+=1 
-     while j<=p:
-          if j>=i-o:
-            print("*",end="")
-          else:
+        if j>=l-k and j<=l+k:
              print(" ",end="")
-          j+=1
-     o+=1
-     p-=1
-     m-=1
+        else:
+            print("*",end="")
+        j+=1
+     
+     k+=1
      i+=1
