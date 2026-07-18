@@ -33,8 +33,7 @@ check= input("Enter the word you wont to check")
 count=0
 
 for ch in s:
-    if ch == check:
-        
+    if ch == check:   
        count+=1
 
 print(count)
