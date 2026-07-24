@@ -96,9 +96,22 @@ while True:
 
                 match ch:
                     case 1:
-                        name=input("Name : ").lower().strip()
+                        email=input("Email:-  ").lower().strip()
                         pw=input("Password : ")
-                        users+=f"{userid},{name},{pw},none|"
+                        isexist =False
+                        if not ( email.endswith("@yahoo.com") or email.endswith("@gmail.com")):
+                             print("Enter Valid email ...")
+                             continue
+                        for rec in users.split("|"):
+                             if rec:
+                                 i,n,p,br=rec.split(",")
+                                 if i==uid and n==email and p==pw:
+                                     isexist=True  
+                                     break
+                        if isexist:
+                              print("User Already with that email")
+                              continue
+                        users+=f"{userid},{email},{pw},none|"
                         print("Registered. ID =",userid)
                         userid+=1
 
@@ -202,6 +215,7 @@ while True:
                         break
 
         case 3:
+
             print("Thank You!")
             break
 
