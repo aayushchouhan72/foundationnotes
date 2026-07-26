@@ -29,8 +29,7 @@ for ch in st:
             if wordcount>maxcount:
                 finalstring=""
             finalstring+=ch
-            maxcount=wordcount
-            
+            maxcount=wordcount    
     else:
         continue
     wordcount=0
