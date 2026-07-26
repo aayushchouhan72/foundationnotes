@@ -30,7 +30,6 @@ for ch in str[1::]:
     if ch not in visted:
         if str.count(ch) == 1 :
             print(ch)
-
             status=False
             break
     else:

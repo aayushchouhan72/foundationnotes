@@ -13,20 +13,19 @@ Output:
 abc
 '''
 
-st =  input("Enter your string .....")
-string=""
-sample=''
-for  chr1 in st:
-    sample+=chr1
-    for ch in st:
-        if ch not in sample:
-              sample+=ch
-        else:
-             break
-    if len(sample)>len(string):
-        string=sample
-    if len(sample) == len(st):
-        break
-    sample=""
+s = input("Enter the string: ")
 
-print(string)
+longest = ""
+current = ""
+
+for ch in s:
+    if ch not in current:
+        current+=ch
+    else:
+        while ch in current:
+            current=current[1:]
+        current+=ch
+    if len(current)>len(longest):
+        longest=current
+print("Longest substring:", longest,current)
+print("Length:", len(longest))
