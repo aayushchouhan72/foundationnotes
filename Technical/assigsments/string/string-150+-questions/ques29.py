@@ -1,0 +1,1 @@
+# Remove occurrences of a word.
