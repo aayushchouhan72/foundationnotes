@@ -33,12 +33,16 @@
 
 # ---
 lis = list(map(int,input("Enter the number ").split(",")))
-lis=lis.sort()
+lis.sort()
+conti=[]
 count=0
-first=lis[0]-1
-for i in range(len(lis)):
-    if  lis[i] == first[i]+1:
-        count+=1
-    else:
-        break
+i=1
+while i <len(lis):
+    if ( lis[i]-lis[i-1] ) == 1:
+         conti.append(lis[i])
+    i+=1
+
+print(len(conti)+1)
+
+
     
