@@ -1,4 +1,5 @@
 '''
+<<<<<<< HEAD
 1
 12
 123
@@ -7,6 +8,15 @@
 12
 1
 
+=======
+x
+xx
+xxx
+xxxx
+xxx
+xx
+x
+>>>>>>> 1a6b8b3a7cbe8d85a77ab8bdb8ebcda5d8849785
 
 
 '''
