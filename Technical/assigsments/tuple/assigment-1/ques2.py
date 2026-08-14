@@ -30,16 +30,15 @@ lis =  list(map(str,input("Enter the numbers ...").split(",")))
 tup=[]
 for i in lis:
     for j in lis:
-         if i == j:
+        if i == j:
             continue
-         k=0
-         first=""
-         second=""
-         while k<len(i) and k<len(j):
-             if i[k] not in  second and j[k] not in first:
-                 first+=i[k]
-                 second+=j[k]
-                 
+        for k in j:
+             if k  in i:
+                 print('hiiii')
+                 break
+        else:
+            tup.append((i,j))
+       
  
               
          
