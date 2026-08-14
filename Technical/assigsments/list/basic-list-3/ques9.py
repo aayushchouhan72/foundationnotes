@@ -107,22 +107,18 @@
 lis = list(map(int,input("Enter the number ").split(",")))
 happy = []
 for i in lis:
+    print(i,type(i))
     num=i
     temp=num
-    while temp>int(i):
+    while temp !=1:
         sum=0
-        n=num
-        while n:
-           digit = n % 10
-           sum += digit ** 2
-           n //= 10
-        if sum == 1:   
-            happy.append(i)
-            break
-        elif sum>int(i):
-            temp=sum
-        else:
-            break
+        while temp:
+            dig = temp%10
+            sum+=dig**2
+            temp//=10
+        print(sum)
+        temp=sum
+        
 
 
        
