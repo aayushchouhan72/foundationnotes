@@ -50,4 +50,24 @@
 # 101 Rahul IT 50000
 # 103 Amit IT 70000
 
+from collections import namedtuple 
 
+student =  namedtuple("Student",["emp_id", "emp_name", "department", "salary"])
+
+lis=[]
+
+number =  int(input("Enter the number of employes "))
+
+for i in range(number):
+    id = int(input("Enter employe id ...."))
+    name =  input("Enter the employe name ....")
+    dep = input("Enter the department ....")
+    salary = float(input("Enter the salary of employe"))
+    lis.append(student(id,name,dep,salary))
+
+for i  in lis:
+     print("Employe data ")
+     print(i.emp_id,i.emp_name,i.department,i.salary,sep="\n")
+
+     print()
+     print()
