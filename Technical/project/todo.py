@@ -3,7 +3,6 @@ noteswithtitle = "Python,Basic language,ayush@gmail.com,1|Java,OOP language,ayus
 
 logineduser = ""
 
-# Calculate the starting note ID without using lists
 global_note_id = 0
 for note in noteswithtitle.split("|"):
     if note.strip():
@@ -28,11 +27,10 @@ while True:
         continue
     choice = int(choice_input)
 
-    # Setup control flag to manage moving directly into dashboard on registration/login
     access_granted = False
 
     match choice:
-        # ==================== 1. LOGIN ====================
+       
         case 1:
             email = input("\n📧 Enter Your Email: ").lower().strip()
             pas = input("🔒 Enter Your Password: ").strip()
@@ -55,7 +53,7 @@ while True:
             if not access_granted:
                 print("\n❌ Invalid username or password. Please try again.")
 
-        # ==================== 2. REGISTER ====================
+       
         case 2:
             email = input("\n📧 Enter Your Email: ").lower().strip()
             password = input("🔒 Enter Your Password: ").strip()
@@ -84,7 +82,7 @@ while True:
             access_granted = True
             print("\n✅ Account Created Successfully!")
 
-        # ==================== 3. EXIT ====================
+        
         case 3:
             print("\n" + "="*40)
             print("👋 Application closing... Goodbye!".center(40))
@@ -95,8 +93,6 @@ while True:
             print("\n⚠️  Invalid option selection. Choose 1, 2, or 3.")
             continue
 
-    # ==================== MAIN DASHBOARD SYSTEM ====================
-    # Runs automatically whether you logged in via choice 1 or registered via choice 2
     if access_granted:
         while True:
             print("\n" + "~"*40)
