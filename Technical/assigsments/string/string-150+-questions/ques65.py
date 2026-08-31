@@ -7,6 +7,7 @@ for i in st:
             count+=1
              
 
+print(count)
 
 
 
