@@ -34,6 +34,11 @@ students = {
 
 max=max(students.values())
 min=min(students.values())
+flag=True
+flag2=True
+for i,j in students.items():
+    if j == max and flag:
+        print(f"Highest Marks : {max}")
+    elif j== min and flag2:
+        print(f"Highest Marks : {min}")
 
-
-print(f"Highest Marks : {max}\n Lowest Marks : {min}")
