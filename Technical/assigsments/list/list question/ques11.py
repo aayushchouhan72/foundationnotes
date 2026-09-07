@@ -23,3 +23,16 @@
 
 # 1 <= prices.length <= 105
 # 0 <= prices[i] <= 104
+
+nums = list(map(int,input("enter the list elements ...").split(",")))
+
+min = min(nums)
+
+minindex =  nums.index(min)
+sliced =  nums[minindex:]
+
+if sliced:
+    slicedmax = max(sliced)
+    print("Maximum profit is ",slicedmax-min)
+else:
+     print("not maximum profit is possible ...")
