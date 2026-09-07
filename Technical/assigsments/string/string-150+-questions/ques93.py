@@ -11,7 +11,6 @@ def stringcheck(checkst,txt):
        index=0
        while i<len(checkst):
              l=txt[index:]
-             print(l)
              if checkst[i] in  l:
                    index=text.index(text[i])
              else:
