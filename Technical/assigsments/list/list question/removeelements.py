@@ -48,9 +48,15 @@
 
 # Constraints:
 
+<<<<<<< HEAD
 # 0 <= nums.length <= 100
 # 0 <= nums[i] <= 50
 # 0 <= val <= 100
+=======
+# # 0 <= nums.length <= 100
+# # 0 <= nums[i] <= 50
+# # 0 <= val <= 100
+>>>>>>> b797c5bf1c17733765b2cdb48c3ae77a9cfec689
 
 nums = list(map(int,input("enter the list elements ...").split(",")))
 target =  int(input("Enter the number ..."))
@@ -60,4 +66,9 @@ for i in nums[:]:
          nums.remove(i)
          index+=1
    
+<<<<<<< HEAD
 print(nums+["_"]*index)
+=======
+print(nums+["_"]*index)
+
+>>>>>>> b797c5bf1c17733765b2cdb48c3ae77a9cfec689

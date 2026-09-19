@@ -37,4 +37,8 @@ index =0
 for i in nums:
     if i >= target:
         print("CORRECT INDEX IS ",index)
+<<<<<<< HEAD
+=======
+        break
+>>>>>>> b797c5bf1c17733765b2cdb48c3ae77a9cfec689
     index += 1

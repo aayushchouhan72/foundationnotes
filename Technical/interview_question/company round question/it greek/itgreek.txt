@@ -1,0 +1,11 @@
+these are the questions I was asked during the interview at itgeeks:
+
+1. How would you build an e-commerce application from scratch? Explain the overall architecture and approach.
+2. Can JWT authentication be bypassed? If yes, how can we prevent such attacks? Also, explain the role of cookies and refresh tokens in securing authentication.
+3. Write a basic Socket.IO implementation and explain how Socket.IO works internally.
+4. Suppose 10,000 users request the same seat simultaneously. How would you ensure that only one user gets the seat and handle the requests seamlessly?
+5. If I initiate a payment for an order, but another user completes the payment before me, which user should ultimately get the order/seat? How would you handle this scenario?
+6. How would you track or detect when a user has scrolled inside a React component?
+7. What are webhooks? Explain how they work and where you would use them.
+8. What is a WebSocket? Explain how it works and its use cases.
+9. Explain polling, thread pools, database replication, and clustering. Also explain where and why each of them is used.

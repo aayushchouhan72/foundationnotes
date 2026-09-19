@@ -625,11 +625,15 @@ def factorail(y):
       for i in range(y+1):
             fac*=i
       return fac 
+<<<<<<< HEAD
 def digitsum(x):
        sum =0
        for i  in str(x):
               sum += int(i)
        return sum 
+=======
+
+>>>>>>> b797c5bf1c17733765b2cdb48c3ae77a9cfec689
 
 def digitrev(x):
        return int(str(x)[::-1])

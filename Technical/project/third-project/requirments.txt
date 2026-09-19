@@ -1,0 +1,5 @@
+module used
+     thefuzz :-  for matching user input string
+     SpeechRecognition
+     PyAudio
+
