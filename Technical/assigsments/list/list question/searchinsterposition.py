@@ -37,4 +37,5 @@ index =0
 for i in nums:
     if i >= target:
         print("CORRECT INDEX IS ",index)
+        break
     index += 1

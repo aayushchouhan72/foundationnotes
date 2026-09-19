@@ -52,16 +52,13 @@
 # # 0 <= nums[i] <= 50
 # # 0 <= val <= 100
 
-# nums = list(map(int,input("enter the list elements ...").split(",")))
-# target =  int(input("Enter the number ..."))
-# index=0
-# for i in nums[:]:
-#     if i ==  target:
-#          nums.remove(i)
-#          index+=1
+nums = list(map(int,input("enter the list elements ...").split(",")))
+target =  int(input("Enter the number ..."))
+index=0
+for i in nums[:]:
+    if i ==  target:
+         nums.remove(i)
+         index+=1
    
-# print(nums+["_"]*index)
+print(nums+["_"]*index)
 
-import datetime
-today = datetime.now()
-print(int(today.today())+7)
