@@ -6,7 +6,6 @@ from main_module.starters import starter
 
 
 while True:
-        time.sleep(0.5)
         print("""[bold green]
 Enter the 1 to start application text mode ..😎😎[/bold green]""")
         time.sleep(0.8)
