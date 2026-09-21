@@ -4,7 +4,7 @@ from rich.markdown import Markdown
 import qrcode as qr
 #  Local import 
 from main_module.llm_module.similar_search import getmodel
-from main_module.fuctions.utility.utility import get_level
+from main_module.fuctions.utility.utility import get_level,sendmail,get_email
 
 #  Get City weater ....
 def city_weather():
@@ -87,10 +87,14 @@ for Example
      # 
 
 #  QR Genrator ...
-def quiz_genrator():
+def qr_genrator():
     con=Console()
     url = con.input("[bold green]Enter the url which you went to genrate qr code ...[/bold green]")
     qrcode =  qr.make(url)
+    email= get_email()
+    sendmailstatus=sendmail(email,qrcode)
+    
+    
     
 
 

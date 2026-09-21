@@ -8,5 +8,6 @@ searchlist=[
             "genrate news",
             "Genrate interview questions",
             "impromtu topic genrator",
-            "quiz genrator"
+            "quiz genrator",
+            "qr genrator"
     ] 
