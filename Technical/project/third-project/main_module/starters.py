@@ -10,6 +10,8 @@ from main_module.llm_module.similar_search import get_key
 def starter():
      while True:
           query =  datainput()
+          if query == "0":
+               return
           key = get_key(query)
           functionallty[key]()
            

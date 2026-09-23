@@ -4,7 +4,9 @@ import time
 def aboutinfo():
     time.sleep(0.7)
     print("[bold green]I am Smart assistent which is developed by  Aayush[/bold green]")
-    
+
+def person():
+     print("[bold green]she is cutest girl✨✨✨[/bold green]") 
 def add():
     num1,num2= map(int,input("Enter the number").split())
     print(num1+num2)

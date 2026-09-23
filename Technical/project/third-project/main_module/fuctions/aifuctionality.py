@@ -94,13 +94,6 @@ def qr_genrator():
     email= get_email()
     sendmailstatus=sendmail(email,qrcode)
     
-    
-    
-
-
-
-
-
 
 
 

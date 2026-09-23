@@ -12,7 +12,7 @@ def get_level():
         if level == "hard" or level == "easy" or level == "medium":
                     return level
         else:
-            print("Enter the valid defficulty level")
+            print("Enter the valid difficulty level")
 
 def sendmail(receiver, image_data):
 
