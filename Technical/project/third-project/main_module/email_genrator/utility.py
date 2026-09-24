@@ -12,16 +12,16 @@ def proper_formated_email(email):
 #  Genrate full email for resone ...
 def genrate_email(reason):
     llm=getmodel()
-    res = llm.invoke(f"Genrate an email for this resone {reason} this should be in proper fromat and with proper greating's only retuen email content and give responese in md file")
+    res = llm.invoke(f"Genrate an email for this resone {reason} this should be in proper fromat and with proper greating's only retuen email content and give responese ")
     return res.content
 #  Edit an existing email ...
 def edit_genrated_mail(mail,correction):
     llm=getmodel()
     res=llm.invoke(f"""
-        Edit the given email {mail}according this changes {correction} and return only in email content proper md file ..
+        Edit the given email {mail}according this changes {correction} and return only in email content  ..
 """)   
     return res.content   
-#Send an email 
+#Send an email ...
 def sendmail(email,receiver):
     sender = "ayushnono4@gmail.com"
     msg = EmailMessage()

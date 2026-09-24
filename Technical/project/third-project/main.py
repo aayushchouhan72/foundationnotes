@@ -3,7 +3,7 @@ import time
 
 #  User define modules
 from main_module.starters import starter
-
+from main_module.beast_mode import beast_start
 
 
 while True:
@@ -20,7 +20,7 @@ Enter the 1 to start application text mode ..😎😎[/bold green]""")
                 case "1":
                        starter()     # appplication  starter fuction call from here ... 
                 case "2":
-                     pass      # application start in the beast mode ...
+                       beast_start()    # application start in the beast mode ...
                 case "3":
                         time.sleep(2)
                         print("[bold red]Dost aap neee tooo  application band kar diyaaaa...😒😒😒[/bold red]")
