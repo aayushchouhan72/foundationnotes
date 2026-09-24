@@ -11,5 +11,5 @@ searchlist=[
             "impromtu topic genrator",
             "quiz genrator",
             "qr genrator",
-            "genrate email"
+            "genrate an email"
     ] 
