@@ -2,7 +2,7 @@ from main_module.fuctions.basic import aboutinfo,notfound,add,sub,div,multiplica
 
 from main_module.fuctions.aifuctionality import city_weather,news_genrator,interview_question_genrator,impromtu_topic_genrator,quiz_genrator,qr_genrator
 
-#from main_module.email_genrator.email_gen import send_an_email
+from main_module.email_genrator.email_gen import email
 functionallty={
     "who develops you":aboutinfo,
     "city weather":city_weather,
@@ -17,6 +17,6 @@ functionallty={
     "impromtu topic genrator":impromtu_topic_genrator,
     "quiz genrator":quiz_genrator,
     "qr genrator":qr_genrator,
-   # "genrate email":send_an_email,
+    "genrate an email":email,
     "not found": notfound
 }
