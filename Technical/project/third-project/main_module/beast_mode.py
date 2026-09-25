@@ -22,12 +22,10 @@ def beast_start():
            return
        history["user"].append(query)
        full_response = ""
-        
        with Live(console=con, refresh_per_second=15) as live:
-               for chunk in llm.stream(f"Give the answer of given user query {query} important answer"):
+               for chunk in llm.stream(f"Give the answer of given user query {query} important answer "):
                       for char in chunk.content:
                               full_response += char
-                           
                               live.update(Markdown(full_response))
                               time.sleep(0.01) 
        print()

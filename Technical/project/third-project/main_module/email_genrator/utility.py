@@ -1,6 +1,11 @@
 import smtplib
 from email.message import EmailMessage
 
+from rich.live import Live
+from rich.console import Console
+from rich.markdown import Markdown
+from rich import print
+import time
 # Local imports
 from main_module.llm_module.similar_search import getmodel
 
@@ -30,7 +35,7 @@ def sendmail(email,receiver):
     msg["From"] = sender
     msg["To"] = receiver
     email=proper_formated_email(email)
-    msg.set_content(f"""Hello! I have attached this is your email from leave
+    msg.set_content(f"""
        {email}
     """)
 
@@ -38,4 +43,3 @@ def sendmail(email,receiver):
         smtp.login(sender, "fpfi wemt ggax nnot")
         smtp.send_message(msg)
     return True
-         
