@@ -40,7 +40,7 @@ def speak(text: str):
 
         engine = pyttsx3.init(driverName='sapi5' if os.name == 'nt' else None)
         engine.setProperty('rate', 170)
-        engine.setProperty('volume', 0.9)
+        engine.setProperty('volume', 1.5)
         engine.say(text)
         engine.runAndWait()
         return

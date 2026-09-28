@@ -3,7 +3,6 @@ from rich import print
 
 
 def _get_best_microphone_index():
-    """Pick a real microphone device instead of a virtual/default capture source."""
     try:
         devices = sr.Microphone.list_microphone_names()
         if not devices:
@@ -35,7 +34,7 @@ def _get_best_microphone_index():
 
 
 def audioinput() -> str:
-    """Captures microphone input and converts it to text using Google Speech Recognition."""
+ 
     try:
         mic_names = sr.Microphone.list_microphone_names()
         if not mic_names:

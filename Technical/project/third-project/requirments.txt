@@ -1,36 +1,20 @@
-### Built-in Modules
+Built-in Modules
 
-* `time`
-
-* `os`
-
-* `smtplib`
-
-* `email.message`
-
-* `io`
+time
+os
+smtplib
+email.message
+io
 
 
----
+Third-Party Modules
 
-### Third-Party Modules
-
-* `rich`
-
-* `python-dotenv` (`dotenv`)
-
-
-* `langchain`
-
-* `langchain-groq`
-
-* `SpeechRecognition` (`speech_recognition`)
-
-
-* `pyttsx3`
-
-* `pyaudio`
-
-* `qrcode`
-
-* `win32com.client` (`pywin32`)
+rich
+python-dotenv (dotenv)
+langchain
+langchain-groq
+SpeechRecognition (speech_recognition)
+pyttsx3
+pyaudio
+qrcode
+win32com.client (pywin32)
