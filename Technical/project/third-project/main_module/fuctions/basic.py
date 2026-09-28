@@ -26,7 +26,7 @@ def multiplication():
 def power():
     num1,num2= map(int,input("Enter the number").split())
     print(num1+num2)
-       
+
 def notfound():
     time.sleep(0.7)
     print("[bold red]This fuctionaltiy does not exist [/bold red]")

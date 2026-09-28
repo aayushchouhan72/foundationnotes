@@ -1,1 +1,3 @@
 Technical/project/third-project/.env
+__pycache__/
+*.py[cod]

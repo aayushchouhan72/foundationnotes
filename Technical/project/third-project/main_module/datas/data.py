@@ -11,6 +11,7 @@ functionallty={
     "division two number":div,
     "multiplication of two number":multiplication,
     "power of number":power,
+    "Who is komal":person,
     "genrate news":news_genrator,
     "Genrate interview questions":interview_question_genrator,
     "impromtu topic genrator":impromtu_topic_genrator,
