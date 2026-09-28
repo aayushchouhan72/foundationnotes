@@ -13,12 +13,12 @@ def beast_start_voice():
     llm = getmodel()
     
     print("[bold magenta]=== Voice Mode Activated ===[/bold magenta]")
-    print("[bold yellow]Say 'exit' or 'stop' to return to main menu.[/bold yellow]")
+    print("[bold yellow]Say 'exit' or 'stop' or 'back off' or 'return' or 'back menu' to return to main menu.[/bold yellow]")
     while True:
         query = audioinput()
         if not query:
             continue
-        if query in ["exit", "stop", "back", "0"]:
+        if query in ["exit", "stop", "back", "0",'back off' , 'return', 'back menu']:
             speak("Exiting voice mode.")
             return
         full_response = ""

@@ -161,8 +161,7 @@ classmates = [
         "query": "Vinayak Patel",
         "ai": "Vinayak bhai is a helpful and friendly guy"
     }
-]
-
+]   
 def get_prompt(query):
     return f"""
 Give a concise and natural spoken response to the user's query.
