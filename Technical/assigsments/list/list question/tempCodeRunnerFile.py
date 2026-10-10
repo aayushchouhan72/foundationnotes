@@ -1,0 +1,1 @@
+nums = list(map(int,input("enter the list elements ...").split(",")))

@@ -43,7 +43,7 @@ classmates = [
     },
     {
         "query": "Chetan Chouhan",
-        "ai": "Chetan bhai is a good and helpful guy"
+        "ai": "Chetan bhai is a William Shakespeare of our class"
     },
     {
         "query": "Chhavi Jaiswal",

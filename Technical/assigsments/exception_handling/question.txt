@@ -1,0 +1,478 @@
+Q1. BOOK PURCHASE MANAGEMENT
+
+Mohan is a librarian and wants to develop a small Python application to manage
+book purchases. The system should ensure that a customer cannot purchase more
+books than the quantity currently available.
+
+Create a class named Book with the following attributes:
+
+1. book_id       - String
+2. book_title   - String
+3. author_name  - String
+4. price        - float
+5. quantity     - int
+
+Create a custom exception class named:
+
+InvalidQuantityException
+
+Requirements:
+
+1. Create the Book class with the above attributes.
+
+2. Create a custom exception InvalidQuantityException by inheriting from
+   the built-in Exception class.
+
+3. Create a method purchase(quantity).
+
+4. If the requested purchase quantity is greater than the available quantity,
+   raise InvalidQuantityException with the message:
+
+   Quantity not available
+
+5. If the purchase is successful, reduce the available quantity.
+
+6. Display the remaining quantity.
+
+7. Use try-except to handle the custom exception.
+
+8. Quantity purchased must be a positive integer.
+
+## Input:
+
+Enter Book ID:
+YCW2019
+
+Enter Book Title:
+You can win
+
+Enter Author Name:
+Shiv Khera
+
+Enter Price:
+245
+
+Enter Available Quantity:
+25
+
+Enter Quantity to Purchase:
+20
+
+## Output:
+
+Quantity Available : 5
+
+## Test Case 2:
+
+Input:
+Book ID       : YCW2019
+Book Title    : You can win
+Author Name   : Shiv Khera
+Price         : 245
+Available Qty : 25
+Purchase Qty  : 30
+
+## Output:
+
+InvalidQuantityException: Quantity not available
+
+ Q2. EMAIL VALIDATION USING CUSTOM EXCEPTIONS
+
+A company wants to validate email addresses before creating user accounts.
+
+Create the following custom exception classes:
+
+1. DotException
+2. AtTheRateException
+3. DomainException
+
+Requirements:
+
+1. Create all three custom exceptions by inheriting from Exception.
+2. Accept an email address from the user.
+3. Validate the email according to the following rules.
+
+Rules:
+
+Rule 1:
+The email must contain exactly one '@' character.
+
+If this rule fails, raise:
+
+AtTheRateException: Invalid @ usage
+
+Rule 2:
+The email must contain a '.' character after '@'.
+
+If this rule fails, raise:
+
+DotException: Invalid Dot usage
+
+Rule 3:
+The email must end with one of the following valid domains:
+
+in
+com
+net
+biz
+
+If this rule fails, raise:
+
+DomainException: Invalid Domain
+
+4. Handle the exceptions using try-except.
+5. If all conditions are satisfied, display:
+
+Valid email address
+
+6. Otherwise display the appropriate exception message followed by:
+
+Invalid email address
+
+## Sample Input 1:
+
+[sample@gmail.com](mailto:sample@gmail.com)
+
+## Sample Output 1:
+
+Valid email address
+
+## Sample Input 2:
+
+[sample@gmail.com](mailto:sample@gmail.com).
+
+## Sample Output 2:
+
+DotException: Invalid Dot usage
+Invalid email address
+
+## Sample Input 3:
+
+sample@[g@mail.com](mailto:g@mail.com)
+
+## Sample Output 3:
+
+AtTheRateException: Invalid @ usage
+Invalid email address
+
+## Sample Input 4:
+
+[sample@gmail.con](mailto:sample@gmail.con)
+
+## Sample Output 4:
+
+DomainException: Invalid Domain
+Invalid email address
+
+## Additional Test Cases:
+
+student@gmail
+studentgmail.com
+student@@gmail.com
+[student@gmail.xyz](mailto:student@gmail.xyz)
+[student@gmail.net](mailto:student@gmail.net)
+
+ Q3. DRIVING LICENSE REGISTRATION
+
+Scenario:
+A government driving license registration system needs to validate whether
+a person is eligible to apply for a driving license.
+
+Create the following custom exceptions:
+
+1. InvalidAgeForDrivingLicenseException
+2. InvalidMarkForDrivingLicenseException
+
+## Eligibility Rules:
+
+1. Age must be greater than or equal to 18.
+2. Age cannot be negative.
+3. Road rules test marks must be between 0 and 100.
+4. A person must score more than 80 marks to pass the test.
+
+## Requirements:
+
+1. Create the Person class with the following attributes:
+
+   name
+   age
+   mark
+
+2. Create the two custom exception classes.
+
+3. Create a method named check_eligibility().
+
+4. Validate age first.
+
+5. If age is negative, raise:
+
+   InvalidAgeForDrivingLicenseException: Invalid age
+
+6. If age is less than 18, raise:
+
+   InvalidAgeForDrivingLicenseException:
+   Age should be more than 18 years old
+
+7. Validate marks.
+
+8. If marks are negative or greater than 100, raise:
+
+   InvalidMarkForDrivingLicenseException: Invalid mark
+
+9. If marks are 80 or less, raise:
+
+   InvalidMarkForDrivingLicenseException:
+   Mark should be more than 80
+
+10. If all conditions are satisfied, display:
+
+    Approved
+
+11. Handle all exceptions using try-except.
+
+## Sample Input 1:
+
+Guru
+33
+95
+
+## Sample Output 1:
+
+Approved
+
+## Sample Input 2:
+
+Smith
+17
+95
+
+## Sample Output 2:
+
+InvalidAgeForDrivingLicenseException: Age should be more than 18 years old
+
+## Sample Input 3:
+
+Jack
+-3
+95
+
+## Sample Output 3:
+
+InvalidAgeForDrivingLicenseException: Invalid age
+
+## Sample Input 4:
+
+Scott
+33
+75
+
+## Sample Output 4:
+
+InvalidMarkForDrivingLicenseException: Mark should be more than 80
+
+## Sample Input 5:
+
+Mathew
+33
+-45
+
+## Sample Output 5:
+
+InvalidMarkForDrivingLicenseException: Invalid mark
+
+## Sample Input 6:
+
+Guru
+33
+195
+
+## Sample Output 6:
+
+InvalidMarkForDrivingLicenseException: Invalid mark
+
+ Q4. BANK ACCOUNT MANAGEMENT SYSTEM
+
+Scenario:
+A bank wants to develop a simple Python-based application to manage customer
+bank accounts.
+
+The application must handle invalid transactions using custom exceptions.
+
+Create a class named BankAccount with the following attributes:
+
+1. account_number
+2. account_holder
+3. balance
+
+Create the following custom exceptions:
+
+1. InsufficientBalanceException
+2. NegativeDepositException
+3. InvalidWithdrawalException
+4. InvalidAmountException
+
+## Requirements:
+
+Create the following methods:
+
+1. deposit(amount)
+2. withdraw(amount)
+3. check_balance()
+4. display_account_details()
+
+## deposit(amount):
+
+1. If the deposit amount is negative, raise:
+
+   NegativeDepositException: Deposit amount cannot be negative
+
+2. If the deposit amount is zero, raise:
+
+   InvalidAmountException: Deposit amount must be greater than zero
+
+3. Otherwise, add the amount to the account balance.
+
+4. Display the updated balance.
+
+## withdraw(amount):
+
+1. If the withdrawal amount is negative, raise:
+
+   InvalidWithdrawalException: Withdrawal amount cannot be negative
+
+2. If the withdrawal amount is zero, raise:
+
+   InvalidAmountException: Withdrawal amount must be greater than zero
+
+3. If the withdrawal amount is greater than the available balance, raise:
+
+   InsufficientBalanceException: Insufficient balance
+
+4. Otherwise, deduct the amount from the balance.
+
+5. Display the updated balance.
+
+## MENU:
+
+The program should be menu-driven.
+
+Display the following menu repeatedly:
+
+================================
+BANK ACCOUNT SYSTEM
+===================
+
+1. Deposit
+2. Withdraw
+3. Check Balance
+4. Display Account Details
+5. Exit
+
+Enter your choice:
+
+## Functional Requirements:
+
+Option 1:
+Ask the user for the deposit amount and perform the deposit operation.
+
+Option 2:
+Ask the user for the withdrawal amount and perform the withdrawal operation.
+
+Option 3:
+Display the current account balance.
+
+Option 4:
+Display:
+
+Account Number:
+Account Holder:
+Available Balance:
+
+Option 5:
+Display:
+
+Thank you for using Bank Account System
+
+For invalid menu choices, display:
+
+Invalid choice
+
+## Exception Handling:
+
+Every transaction must be handled using try-except.
+
+The program should NOT terminate when an exception occurs.
+
+After displaying the exception message, the menu should be displayed again.
+
+## Sample Execution:
+
+Enter Account Number:
+ACC101
+
+Enter Account Holder:
+Rahul
+
+Enter Initial Balance:
+10000
+
+================================
+BANK ACCOUNT SYSTEM
+===================
+
+1. Deposit
+2. Withdraw
+3. Check Balance
+4. Display Account Details
+5. Exit
+
+Enter your choice:
+1
+
+Enter deposit amount:
+5000
+
+Deposit successful.
+Available Balance: 15000
+
+Enter your choice:
+2
+
+Enter withdrawal amount:
+3000
+
+Withdrawal successful.
+Available Balance: 12000
+
+Enter your choice:
+2
+
+Enter withdrawal amount:
+20000
+
+InsufficientBalanceException: Insufficient balance
+
+Enter your choice:
+1
+
+Enter deposit amount:
+-500
+
+NegativeDepositException: Deposit amount cannot be negative
+
+Enter your choice:
+3
+
+Available Balance: 12000
+
+Enter your choice:
+4
+
+Account Number: ACC101
+Account Holder: Rahul
+Available Balance: 12000
+
+Enter your choice:
+5
+
+Thank you for using Bank Account System

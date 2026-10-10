@@ -36,9 +36,16 @@
 # -109 <= nums[i] <= 109
 
 
-nums = list(map(int,input("enter the list elements ...").split(",")))
-numset=set(nums)
-if len(nums) ==  len(numset):
-    print(False)
+prices = list(map(int,input("enter the list elements ...").split(",")))
+m = max(prices)
+print(m)
+index = prices.index(m)
+print(index)
+s=prices[index:]
+print(s)
+mi =  min(s)
+print(mi)
+if mi>m:
+   print( 0)
 else:
-     print(True)
+   print(m-mi)
