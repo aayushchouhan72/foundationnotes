@@ -1,0 +1,76 @@
+QNO  1: Create and Populate students Table
+Columns:
+
+id INT
+
+name VARCHAR(100)
+
+age INT
+
+gender VARCHAR(10)
+
+address VARCHAR(150)
+
+phone VARCHAR(15)
+
+email VARCHAR(100)
+
+Task:
+
+Insert 5 different student records with dummy data.
+mysql> create table students(id int ,name varchar(100),age int,gender varchar(10),address varchar(150),phone varchar(15),email varchar(100));
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> desc students
+    -> ;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| id      | int          | YES  |     | NULL    |       |
+| name    | varchar(100) | YES  |     | NULL    |       |
+| age     | int          | YES  |     | NULL    |       |
+| gender  | varchar(10)  | YES  |     | NULL    |       |
+| address | varchar(150) | YES  |     | NULL    |       |
+| phone   | varchar(15)  | YES  |     | NULL    |       |
+| email   | varchar(100) | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+7 rows in set (0.04 sec)
+
+mysql> insert into students values(1,'Aayush',20,'Male','khandwa',90239403294,'ayush@gmail.com');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from students;
++------+--------+------+--------+---------+-------------+-----------------+
+| id   | name   | age  | gender | address | phone       | email           |
++------+--------+------+--------+---------+-------------+-----------------+
+|    1 | Aayush |   20 | Male   | khandwa | 90239403294 | ayush@gmail.com |
++------+--------+------+--------+---------+-------------+-----------------+
+1 row in set (0.00 sec)
+
+mysql> insert into students values(1,'Aayush',20,'Male','khandwa',90239403294,'ayush@gmail.com');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into students values(3,'abhinav',25,'Male','indore',90239400904,'ah@gmail.com'),(4,'insan',25,'Male','indore',939400904,'auind@gmail.com'),(3,'khogaya',200,'female','indore',90239498904,'ahioir@gmail.com');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from students;
++------+---------+------+--------+---------+-------------+------------------+
+| id   | name    | age  | gender | address | phone       | email            |
++------+---------+------+--------+---------+-------------+------------------+
+|    1 | Aayush  |   20 | Male   | khandwa | 90239403294 | ayush@gmail.com  |
+|    1 | Aayush  |   20 | Male   | khandwa | 90239403294 | ayush@gmail.com  |
+|    3 | abhinav |   25 | Male   | indore  | 90239400904 | ah@gmail.com     |
+|    4 | insan   |   25 | Male   | indore  | 939400904   | auind@gmail.com  |
+|    3 | khogaya |  200 | female | indore  | 90239498904 | ahioir@gmail.com |
++------+---------+------+--------+---------+-------------+------------------+
+
+
+
+
+
+
+
+
+
+

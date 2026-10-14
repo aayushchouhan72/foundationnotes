@@ -1,0 +1,10 @@
+QNO  3: ALTER students Table
+Task:
+
+Add a column dob DATE
+
+Rename column phone to mobile_number
+
+Modify column age to SMALLINT
+
+Drop column email

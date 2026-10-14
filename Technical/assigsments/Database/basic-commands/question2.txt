@@ -1,0 +1,80 @@
+QNO  2: Create and Populate books Table
+Columns:
+
+book_id INT
+
+title VARCHAR(150)
+
+author VARCHAR(100)
+
+genre VARCHAR(50)
+
+publication_year INT
+
+price DECIMAL(6,2)
+
+publisher VARCHAR(100)
+
+Task:
+
+Insert 4 book records.
+
+
+
+mysql> create table books(book_id int,title varchar(150),author varchar(20),pubilcationyear int);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc books;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| book_id         | int          | YES  |     | NULL    |       |
+| title           | varchar(150) | YES  |     | NULL    |       |
+| author          | varchar(20)  | YES  |     | NULL    |       |
+| pubilcationyear | int          | YES  |     | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> insert into table books(1,"bechara Aayush","Aayush",2026),(2,"dil tuta ashiq","Nusrat ali khan",2003),(3,"Ek tha Ashiq","saniya singh khan",2011);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table books(1,"bechara Aayush","Aayush",2026),(2,"dil tuta ashiq","Nusrat ali kh' at line 1
+mysql> insert into table books(1,"bechara Aayush","Aayush",2026),(2,"dil tuta ashiq","Nusrat ali khan",2003),(3,"Ek tha Ashiq","saniya singh khan",2011);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table books(1,"bechara Aayush","Aayush",2026),(2,"dil tuta ashiq","Nusrat ali kh' at line 1
+mysql> insert into table books values(1,"bechara Aayush","Aayush",2026),(2,"dil tuta ashiq","Nusrat ali khan",2003),(3,"Ek tha Ashiq","saniya singh khan",2011);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table books values(1,"bechara Aayush","Aayush",2026),(2,"dil tuta ashiq","Nusrat' at line 1
+mysql> insert into table books values(1,"bechara Aayush","Aayush",2026),(2,"dil tuta ashiq","Nusrat ali khan",2003),(3,"Ek tha Ashiq","saniya singh khan",2011);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table books values(1,"bechara Aayush","Aayush",2026),(2,"dil tuta ashiq","Nusrat' at line 1
+mysql> insert into table books values(1,"bechara Aayush","Aayush",2026),(2,"dil tuta ashiq","Nusrat ali khan",2003),(3,"Ek tha Ashiq","saniya singh khan",2011);^C
+mysql> INSERT INTO books
+    -> VALUES
+    -> (1, "bechara Aayush", "Aayush", 2026),
+    -> (2, "dil tuta ashiq", "Nusrat ali khan", 2003),
+    -> (3, "Ek tha Ashiq", "saniya singh khan", 2011);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> insert into books
+    -> values
+    -> (4,"khali dimage","shetan khan",2023)
+    -> (5, "  ashiq", " ali khan", 2009),
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(5, "  ashiq", " ali khan", 2009),' at line 4
+mysql> insert into books
+    -> values
+    -> (4,"khali dimage","shetan khan",2023),
+    -> (5, "ashiq", " ali khan", 2009);
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from books;
++---------+----------------+-------------------+-----------------+
+| book_id | title          | author            | pubilcationyear |
++---------+----------------+-------------------+-----------------+
+|       1 | bechara Aayush | Aayush            |            2026 |
+|       2 | dil tuta ashiq | Nusrat ali khan   |            2003 |
+|       3 | Ek tha Ashiq   | saniya singh khan |            2011 |
+|       4 | khali dimage   | shetan khan       |            2023 |
+|       5 | ashiq          |  ali khan         |            2009 |
++---------+----------------+-------------------+-----------------+
+5 rows in set (0.00 sec)
+
+mysql>
