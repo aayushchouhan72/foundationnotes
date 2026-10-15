@@ -1,0 +1,33 @@
+
+QNO  6: DROP Table
+Task:
+
+Drop the library_books table
+
+
+mysql> select * from libary_books;
++---------+----------------+-------------------+-----------------+
+| book_id | title          | author            | pubilcationyear |
++---------+----------------+-------------------+-----------------+
+|       1 | bechara Aayush | Aayush            |            2026 |
+|       2 | dil tuta ashiq | Nusrat ali khan   |            2003 |
+|       3 | Ek tha Ashiq   | saniya singh khan |            2011 |
+|       4 | khali dimage   | shetan khan       |            2023 |
+|       5 | ashiq          |  ali khan         |            2009 |
++---------+----------------+-------------------+-----------------+
+5 rows in set (0.00 sec)
+
+mysql> Drop the library_books;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'the library_books' at line 1
+mysql> alter table library_books Drop the library_books;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'library_books' at line 1
+mysql> drop library_books;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'library_books' at line 1
+mysql> drop library_books;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'library_books' at line 1
+mysql> drop tables libary_books;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> select * from libary_books;
+ERROR 1146 (42S02): Table 'batch19.libary_books' doesn't exist
+mysql>

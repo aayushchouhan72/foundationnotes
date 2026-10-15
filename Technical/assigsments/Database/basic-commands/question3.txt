@@ -8,3 +8,54 @@ Rename column phone to mobile_number
 Modify column age to SMALLINT
 
 Drop column email
+
+
+mysql> alter table students add column dob date;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from students;
++------+---------+------+--------+---------+-------------+------------------+------+
+| id   | name    | age  | gender | address | phone       | email            | dob  |
++------+---------+------+--------+---------+-------------+------------------+------+
+|    1 | Aayush  |   20 | Male   | khandwa | 90239403294 | ayush@gmail.com  | NULL |
+|    1 | Aayush  |   20 | Male   | khandwa | 90239403294 | ayush@gmail.com  | NULL |
+|    3 | abhinav |   25 | Male   | indore  | 90239400904 | ah@gmail.com     | NULL |
+|    4 | insan   |   25 | Male   | indore  | 939400904   | auind@gmail.com  | NULL |
+|    3 | khogaya |  200 | female | indore  | 90239498904 | ahioir@gmail.com | NULL |
++------+---------+------+--------+---------+-------------+------------------+------+
+5 rows in set (0.00 sec)
+
+mysql> alter table students rename column phone to mobile_number;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from students;
++------+---------+------+--------+---------+---------------+------------------+------+
+| id   | name    | age  | gender | address | mobile_number | email            | dob  |
++------+---------+------+--------+---------+---------------+------------------+------+
+|    1 | Aayush  |   20 | Male   | khandwa | 90239403294   | ayush@gmail.com  | NULL |
+|    1 | Aayush  |   20 | Male   | khandwa | 90239403294   | ayush@gmail.com  | NULL |
+|    3 | abhinav |   25 | Male   | indore  | 90239400904   | ah@gmail.com     | NULL |
+|    4 | insan   |   25 | Male   | indore  | 939400904     | auind@gmail.com  | NULL |
+|    3 | khogaya |  200 | female | indore  | 90239498904   | ahioir@gmail.com | NULL |
++------+---------+------+--------+---------+---------------+------------------+------+
+5 rows in set (0.00 sec)
+
+mysql> alter table students Drop column email;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from students;
++------+---------+------+--------+---------+---------------+------+
+| id   | name    | age  | gender | address | mobile_number | dob  |
++------+---------+------+--------+---------+---------------+------+
+|    1 | Aayush  |   20 | Male   | khandwa | 90239403294   | NULL |
+|    1 | Aayush  |   20 | Male   | khandwa | 90239403294   | NULL |
+|    3 | abhinav |   25 | Male   | indore  | 90239400904   | NULL |
+|    4 | insan   |   25 | Male   | indore  | 939400904     | NULL |
+|    3 | khogaya |  200 | female | indore  | 90239498904   | NULL |
++------+---------+------+--------+---------+---------------+------+
+5 rows in set (0.01 sec)
+
+mysql>

@@ -1,0 +1,22 @@
+
+QNO  4: RENAME Table
+Task:
+
+Rename books table to library_books
+
+mysql> alter table books rename to libary_books;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> select * from libary_books;
++---------+----------------+-------------------+-----------------+
+| book_id | title          | author            | pubilcationyear |
++---------+----------------+-------------------+-----------------+
+|       1 | bechara Aayush | Aayush            |            2026 |
+|       2 | dil tuta ashiq | Nusrat ali khan   |            2003 |
+|       3 | Ek tha Ashiq   | saniya singh khan |            2011 |
+|       4 | khali dimage   | shetan khan       |            2023 |
+|       5 | ashiq          |  ali khan         |            2009 |
++---------+----------------+-------------------+-----------------+
+5 rows in set (0.01 sec)
+
+mysql>

@@ -1,0 +1,68 @@
+
+QNO  8: Create and Insert into employees Table
+Columns:
+
+emp_id INT
+
+emp_name VARCHAR(100)
+
+gender VARCHAR(10)
+
+dob DATE
+
+department VARCHAR(100)
+
+position VARCHAR(100)
+
+salary DECIMAL(8,2)
+
+joining_date DATE
+
+phone VARCHAR(15)
+
+Task:
+
+Insert 5 employee records
+
+
+mysql> CREATE TABLE employees (
+    ->     emp_id INT PRIMARY KEY,
+    ->     emp_name VARCHAR(100),
+    ->     gender VARCHAR(10),
+    ->     dob DATE,
+    ->     department VARCHAR(100),
+    ->     position VARCHAR(100),
+    ->     salary DECIMAL(8,2),
+    ->     joining_date DATE,
+    ->     phone VARCHAR(15)
+    -> );;
+Query OK, 0 rows affected (0.03 sec)
+
+ERROR:
+No query specified
+
+mysql> INSERT INTO employees
+    -> (emp_id, emp_name, gender, dob, department, position, salary, joining_date, phone)
+    -> VALUES
+    -> (1, 'Aayush Chouhan', 'Male', '2005-05-15', 'IT', 'Software Developer', 45000.00, '2025-07-01', '9876543210'),
+    -> (2, 'Priya Sharma', 'Female', '2002-08-20', 'HR', 'HR Manager', 55000.00, '2024-03-15', '9876543211'),
+    -> (3, 'Rahul Verma', 'Male', '2001-12-10', 'Finance', 'Accountant', 40000.00, '2023-06-10', '9876543212'),
+    -> (4, 'Sneha Patel', 'Female', '2003-04-25', 'Marketing', 'Marketing Executive', 35000.00, '2025-01-20', '9876543213'),
+    -> (5, 'Amit Singh', 'Male', '2000-09-05', 'IT', 'Database Administrator', 60000.00, '2022-11-01', '9876543214');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from employees;
++--------+----------------+--------+------------+------------+------------------------+----------+--------------+------------+
+| emp_id | emp_name       | gender | dob        | department | position               | salary   | joining_date | phone      |
++--------+----------------+--------+------------+------------+------------------------+----------+--------------+------------+
+|      1 | Aayush Chouhan | Male   | 2005-05-15 | IT         | Software Developer     | 45000.00 | 2025-07-01   | 9876543210 |
+|      2 | Priya Sharma   | Female | 2002-08-20 | HR         | HR Manager             | 55000.00 | 2024-03-15   | 9876543211 |
+|      3 | Rahul Verma    | Male   | 2001-12-10 | Finance    | Accountant             | 40000.00 | 2023-06-10   | 9876543212 |
+|      4 | Sneha Patel    | Female | 2003-04-25 | Marketing  | Marketing Executive    | 35000.00 | 2025-01-20   | 9876543213 |
+|      5 | Amit Singh     | Male   | 2000-09-05 | IT         | Database Administrator | 60000.00 | 2022-11-01   | 9876543214 |
++--------+----------------+--------+------------+------------+------------------------+----------+--------------+------------+
+5 rows in set (0.00 sec)
+
+mysql>
+

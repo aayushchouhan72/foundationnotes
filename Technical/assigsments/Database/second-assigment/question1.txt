@@ -1,0 +1,692 @@
+Assignment 1 — Employee Management System
+
+Create an Employee Management System database and design tables that cover the MySQL data types taught so far.
+
+Use all the following data types at least once.
+
+TINYINT, SMALLINT, MEDIUMINT, INT, BIGINT, DECIMAL, FLOAT, DOUBLE, CHAR, VARCHAR, TINYTEXT, TEXT, MEDIUMTEXT, LONGTEXT, ENUM,
+SET, DATE, TIME, DATETIME, TIMESTAMP, YEAR, BOOLEAN
+
+Also use:
+
+PRIMARY KEY
+AUTO_INCREMENT
+UNSIGNED
+DEFAULT CURRENT_TIMESTAMP
+ON UPDATE CURRENT_TIMESTAMP
+
+
+Part 1 — Create Database
+
+Create a database named:
+
+employee_management
+
+Select the database.
+
+Part 2 — Create employees Table
+
+Create a table named:
+
+employees
+
+Use the following columns:
+
+# Column Name Requirement
+1 employee_id Employee unique ID; PRIMARY KEY + AUTO_INCREMENT
+2 employee_code Fixed-length employee code
+3 employee_name Employee full name
+4 age Employee age; should not allow negative values
+5 number_of_children Number of children
+6 experience_months Total experience in months
+7 salary Employee annual salary with exact decimal precision
+8 performance_score Employee performance score with approximate decimal value
+9 productivity_score Higher-precision approximate decimal value
+10 department_id Department identification number
+11 employee_status Employment status from predefined values
+12 skills Employee can have multiple skills from predefined values
+13 gender Employee gender from predefined values
+14 date_of_birth Employee date of birth
+15 joining_date Date employee joined company
+16 login_time Daily office login time
+17 interview_datetime Date and time of employee interview
+18 birth_year Employee birth year
+19 is_active Whether employee is currently active
+20 short_note Very small text information
+21 joining_date Employee description
+22 training_history Larger training-related text
+23 employee_profile Very large employee information
+24 created_at Automatically store record creation date/time
+25 updated_at Automatically update when record is modified
+
+Important
+
+You have to decide the appropriate data type for every column.
+
+Do not blindly use VARCHAR everywhere.
+
+For example:
+
+"Employee can have multiple skills from a predefined list."
+
+You should decide which MySQL datatype is appropriate.
+
+Part 3 — Insert Data
+
+Insert at least 15 employees.
+
+Your data must satisfy the following requirements:
+
+Employee ID
+
+Do not manually provide employee_id.
+
+Let AUTO_INCREMENT generate it.
+
+Employee Code
+
+Use fixed-length codes such as:
+
+EMP001
+EMP002
+EMP003
+Age
+
+Use different realistic ages.
+
+Include employees between approximately 22–55 years.
+
+Numeric Data
+
+Use different values for:
+
+Number of children
+Experience in months
+Salary
+Performance score
+Productivity score
+
+Include decimal salary values such as:
+
+52500.50
+78500.75
+125000.25
+Employee Status
+
+Use all predefined statuses that you decide while creating the ENUM.
+
+For example:
+
+ACTIVE
+INACTIVE
+ON_LEAVE
+RESIGNED
+Skills
+
+Use multiple combinations.
+
+For example:
+
+JAVA
+PYTHON,MYSQL
+JAVA,MYSQL
+PYTHON,REACT,AWS
+JAVA,PYTHON,MYSQL
+Gender
+
+Use all values defined in your ENUM.
+
+Dates
+
+Use different:
+
+Birth dates
+Joining dates
+Time
+
+Use different employee login times.
+
+Date + Time
+
+Insert different interview date/time values.
+
+Year
+
+Use different birth years.
+
+Boolean
+
+Insert both:
+
+TRUE
+FALSE
+Text
+
+Provide different values for:
+
+Short note
+Employee description
+Training history
+Employee profile
+Part 4 — TIMESTAMP Requirement
+
+For created_at:
+
+The employee creation date and time should automatically be captured by MySQL.
+
+For updated_at:
+
+The employee modification date and time should automatically change whenever the employee record is updated.
+
+Then:
+
+Insert an employee.
+Check created_at and updated_at.
+Update the employee's name.
+Check both timestamps again.
+Verify that created_at remains unchanged.
+Verify that updated_at changes.
+
+This follows the timestamp behavior covered in your notes.
+
+Part 5 — DDL Operations
+
+After creating and inserting data into employees, perform the following operations.
+
+ALTER TABLE
+Add a column:
+phone_number
+Add a column:
+email
+Modify the size of employee_name.
+Modify the size of employee_code.
+Rename short_note to:
+employee_note
+Drop the email column.
+Drop the phone_number column.
+AUTO_INCREMENT using ALTER
+
+Create another table:
+
+employee_documents
+
+Initially create document_id as a normal integer column.
+
+Then use ALTER TABLE to make document_id an 
+ column.
+
+CREATE TABLE AS SELECT
+
+Create:
+
+employee_backup
+
+using the existing employees table.
+
+Copy the employee data into it.
+
+TRUNCATE
+
+Create:
+
+employee_test
+
+Insert some records.
+
+Then:
+
+Display the records.
+TRUNCATE the table.
+Display the records again.
+Verify that the table still exists.
+DROP
+
+Finally:
+
+Drop employee_test.
+Drop employee_documents.
+Verify the tables using SHOW TABLES.
+Part 6 — Verification
+
+Execute:
+
+SHOW DATABASES;
+SHOW TABLES;
+DESC employees;
+SHOW CREATE TABLE employees;
+
+Then verify that your employees table contains all the required data types.
+
+
+create table employees (employee_id PRIMARY_KEY AUTO_INCREMENT ,employee_code char(10), check(CHAR_LENGTH(code) = 10),employee_name varchar(20),age check(age>=0),number_of_children int,experience_months int ,salary decimal(7,2),performance_score decimal(7,2),productivity_score decimal(7,2),department_id int ,employee_status  enums ('active','inactive'), skills  set('java','python','sql','react'),gender enums ('male',female) ,date_of_birth date,joining_date date,login_time time,interview_datetime datetime, birth_year year,is_active Boolean ,short_note TINYTEXT,employee_description text,training_history text,employee_profile LONGTEXT,created_at datetime DEFAULT CURRENT_TIMESTAMP,updated_at timestamp on update CURRENT_TIMESTAMP );
+mysql>
+mysql> CREATE TABLE employees (
+    ->     employee_id INT PRIMARY KEY AUTO_INCREMENT,
+    ->     employee_code CHAR(10),
+    ->     employee_name VARCHAR(20),
+    ->     age INT CHECK (age >= 0),
+    ->     number_of_children INT CHECK (number_of_children >= 0),
+    ->     experience_months INT CHECK (experience_months >= 0),
+    ->     salary DECIMAL(7,2) CHECK (salary >= 0),
+    ->     performance_score DECIMAL(7,2),
+    ->     productivity_score DECIMAL(7,2),
+    ->     department_id INT,
+    ->
+    ->     employee_status ENUM('active','inactive'),
+    ->     skills SET('java','python','sql','react'),
+    ->     gender ENUM('male','female'),
+    ->
+    ->     date_of_birth DATE,
+    ->     joining_date DATE,
+    ->     login_time TIME,
+    ->     interview_datetime DATETIME,
+    ->     birth_year YEAR,
+    ->     is_active BOOLEAN,
+    ->
+    ->     short_note TINYTEXT,
+    ->     employee_description TEXT,
+    ->     training_history TEXT,
+    ->     employee_profile LONGTEXT,
+    ->
+    ->     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    ->     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    ->         ON UPDATE CURRENT_TIMESTAMP,
+    ->
+    ->     CHECK (CHAR_LENGTH(employee_code) = 10)
+    -> );
+ERROR 1046 (3D000): No database selected
+mysql> use employee_management
+Database changed
+mysql>
+mysql> CREATE TABLE employees (
+    ->     employee_id INT PRIMARY KEY AUTO_INCREMENT,
+    ->     employee_code CHAR(10),
+    ->     employee_name VARCHAR(20),
+    ->     age INT CHECK (age >= 0),
+    ->     number_of_children INT CHECK (number_of_children >= 0),
+    ->     experience_months INT CHECK (experience_months >= 0),
+    ->     salary DECIMAL(7,2) CHECK (salary >= 0),
+    ->     performance_score DECIMAL(7,2),
+    ->     productivity_score DECIMAL(7,2),
+    ->     department_id INT,
+    ->
+    ->     employee_status ENUM('active','inactive'),
+    ->     skills SET('java','python','sql','react'),
+    ->     gender ENUM('male','female'),
+    ->
+    ->     date_of_birth DATE,
+    ->     joining_date DATE,
+    ->     login_time TIME,
+    ->     interview_datetime DATETIME,
+    ->     birth_year YEAR,
+    ->     is_active BOOLEAN,
+    ->
+    ->     short_note TINYTEXT,
+    ->     employee_description TEXT,
+    ->     training_history TEXT,
+    ->     employee_profile LONGTEXT,
+    ->
+    ->     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    ->     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    ->         ON UPDATE CURRENT_TIMESTAMP,
+    ->
+    ->     CHECK (CHAR_LENGTH(employee_code) = 10)
+    -> );
+Query OK, 0 rows affected (0.10 sec)
+
+mysql>
+mysql> desc employees
+    -> ;
++----------------------+------------------------------------+------+-----+-------------------+-----------------------------------------------+
+| Field                | Type                               | Null | Key | Default           | Extra                                         |
++----------------------+------------------------------------+------+-----+-------------------+-----------------------------------------------+
+| employee_id          | int                                | NO   | PRI | NULL              | auto_increment                                |
+| employee_code        | char(10)                           | YES  |     | NULL              |                                               |
+| employee_name        | varchar(20)                        | YES  |     | NULL              |                                               |
+| age                  | int                                | YES  |     | NULL              |                                               |
+| number_of_children   | int                                | YES  |     | NULL              |                                               |
+| experience_months    | int                                | YES  |     | NULL              |                                               |
+| salary               | decimal(7,2)                       | YES  |     | NULL              |                                               |
+| performance_score    | decimal(7,2)                       | YES  |     | NULL              |                                               |
+| productivity_score   | decimal(7,2)                       | YES  |     | NULL              |                                               |
+| department_id        | int                                | YES  |     | NULL              |                                               |
+| employee_status      | enum('active','inactive')          | YES  |     | NULL              |                                               |
+| skills               | set('java','python','sql','react') | YES  |     | NULL              |                                               |
+| gender               | enum('male','female')              | YES  |     | NULL              |                                               |
+| date_of_birth        | date                               | YES  |     | NULL              |                                               |
+| joining_date         | date                               | YES  |     | NULL              |                                               |
+| login_time           | time                               | YES  |     | NULL              |                                               |
+| interview_datetime   | datetime                           | YES  |     | NULL              |                                               |
+| birth_year           | year                               | YES  |     | NULL              |                                               |
+| is_active            | tinyint(1)                         | YES  |     | NULL              |                                               |
+| short_note           | tinytext                           | YES  |     | NULL              |                                               |
+| employee_description | text                               | YES  |     | NULL              |                                               |
+| training_history     | text                               | YES  |     | NULL              |                                               |
+| employee_profile     | longtext                           | YES  |     | NULL              |                                               |
+| created_at           | datetime                           | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED                             |
+| updated_at           | timestamp                          | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED on update CURRENT_TIMESTAMP |
++----------------------+------------------------------------+------+-----+-------------------+-----------------------------------------------+
+25 rows in set (0.02 sec)
+
+mysql> INSERT INTO employees (
+    ->     employee_code, employee_name, age, number_of_children,
+    ->     experience_months, salary, performance_score,
+    ->     productivity_score, department_id, employee_status,
+    ->     skills, gender, date_of_birth, joining_date,
+    ->     login_time, interview_datetime, birth_year, is_active,
+    ->     short_note, employee_description, training_history,
+    ->     employee_profile
+    -> )
+    -> VALUES
+    -> ('EMP0000001', 'Aayush', 21, 0, 12, 35000.00, 85.50, 90.00, 101, 'active', 'python,sql', 'male', '2005-03-15', '2025-01-10', '09:00:00', '2025-01-05 10:30:00', 2005, TRUE, 'Good learner', 'Python developer', 'Python and SQL training', 'Aayush is a junior developer.'),
+    ->
+    -> ('EMP0000002', 'Komal', 22, 0, 18, 42000.00, 92.00, 88.50, 102, 'active', 'java,sql', 'female', '2004-06-20', '2024-07-15', '09:15:00', '2024-07-10 11:00:00', 2004, TRUE, 'Hardworking', 'Java developer', 'Java training', 'Komal works on backend development.'),
+    ->
+    -> ('EMP0000003', 'Rahul', 25, 1, 36, 55000.00, 80.00, 82.50, 103, 'active', 'python,sql', 'male', '2001-02-12', '2023-04-01', '09:30:00', '2023-03-20 12:00:00', 2001, TRUE, 'Experienced', 'Data analyst', 'Data analytics training', 'Rahul analyzes business data.'),
+    ->
+    -> ('EMP0000004', 'Priya', 24, 0, 24, 48000.00, 90.00, 91.00, 104, 'active', 'react,sql', 'female', '2002-09-08', '2024-01-12', '09:00:00', '2024-01-05 14:00:00', 2002, TRUE, 'Creative', 'Frontend developer', 'React training', 'Priya builds user interfaces.'),
+    ->
+    -> ('EMP0000005', 'Amit', 28, 2, 60, 65000.00, 87.50, 85.00, 101, 'active', 'java,python', 'male', '1998-04-25', '2021-06-01', '08:45:00', '2021-05-20 10:00:00', 1998, TRUE, 'Team player', 'Software engineer', 'Software engineering training', 'Amit develops applications.'),
+    ->
+    -> ('EMP0000006', 'Neha', 23, 0, 12, 38000.00, 88.00, 89.50, 102, 'active', 'python,react', 'female', '2003-01-18', '2025-02-01', '09:10:00', '2025-01-25 11:30:00', 2003, TRUE, 'Quick learner', 'Web developer', 'Web development training', 'Neha works on web projects.'),
+    ->
+    -> ('EMP0000007', 'Rohit', 27, 1, 48, 60000.00, 82.50, 86.00, 103, 'active', 'java,sql', 'male', '1999-07-11', '2022-05-15', '09:20:00', '2022-05-01 09:30:00', 1999, TRUE, 'Reliable', 'Database developer', 'Database training', 'Rohit manages databases.'),
+    ->
+    -> ('EMP0000008', 'Sneha', 26, 1, 36, 52000.00, 91.00, 92.00, 104, 'inactive', 'react,python', 'female', '2000-11-03', '2022-10-10', '09:05:00', '2022-09-25 13:00:00', 2000, FALSE, 'On leave', 'UI developer', 'UI design training', 'Sneha specializes in interface design.'),
+    ->
+    -> ('EMP0000009', 'Vikas', 30, 2, 72, 75000.00, 89.00, 90.50, 101, 'active', 'java,sql,python', 'male', '1996-05-14', '2020-03-01', '08:30:00', '2020-02-15 10:00:00', 1996, TRUE, 'Senior employee', 'Senior engineer', 'Leadership training', 'Vikas leads development projects.'),
+    ->
+    -> ('EMP0000010', 'Pooja', 22, 0, 6, 32000.00, 78.50, 80.00, 102, 'active', 'python,sql', 'female', '2004-12-22', '2025-07-01', '09:25:00', '2025-06-20 15:00:00', 2004, TRUE, 'Trainee', 'Junior analyst', 'SQL training', 'Pooja is learning data analysis.'),
+    ->
+    -> ('EMP0000011', 'Karan', 29, 1, 60, 68000.00, 86.00, 87.00, 103, 'active', 'java,react', 'male', '1997-08-16', '2021-01-10', '09:00:00', '2021-01-02 11:00:00', 1997, TRUE, 'Problem solver', 'Full stack developer', 'Full stack training', 'Karan develops web applications.'),
+    ->
+    -> ('EMP0000012', 'Anjali', 25, 0, 30, 50000.00, 93.00, 94.00, 104, 'active', 'react,sql', 'female', '2001-10-05', '2023-11-01', '09:15:00', '2023-10-20 10:30:00', 2001, TRUE, 'High performer', 'Frontend engineer', 'React training', 'Anjali improves frontend performance.'),
+    ->
+    -> ('EMP0000013', 'Mohit', 31, 2, 84, 80000.00, 84.50, 88.00, 101, 'inactive', 'java,python,sql', 'male', '1995-03-28', '2019-08-01', '08:50:00', '2019-07-15 12:00:00', 1995, FALSE, 'On break', 'Senior developer', 'Advanced programming training', 'Mohit has extensive development experience.'),
+    ->
+    -> ('EMP0000014', 'Riya', 24, 0, 18, 44000.00, 89.50, 91.50, 102, 'active', 'python,react', 'female', '2002-07-19', '2024-09-01', '09:10:00', '2024-08-20 14:30:00', 2002, TRUE, 'Motivated', 'Software developer', 'Python training', 'Riya develops software features.'),
+    ->
+    -> ('EMP0000015', 'Deepak', 28, 1, 54, 62000.00, 81.00, 84.50, 103, 'active', 'java,sql,react', 'male', '1998-12-09', '2021-11-15', '09:30:00', '2021-11-01 09:00:00', 1998, TRUE, 'Dedicated', 'Application developer', 'Application development training', 'Deepak builds business applications.');
+Query OK, 15 rows affected (0.02 sec)
+Records: 15  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee
+    -> ;
+ERROR 1146 (42S02): Table 'employee_management.employee' doesn't exist
+mysql> select * from employees;
++-------------+---------------+---------------+------+--------------------+-------------------+----------+-------------------+--------------------+---------------+-----------------+-----------------+--------+---------------+--------------+------------+---------------------+------------+-----------+-----------------+-----------------------+----------------------------------+---------------------------------------------+---------------------+---------------------+
+| employee_id | employee_code | employee_name | age  | number_of_children | experience_months | salary   | performance_score | productivity_score | department_id | employee_status | skills          | gender | date_of_birth | joining_date | login_time | interview_datetime  | birth_year | is_active | short_note      | employee_description  | training_history                 | employee_profile                            | created_at          | updated_at          |
++-------------+---------------+---------------+------+--------------------+-------------------+----------+-------------------+--------------------+---------------+-----------------+-----------------+--------+---------------+--------------+------------+---------------------+------------+-----------+-----------------+-----------------------+----------------------------------+---------------------------------------------+---------------------+---------------------+
+|           1 | EMP0000001    | Aayush        |   21 |                  0 |                12 | 35000.00 |             85.50 |              90.00 |           101 | active          | python,sql      | male   | 2005-03-15    | 2025-01-10   | 09:00:00   | 2025-01-05 10:30:00 |       2005 |         1 | Good learner    | Python developer      | Python and SQL training          | Aayush is a junior developer.               | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+|           2 | EMP0000002    | Komal         |   22 |                  0 |                18 | 42000.00 |             92.00 |              88.50 |           102 | active          | java,sql        | female | 2004-06-20    | 2024-07-15   | 09:15:00   | 2024-07-10 11:00:00 |       2004 |         1 | Hardworking     | Java developer        | Java training                    | Komal works on backend development.         | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+|           3 | EMP0000003    | Rahul         |   25 |                  1 |                36 | 55000.00 |             80.00 |              82.50 |           103 | active          | python,sql      | male   | 2001-02-12    | 2023-04-01   | 09:30:00   | 2023-03-20 12:00:00 |       2001 |         1 | Experienced     | Data analyst          | Data analytics training          | Rahul analyzes business data.               | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+|           4 | EMP0000004    | Priya         |   24 |                  0 |                24 | 48000.00 |             90.00 |              91.00 |           104 | active          | sql,react       | female | 2002-09-08    | 2024-01-12   | 09:00:00   | 2024-01-05 14:00:00 |       2002 |         1 | Creative        | Frontend developer    | React training                   | Priya builds user interfaces.               | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+|           5 | EMP0000005    | Amit          |   28 |                  2 |                60 | 65000.00 |             87.50 |              85.00 |           101 | active          | java,python     | male   | 1998-04-25    | 2021-06-01   | 08:45:00   | 2021-05-20 10:00:00 |       1998 |         1 | Team player     | Software engineer     | Software engineering training    | Amit develops applications.                 | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+|           6 | EMP0000006    | Neha          |   23 |                  0 |                12 | 38000.00 |             88.00 |              89.50 |           102 | active          | python,react    | female | 2003-01-18    | 2025-02-01   | 09:10:00   | 2025-01-25 11:30:00 |       2003 |         1 | Quick learner   | Web developer         | Web development training         | Neha works on web projects.                 | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+|           7 | EMP0000007    | Rohit         |   27 |                  1 |                48 | 60000.00 |             82.50 |              86.00 |           103 | active          | java,sql        | male   | 1999-07-11    | 2022-05-15   | 09:20:00   | 2022-05-01 09:30:00 |       1999 |         1 | Reliable        | Database developer    | Database training                | Rohit manages databases.                    | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+|           8 | EMP0000008    | Sneha         |   26 |                  1 |                36 | 52000.00 |             91.00 |              92.00 |           104 | inactive        | python,react    | female | 2000-11-03    | 2022-10-10   | 09:05:00   | 2022-09-25 13:00:00 |       2000 |         0 | On leave        | UI developer          | UI design training               | Sneha specializes in interface design.      | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+|           9 | EMP0000009    | Vikas         |   30 |                  2 |                72 | 75000.00 |             89.00 |              90.50 |           101 | active          | java,python,sql | male   | 1996-05-14    | 2020-03-01   | 08:30:00   | 2020-02-15 10:00:00 |       1996 |         1 | Senior employee | Senior engineer       | Leadership training              | Vikas leads development projects.           | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+|          10 | EMP0000010    | Pooja         |   22 |                  0 |                 6 | 32000.00 |             78.50 |              80.00 |           102 | active          | python,sql      | female | 2004-12-22    | 2025-07-01   | 09:25:00   | 2025-06-20 15:00:00 |       2004 |         1 | Trainee         | Junior analyst        | SQL training                     | Pooja is learning data analysis.            | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+|          11 | EMP0000011    | Karan         |   29 |                  1 |                60 | 68000.00 |             86.00 |              87.00 |           103 | active          | java,react      | male   | 1997-08-16    | 2021-01-10   | 09:00:00   | 2021-01-02 11:00:00 |       1997 |         1 | Problem solver  | Full stack developer  | Full stack training              | Karan develops web applications.            | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+|          12 | EMP0000012    | Anjali        |   25 |                  0 |                30 | 50000.00 |             93.00 |              94.00 |           104 | active          | sql,react       | female | 2001-10-05    | 2023-11-01   | 09:15:00   | 2023-10-20 10:30:00 |       2001 |         1 | High performer  | Frontend engineer     | React training                   | Anjali improves frontend performance.       | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+|          13 | EMP0000013    | Mohit         |   31 |                  2 |                84 | 80000.00 |             84.50 |              88.00 |           101 | inactive        | java,python,sql | male   | 1995-03-28    | 2019-08-01   | 08:50:00   | 2019-07-15 12:00:00 |       1995 |         0 | On break        | Senior developer      | Advanced programming training    | Mohit has extensive development experience. | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+|          14 | EMP0000014    | Riya          |   24 |                  0 |                18 | 44000.00 |             89.50 |              91.50 |           102 | active          | python,react    | female | 2002-07-19    | 2024-09-01   | 09:10:00   | 2024-08-20 14:30:00 |       2002 |         1 | Motivated       | Software developer    | Python training                  | Riya develops software features.            | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+|          15 | EMP0000015    | Deepak        |   28 |                  1 |                54 | 62000.00 |             81.00 |              84.50 |           103 | active          | java,sql,react  | male   | 1998-12-09    | 2021-11-15   | 09:30:00   | 2021-11-01 09:00:00 |       1998 |         1 | Dedicated       | Application developer | Application development training | Deepak builds business applications.        | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
++-------------+---------------+---------------+------+--------------------+-------------------+----------+-------------------+--------------------+---------------+-----------------+-----------------+--------+---------------+--------------+------------+---------------------+------------+-----------+-----------------+-----------------------+----------------------------------+---------------------------------------------+-----------------+++
+    ->
+    -> SELECT employee_name, salary FROM employees;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '+++
+
+SELECT employee_name, salary FROM employees' at line 1
+mysql> SELECT employee_name, salary FROM employees;
++---------------+----------+
+| employee_name | salary   |
++---------------+----------+
+| Aayush        | 35000.00 |
+| Komal         | 42000.00 |
+| Rahul         | 55000.00 |
+| Priya         | 48000.00 |
+| Amit          | 65000.00 |
+| Neha          | 38000.00 |
+| Rohit         | 60000.00 |
+| Sneha         | 52000.00 |
+| Vikas         | 75000.00 |
+| Pooja         | 32000.00 |
+| Karan         | 68000.00 |
+| Anjali        | 50000.00 |
+| Mohit         | 80000.00 |
+| Riya          | 44000.00 |
+| Deepak        | 62000.00 |
++---------------+----------+
+15 rows in set (0.00 sec)
+
+
+mysql> desc employees
+    -> ;
++----------------------+------------------------------------+------+-----+-------------------+-----------------------------------------------+
+| Field                | Type                               | Null | Key | Default           | Extra                                         |
++----------------------+------------------------------------+------+-----+-------------------+-----------------------------------------------+
+| employee_id          | int                                | NO   | PRI | NULL              | auto_increment                                |
+| employee_code        | char(10)                           | YES  |     | NULL              |                                               |
+| employee_name        | varchar(20)                        | YES  |     | NULL              |                                               |
+| age                  | int                                | YES  |     | NULL              |                                               |
+| number_of_children   | int                                | YES  |     | NULL              |                                               |
+| experience_months    | int                                | YES  |     | NULL              |                                               |
+| salary               | decimal(7,2)                       | YES  |     | NULL              |                                               |
+| performance_score    | decimal(7,2)                       | YES  |     | NULL              |                                               |
+| productivity_score   | decimal(7,2)                       | YES  |     | NULL              |                                               |
+| department_id        | int                                | YES  |     | NULL              |                                               |
+| employee_status      | enum('active','inactive')          | YES  |     | NULL              |                                               |
+| skills               | set('java','python','sql','react') | YES  |     | NULL              |                                               |
+| gender               | enum('male','female')              | YES  |     | NULL              |                                               |
+| date_of_birth        | date                               | YES  |     | NULL              |                                               |
+| joining_date         | date                               | YES  |     | NULL              |                                               |
+| login_time           | time                               | YES  |     | NULL              |                                               |
+| interview_datetime   | datetime                           | YES  |     | NULL              |                                               |
+| birth_year           | year                               | YES  |     | NULL              |                                               |
+| is_active            | tinyint(1)                         | YES  |     | NULL              |                                               |
+| short_note           | tinytext                           | YES  |     | NULL              |                                               |
+| employee_description | text                               | YES  |     | NULL              |                                               |
+| training_history     | text                               | YES  |     | NULL              |                                               |
+| employee_profile     | longtext                           | YES  |     | NULL              |                                               |
+| created_at           | datetime                           | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED                             |
+| updated_at           | timestamp                          | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED on update CURRENT_TIMESTAMP |
++----------------------+------------------------------------+------+-----+-------------------+-----------------------------------------------+
+25 rows in set (0.01 sec)
+
+mysql> INSERT INTO employees (
+    ->     employee_code,
+    ->     employee_name,
+    ->     age,
+    ->     number_of_children,
+    ->     experience_months,
+    ->     salary,
+    ->     performance_score,
+    ->     productivity_score,
+    ->     department_id,
+    ->     employee_status,
+    ->     skills,
+    ->     gender,
+    ->     date_of_birth,
+    ->     joining_date,
+    ->     login_time,
+    ->     interview_datetime,
+    ->     birth_year,
+    ->     is_active,
+    ->     short_note,
+    ->     employee_description,
+    ->     training_history,
+    ->     employee_profile
+    -> )
+    -> VALUES (
+    ->     'EMP0000016',
+    ->     'Ayan',
+    ->     29,
+    ->     1,
+    ->     98,
+    ->     86894.00,
+    ->     45.00,
+    ->     89.00,
+    ->     104,
+    ->     'active',
+    ->     'java,sql',
+    ->     'male',
+    ->     '1997-08-16',
+    ->     '2021-01-10',
+    ->     '09:00:00',
+    ->     '2021-01-02 11:00:00',
+    ->     1997,
+    ->     TRUE,
+    ->     'Problem solver',
+    ->     'Full stack developer',
+    ->     'Full stack training',
+    ->     'Ayan develops web applications.'
+    -> );
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select employee_code,employee_name,created_at,updated_at from employees;
++---------------+---------------+---------------------+---------------------+
+| employee_code | employee_name | created_at          | updated_at          |
++---------------+---------------+---------------------+---------------------+
+| EMP0000001    | Aayush        | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000002    | Komal         | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000003    | Rahul         | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000004    | Priya         | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000005    | Amit          | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000006    | Neha          | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000007    | Rohit         | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000008    | Sneha         | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000009    | Vikas         | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000010    | Pooja         | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000011    | Karan         | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000012    | Anjali        | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000013    | Mohit         | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000014    | Riya          | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000015    | Deepak        | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000016    | Ayan          | 2026-10-14 23:47:50 | 2026-10-14 23:47:50 |
++---------------+---------------+---------------------+---------------------+
+16 rows in set (0.00 sec)
+
+mysql> update employees set name="komal vishwakarma" where id=16;
+ERROR 1054 (42S22): Unknown column 'id' in 'where clause'
+mysql> update employees set name="komal vishwakarma" where employee_id=16;
+ERROR 1054 (42S22): Unknown column 'name' in 'field list'
+mysql> update employees set employee_name="komal vishwakarma" where employee_id=16;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select employee_code,employee_name,created_at,updated_at from employees;
++---------------+-------------------+---------------------+---------------------+
+| employee_code | employee_name     | created_at          | updated_at          |
++---------------+-------------------+---------------------+---------------------+
+| EMP0000001    | Aayush            | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000002    | Komal             | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000003    | Rahul             | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000004    | Priya             | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000005    | Amit              | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000006    | Neha              | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000007    | Rohit             | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000008    | Sneha             | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000009    | Vikas             | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000010    | Pooja             | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000011    | Karan             | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000012    | Anjali            | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000013    | Mohit             | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000014    | Riya              | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000015    | Deepak            | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000016    | komal vishwakarma | 2026-10-14 23:47:50 | 2026-10-14 23:50:13 |
++---------------+-------------------+---------------------+---------------------+
+16 rows in set (0.00 sec)
+
+mysql> select employee_code,employee_name,created_at,updated_at from employees;
++---------------+-------------------+---------------------+---------------------+
+| employee_code | employee_name     | created_at          | updated_at          |
++---------------+-------------------+---------------------+---------------------+
+| EMP0000001    | Aayush            | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000002    | Komal             | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000003    | Rahul             | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000004    | Priya             | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000005    | Amit              | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000006    | Neha              | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000007    | Rohit             | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000008    | Sneha             | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000009    | Vikas             | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000010    | Pooja             | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000011    | Karan             | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000012    | Anjali            | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000013    | Mohit             | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000014    | Riya              | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000015    | Deepak            | 2026-10-14 23:19:51 | 2026-10-14 23:19:51 |
+| EMP0000016    | komal vishwakarma | 2026-10-14 23:47:50 | 2026-10-14 23:50:13 |
++---------------+-------------------+---------------------+---------------------+
+16 rows in set (0.00 sec)
+
+mysql> alter table employees add column phone_number;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> alter table employees add column phone_number varchar(10);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table employees add column email varchar(15);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table employees modify employee_name varchar(60);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employees;
++----------------------+------------------------------------+------+-----+-------------------+-----------------------------------------------+
+| Field                | Type                               | Null | Key | Default           | Extra                                         |
++----------------------+------------------------------------+------+-----+-------------------+-----------------------------------------------+
+| employee_id          | int                                | NO   | PRI | NULL              | auto_increment                                |
+| employee_code        | char(10)                           | YES  |     | NULL              |                                               |
+| employee_name        | varchar(60)                        | YES  |     | NULL              |                                               |
+| age                  | int                                | YES  |     | NULL              |                                               |
+| number_of_children   | int                                | YES  |     | NULL              |                                               |
+| experience_months    | int                                | YES  |     | NULL              |                                               |
+| salary               | decimal(7,2)                       | YES  |     | NULL              |                                               |
+| performance_score    | decimal(7,2)                       | YES  |     | NULL              |                                               |
+| productivity_score   | decimal(7,2)                       | YES  |     | NULL              |                                               |
+| department_id        | int                                | YES  |     | NULL              |                                               |
+| employee_status      | enum('active','inactive')          | YES  |     | NULL              |                                               |
+| skills               | set('java','python','sql','react') | YES  |     | NULL              |                                               |
+| gender               | enum('male','female')              | YES  |     | NULL              |                                               |
+| date_of_birth        | date                               | YES  |     | NULL              |                                               |
+| joining_date         | date                               | YES  |     | NULL              |                                               |
+| login_time           | time                               | YES  |     | NULL              |                                               |
+| interview_datetime   | datetime                           | YES  |     | NULL              |                                               |
+| birth_year           | year                               | YES  |     | NULL              |                                               |
+| is_active            | tinyint(1)                         | YES  |     | NULL              |                                               |
+| short_note           | tinytext                           | YES  |     | NULL              |                                               |
+| employee_description | text                               | YES  |     | NULL              |                                               |
+| training_history     | text                               | YES  |     | NULL              |                                               |
+| employee_profile     | longtext                           | YES  |     | NULL              |                                               |
+| created_at           | datetime                           | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED                             |
+| updated_at           | timestamp                          | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED on update CURRENT_TIMESTAMP |
+| phone_number         | varchar(10)                        | YES  |     | NULL              |                                               |
+| email                | varchar(15)                        | YES  |     | NULL              |                                               |
++----------------------+------------------------------------+------+-----+-------------------+-----------------------------------------------+
+27 rows in set (0.00 sec)
+
+mysql> alter table employees modify employee_code varchar(12);
+Query OK, 16 rows affected (0.10 sec)
+Records: 16  Duplicates: 0  Warnings: 0
+
+mysql> alter table employees rename short_note to employee_note;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'to employee_note' at line 1
+mysql> alter table employees rename column short_note to employee_note;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> drop cloumn email,phone_number;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'cloumn email,phone_number' at line 1
+mysql> alter table employees drop  cloumn email,drop cloumn phone_number;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'email,drop cloumn phone_number' at line 1
+mysql> ALTER TABLE employees
+    -> DROP COLUMN email,
+    -> DROP COLUMN phone_number;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>

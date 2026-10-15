@@ -1,0 +1,13 @@
+QNO  5: TRUNCATE Table
+Task:
+
+Truncate all data from students table
+
+
+mysql> truncate table students;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> select * from students;
+Empty set (0.00 sec)
+
+mysql>

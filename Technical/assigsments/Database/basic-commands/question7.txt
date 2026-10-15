@@ -1,0 +1,62 @@
+QNO  7: Create and Insert into products Table
+Columns:
+
+product_id INT
+
+product_name VARCHAR(100)
+
+category VARCHAR(50)
+
+price DECIMAL(7,2)
+
+stock_quantity INT
+
+supplier_name VARCHAR(100)
+
+manufacture_date DATE
+
+expiry_date DATE
+
+Task:
+
+Insert 6 products (some with expiry dates, some without)
+
+
+mysql> INSERT INTO products
+    -> (product_id, product_name, category, price, stock_quantity,
+    ->  supplier_name, manufacture_date, expiry_date)
+    -> VALUES
+    -> (1, 'Milk', 'Dairy', 60.00, 50, 'Amul',
+    ->  '2026-09-01', '2026-10-01'),
+    ->
+    -> (2, 'Laptop', 'Electronics', 55000.00, 10, 'HP India',
+    ->  '2026-01-15', NULL),
+    ->
+    -> (3, 'Bread', 'Bakery', 40.00, 30, 'Britannia',
+    ->  '2026-10-10', '2026-10-20'),
+    ->
+    -> (4, 'Notebook', 'Stationery', 80.00, 100, 'Classmate',
+    ->  '2026-05-10', NULL),
+    ->
+    -> (5, 'Shampoo', 'Personal Care', 180.00, 25, 'Dove',
+    ->  '2026-06-01', '2028-05-31'),
+    ->
+    -> (6, 'Keyboard', 'Electronics', 750.00, 20, 'Logitech',
+    ->  '2026-03-15', NULL);
+Query OK, 6 rows affected (0.01 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> select * from products;
++------------+--------------+---------------+----------+----------------+---------------+------------------+-------------+
+| product_id | product_name | category      | price    | stock_quantity | supplier_name | manufacture_date | expiry_date |
++------------+--------------+---------------+----------+----------------+---------------+------------------+-------------+
+|          1 | Milk         | Dairy         |    60.00 |             50 | Amul          | 2026-09-01       | 2026-10-01  |
+|          2 | Laptop       | Electronics   | 55000.00 |             10 | HP India      | 2026-01-15       | NULL        |
+|          3 | Bread        | Bakery        |    40.00 |             30 | Britannia     | 2026-10-10       | 2026-10-20  |
+|          4 | Notebook     | Stationery    |    80.00 |            100 | Classmate     | 2026-05-10       | NULL        |
+|          5 | Shampoo      | Personal Care |   180.00 |             25 | Dove          | 2026-06-01       | 2028-05-31  |
+|          6 | Keyboard     | Electronics   |   750.00 |             20 | Logitech      | 2026-03-15       | NULL        |
++------------+--------------+---------------+----------+----------------+---------------+------------------+-------------+
+6 rows in set (0.00 sec)
+
+mysql>
