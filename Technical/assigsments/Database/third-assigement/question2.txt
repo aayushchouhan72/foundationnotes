@@ -1,0 +1,388 @@
+
+Assignment 2 — Product Management System
+Table: products
+
+Create a products table with:
+
+Product ID
+Product Name
+Category
+Brand
+City
+Price
+Stock
+Rating
+Manufacturing Date
+Data Requirements
+
+Insert at least 8 products.
+
+Your data should include:
+
+Categories: Electronics, Furniture, Clothing, Grocery
+At least 5 different brands
+Cities: Indore, Bhopal, Pune, Mumbai, Delhi
+Price: ₹500 to ₹1,00,000
+Stock: 0 to 100
+Rating: 1 to 5
+Manufacturing dates from 2021 to 2026
+Some products with the same category
+Some products with the same brand
+Some similar prices
+Some products with zero stock
+
+mysql> create table product(p_id int primary key AUTO_INCREMENT,p_name varchar(50),p_cat varchar(50),p_brand varchar(30),p_price decimal(7,2),p_stock int,p_rating decimal(2,1),p_manufacdate Date);
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> desc product
+    -> ;
++---------------+--------------+------+-----+---------+----------------+
+| Field         | Type         | Null | Key | Default | Extra          |
++---------------+--------------+------+-----+---------+----------------+
+| p_id          | int          | NO   | PRI | NULL    | auto_increment |
+| p_name        | varchar(50)  | YES  |     | NULL    |                |
+| p_cat         | varchar(50)  | YES  |     | NULL    |                |
+| p_brand       | varchar(30)  | YES  |     | NULL    |                |
+| p_price       | decimal(7,2) | YES  |     | NULL    |                |
+| p_stock       | int          | YES  |     | NULL    |                |
+| p_rating      | decimal(2,1) | YES  |     | NULL    |                |
+| p_manufacdate | date         | YES  |     | NULL    |                |
++---------------+--------------+------+-----+---------+----------------+
+8 rows in set (0.04 sec)
+
+mysql>
+mysql> INSERT INTO product
+    -> (p_name, p_cat, p_brand, p_city, p_price, p_stock, p_rating, p_manufacdate)
+    -> VALUES
+    -> ('Laptop', 'Electronics', 'HP', 'Indore', 55000.00, 25, 4.5, '2024-03-15'),
+    -> ('Smartphone', 'Electronics', 'Samsung', 'Bhopal', 25000.00, 40, 4.3, '2025-01-20'),
+    -> ('Headphones', 'Electronics', 'Sony', 'Pune', 2500.00, 60, 4.2, '2023-06-10'),
+    -> ('Office Chair', 'Furniture', 'Godrej', 'Mumbai', 5500.00, 15, 4.1, '2022-08-12'),
+    -> ('Dining Table', 'Furniture', 'IKEA', 'Delhi', 18000.00, 8, 4.4, '2024-11-05'),
+    -> ('T-Shirt', 'Clothing', 'Puma', 'Indore', 800.00, 50, 4.0, '2025-04-18'),
+    -> ('Jeans', 'Clothing', 'Levis', 'Bhopal', 1800.00, 35, 4.3, '2023-09-25'),
+    -> ('Rice Bag', 'Grocery', 'India Gate', 'Pune', 1200.00, 0, 4.5, '2024-02-14'),
+    -> ('Cooking Oil', 'Grocery', 'Fortune', 'Mumbai', 500.00, 70, 3.9, '2026-01-10'),
+    -> ('Smart TV', 'Electronics', 'Samsung', 'Delhi', 45000.00, 12, 4.6, '2025-07-22'),
+    -> ('Bluetooth Speaker', 'Electronics', 'Sony', 'Indore', 2500.00, 0, 4.1, '2022-12-01'),
+    -> ('Sofa Set', 'Furniture', 'Godrej', 'Bhopal', 35000.00, 5, 4.7, '2023-05-16'),
+    -> ('Jacket', 'Clothing', 'Puma', 'Pune', 3000.00, 20, 4.2, '2026-02-08'),
+    -> ('Wheat Flour', 'Grocery', 'Aashirvaad', 'Mumbai', 500.00, 100, 4.4, '2025-10-30'),
+    -> ('Gaming Laptop', 'Electronics', 'HP', 'Delhi', 100000.00, 10, 4.8, '2026-06-15');
+Query OK, 15 rows affected (0.01 sec)
+Records: 15  Duplicates: 0  Warnings: 0
+
+mysql> select * from product
+    -> ;
++------+-------------------+-------------+------------+-----------+---------+----------+---------------+--------+
+| p_id | p_name            | p_cat       | p_brand    | p_price   | p_stock | p_rating | p_manufacdate | p_city |
++------+-------------------+-------------+------------+-----------+---------+----------+---------------+--------+
+|   16 | Laptop            | Electronics | HP         |  55000.00 |      25 |      4.5 | 2024-03-15    | Indore |
+|   17 | Smartphone        | Electronics | Samsung    |  25000.00 |      40 |      4.3 | 2025-01-20    | Bhopal |
+|   18 | Headphones        | Electronics | Sony       |   2500.00 |      60 |      4.2 | 2023-06-10    | Pune   |
+|   19 | Office Chair      | Furniture   | Godrej     |   5500.00 |      15 |      4.1 | 2022-08-12    | Mumbai |
+|   20 | Dining Table      | Furniture   | IKEA       |  18000.00 |       8 |      4.4 | 2024-11-05    | Delhi  |
+|   21 | T-Shirt           | Clothing    | Puma       |    800.00 |      50 |      4.0 | 2025-04-18    | Indore |
+|   22 | Jeans             | Clothing    | Levis      |   1800.00 |      35 |      4.3 | 2023-09-25    | Bhopal |
+|   23 | Rice Bag          | Grocery     | India Gate |   1200.00 |       0 |      4.5 | 2024-02-14    | Pune   |
+|   24 | Cooking Oil       | Grocery     | Fortune    |    500.00 |      70 |      3.9 | 2026-01-10    | Mumbai |
+|   25 | Smart TV          | Electronics | Samsung    |  45000.00 |      12 |      4.6 | 2025-07-22    | Delhi  |
+|   26 | Bluetooth Speaker | Electronics | Sony       |   2500.00 |       0 |      4.1 | 2022-12-01    | Indore |
+|   27 | Sofa Set          | Furniture   | Godrej     |  35000.00 |       5 |      4.7 | 2023-05-16    | Bhopal |
+|   28 | Jacket            | Clothing    | Puma       |   3000.00 |      20 |      4.2 | 2026-02-08    | Pune   |
+|   29 | Wheat Flour       | Grocery     | Aashirvaad |    500.00 |     100 |      4.4 | 2025-10-30    | Mumbai |
+|   30 | Gaming Laptop     | Electronics | HP         | 100000.00 |      10 |      4.8 | 2026-06-15    | Delhi  |
++------+-------------------+-------------+------------+-----------+---------+----------+---------------+--------+
+15 rows in set (0.00 sec)
+
+
+SQL Queries
+1. Find products whose price is greater than ₹30,000 AND rating is at least 4, but exclude products from Mumbai.
+
+mysql> select * from product where p_price>30000 and p_rating>=4 and p_city!='Mumbai';
++------+---------------+-------------+---------+-----------+---------+----------+---------------+--------+
+| p_id | p_name        | p_cat       | p_brand | p_price   | p_stock | p_rating | p_manufacdate | p_city |
++------+---------------+-------------+---------+-----------+---------+----------+---------------+--------+
+|   16 | Laptop        | Electronics | HP      |  55000.00 |      25 |      4.5 | 2024-03-15    | Indore |
+|   25 | Smart TV      | Electronics | Samsung |  45000.00 |      12 |      4.6 | 2025-07-22    | Delhi  |
+|   27 | Sofa Set      | Furniture   | Godrej  |  35000.00 |       5 |      4.7 | 2023-05-16    | Bhopal |
+|   30 | Gaming Laptop | Electronics | HP      | 100000.00 |      10 |      4.8 | 2026-06-15    | Delhi  |
++------+---------------+-------------+---------+-----------+---------+----------+---------------+--------+
+4 rows in set (0.00 sec)
+
+2. Find products whose stock is less than 20 OR price is greater than ₹75,000, and whose category is not Grocery.
+
+mysql> select * from product where p_stock<20 and p_price>=75000 and p_cat!='Grocery';
++------+---------------+-------------+---------+-----------+---------+----------+---------------+--------+
+| p_id | p_name        | p_cat       | p_brand | p_price   | p_stock | p_rating | p_manufacdate | p_city |
++------+---------------+-------------+---------+-----------+---------+----------+---------------+--------+
+|   30 | Gaming Laptop | Electronics | HP      | 100000.00 |      10 |      4.8 | 2026-06-15    | Delhi  |
++------+---------------+-------------+---------+-----------+---------+----------+---------------+--------+
+1 row in set (0.00 sec)
+
+mysql>
+3. Find products whose price is between ₹15,000 and ₹60,000 AND rating is between 3 and 5, and which were manufactured after 2022.
+
+mysql> select * from product where p_price between 15000 and 60000 and p_rating between 3 and 5 and P_manufacdate>'2022-01-01';
++------+--------------+-------------+---------+----------+---------+----------+---------------+--------+
+| p_id | p_name       | p_cat       | p_brand | p_price  | p_stock | p_rating | p_manufacdate | p_city |
++------+--------------+-------------+---------+----------+---------+----------+---------------+--------+
+|   16 | Laptop       | Electronics | HP      | 55000.00 |      25 |      4.5 | 2024-03-15    | Indore |
+|   17 | Smartphone   | Electronics | Samsung | 25000.00 |      40 |      4.3 | 2025-01-20    | Bhopal |
+|   20 | Dining Table | Furniture   | IKEA    | 18000.00 |       8 |      4.4 | 2024-11-05    | Delhi  |
+|   25 | Smart TV     | Electronics | Samsung | 45000.00 |      12 |      4.6 | 2025-07-22    | Delhi  |
+|   27 | Sofa Set     | Furniture   | Godrej  | 35000.00 |       5 |      4.7 | 2023-05-16    | Bhopal |
++------+--------------+-------------+---------+----------+---------+----------+---------------+--------+
+5 rows in set (0.01 sec)
+
+4. Find products from Indore, Pune, or Delhi whose price is greater than ₹20,000 AND stock is not 0.
+
+mysql> select * from product where p_city in ('Indore','Pune','Delhi') and p_price >20000 and p_stock!=0;
++------+---------------+-------------+---------+-----------+---------+----------+---------------+--------+
+| p_id | p_name        | p_cat       | p_brand | p_price   | p_stock | p_rating | p_manufacdate | p_city |
++------+---------------+-------------+---------+-----------+---------+----------+---------------+--------+
+|   16 | Laptop        | Electronics | HP      |  55000.00 |      25 |      4.5 | 2024-03-15    | Indore |
+|   25 | Smart TV      | Electronics | Samsung |  45000.00 |      12 |      4.6 | 2025-07-22    | Delhi  |
+|   30 | Gaming Laptop | Electronics | HP      | 100000.00 |      10 |      4.8 | 2026-06-15    | Delhi  |
++------+---------------+-------------+---------+-----------+---------+----------+---------------+--------+
+3 rows in set (0.00 sec)
+
+mysql>
+
+
+5. Find products belonging to Electronics or Furniture using IN.
+
+mysql> select * from product where p_cat = 'Electronics' or p_cat='Furniture';
++------+-------------------+-------------+---------+-----------+---------+----------+---------------+--------+
+| p_id | p_name            | p_cat       | p_brand | p_price   | p_stock | p_rating | p_manufacdate | p_city |
++------+-------------------+-------------+---------+-----------+---------+----------+---------------+--------+
+|   16 | Laptop            | Electronics | HP      |  55000.00 |      25 |      4.5 | 2024-03-15    | Indore |
+|   17 | Smartphone        | Electronics | Samsung |  25000.00 |      40 |      4.3 | 2025-01-20    | Bhopal |
+|   18 | Headphones        | Electronics | Sony    |   2500.00 |      60 |      4.2 | 2023-06-10    | Pune   |
+|   19 | Office Chair      | Furniture   | Godrej  |   5500.00 |      15 |      4.1 | 2022-08-12    | Mumbai |
+|   20 | Dining Table      | Furniture   | IKEA    |  18000.00 |       8 |      4.4 | 2024-11-05    | Delhi  |
+|   25 | Smart TV          | Electronics | Samsung |  45000.00 |      12 |      4.6 | 2025-07-22    | Delhi  |
+|   26 | Bluetooth Speaker | Electronics | Sony    |   2500.00 |       0 |      4.1 | 2022-12-01    | Indore |
+|   27 | Sofa Set          | Furniture   | Godrej  |  35000.00 |       5 |      4.7 | 2023-05-16    | Bhopal |
+|   30 | Gaming Laptop     | Electronics | HP      | 100000.00 |      10 |      4.8 | 2026-06-15    | Delhi  |
++------+-------------------+-------------+---------+-----------+---------+----------+---------------+--------+
+9 rows in set (0.00 sec)
+
+
+6. Find products belonging to Electronics, Clothing, or Grocery using IN.
+
+mysql> select * from product where p_cat = 'Electronics' or p_cat='Clothing' or p_cat='Grocery';
++------+-------------------+-------------+------------+-----------+---------+----------+---------------+--------+
+| p_id | p_name            | p_cat       | p_brand    | p_price   | p_stock | p_rating | p_manufacdate | p_city |
++------+-------------------+-------------+------------+-----------+---------+----------+---------------+--------+
+|   16 | Laptop            | Electronics | HP         |  55000.00 |      25 |      4.5 | 2024-03-15    | Indore |
+|   17 | Smartphone        | Electronics | Samsung    |  25000.00 |      40 |      4.3 | 2025-01-20    | Bhopal |
+|   18 | Headphones        | Electronics | Sony       |   2500.00 |      60 |      4.2 | 2023-06-10    | Pune   |
+|   21 | T-Shirt           | Clothing    | Puma       |    800.00 |      50 |      4.0 | 2025-04-18    | Indore |
+|   22 | Jeans             | Clothing    | Levis      |   1800.00 |      35 |      4.3 | 2023-09-25    | Bhopal |
+|   23 | Rice Bag          | Grocery     | India Gate |   1200.00 |       0 |      4.5 | 2024-02-14    | Pune   |
+|   24 | Cooking Oil       | Grocery     | Fortune    |    500.00 |      70 |      3.9 | 2026-01-10    | Mumbai |
+|   25 | Smart TV          | Electronics | Samsung    |  45000.00 |      12 |      4.6 | 2025-07-22    | Delhi  |
+|   26 | Bluetooth Speaker | Electronics | Sony       |   2500.00 |       0 |      4.1 | 2022-12-01    | Indore |
+|   28 | Jacket            | Clothing    | Puma       |   3000.00 |      20 |      4.2 | 2026-02-08    | Pune   |
+|   29 | Wheat Flour       | Grocery     | Aashirvaad |    500.00 |     100 |      4.4 | 2025-10-30    | Mumbai |
+|   30 | Gaming Laptop     | Electronics | HP         | 100000.00 |      10 |      4.8 | 2026-06-15    | Delhi  |
++------+-------------------+-------------+------------+-----------+---------+----------+---------------+--------+
+12 rows in set (0.00 sec)
+
+
+7. Find products that are not from Indore or Bhopal using NOT IN.
+
+mysql> select * from product where p_city = 'Indore' or p_city='Bhopal';
++------+-------------------+-------------+---------+----------+---------+----------+---------------+--------+
+| p_id | p_name            | p_cat       | p_brand | p_price  | p_stock | p_rating | p_manufacdate | p_city |
++------+-------------------+-------------+---------+----------+---------+----------+---------------+--------+
+|   16 | Laptop            | Electronics | HP      | 55000.00 |      25 |      4.5 | 2024-03-15    | Indore |
+|   17 | Smartphone        | Electronics | Samsung | 25000.00 |      40 |      4.3 | 2025-01-20    | Bhopal |
+|   21 | T-Shirt           | Clothing    | Puma    |   800.00 |      50 |      4.0 | 2025-04-18    | Indore |
+|   22 | Jeans             | Clothing    | Levis   |  1800.00 |      35 |      4.3 | 2023-09-25    | Bhopal |
+|   26 | Bluetooth Speaker | Electronics | Sony    |  2500.00 |       0 |      4.1 | 2022-12-01    | Indore |
+|   27 | Sofa Set          | Furniture   | Godrej  | 35000.00 |       5 |      4.7 | 2023-05-16    | Bhopal |
++------+-------------------+-------------+---------+----------+---------+----------+---------------+--------+
+6 rows in set (0.00 sec)
+
+
+8. Find products whose brand is not Samsung, LG, or Sony.
+
+
+
+mysql> select * from product where p_brand not in ('Samsung','Lg','sony');
++------+---------------+-------------+------------+-----------+---------+----------+---------------+--------+
+| p_id | p_name        | p_cat       | p_brand    | p_price   | p_stock | p_rating | p_manufacdate | p_city |
++------+---------------+-------------+------------+-----------+---------+----------+---------------+--------+
+|   16 | Laptop        | Electronics | HP         |  55000.00 |      25 |      4.5 | 2024-03-15    | Indore |
+|   19 | Office Chair  | Furniture   | Godrej     |   5500.00 |      15 |      4.1 | 2022-08-12    | Mumbai |
+|   20 | Dining Table  | Furniture   | IKEA       |  18000.00 |       8 |      4.4 | 2024-11-05    | Delhi  |
+|   21 | T-Shirt       | Clothing    | Puma       |    800.00 |      50 |      4.0 | 2025-04-18    | Indore |
+|   22 | Jeans         | Clothing    | Levis      |   1800.00 |      35 |      4.3 | 2023-09-25    | Bhopal |
+|   23 | Rice Bag      | Grocery     | India Gate |   1200.00 |       0 |      4.5 | 2024-02-14    | Pune   |
+|   24 | Cooking Oil   | Grocery     | Fortune    |    500.00 |      70 |      3.9 | 2026-01-10    | Mumbai |
+|   27 | Sofa Set      | Furniture   | Godrej     |  35000.00 |       5 |      4.7 | 2023-05-16    | Bhopal |
+|   28 | Jacket        | Clothing    | Puma       |   3000.00 |      20 |      4.2 | 2026-02-08    | Pune   |
+|   29 | Wheat Flour   | Grocery     | Aashirvaad |    500.00 |     100 |      4.4 | 2025-10-30    | Mumbai |
+|   30 | Gaming Laptop | Electronics | HP         | 100000.00 |      10 |      4.8 | 2026-06-15    | Delhi  |
++------+---------------+-------------+------------+-----------+---------+----------+---------------+--------+
+11 rows in set (0.00 sec)
+9. Find products whose price is between ₹10,000 and ₹50,000.
+
+mysql> select * from product where p_price between 10000 and 50000;
++------+--------------+-------------+---------+----------+---------+----------+---------------+--------+
+| p_id | p_name       | p_cat       | p_brand | p_price  | p_stock | p_rating | p_manufacdate | p_city |
++------+--------------+-------------+---------+----------+---------+----------+---------------+--------+
+|   17 | Smartphone   | Electronics | Samsung | 25000.00 |      40 |      4.3 | 2025-01-20    | Bhopal |
+|   20 | Dining Table | Furniture   | IKEA    | 18000.00 |       8 |      4.4 | 2024-11-05    | Delhi  |
+|   25 | Smart TV     | Electronics | Samsung | 45000.00 |      12 |      4.6 | 2025-07-22    | Delhi  |
+|   27 | Sofa Set     | Furniture   | Godrej  | 35000.00 |       5 |      4.7 | 2023-05-16    | Bhopal |
++------+--------------+-------------+---------+----------+---------+----------+---------------+--------+
+4 rows in set (0.00 sec)
+
+
+10. Find products whose stock is between 20 and 60.
+
+mysql> select * from product where p_stock between 10 and 60;
++------+---------------+-------------+---------+-----------+---------+----------+---------------+--------+
+| p_id | p_name        | p_cat       | p_brand | p_price   | p_stock | p_rating | p_manufacdate | p_city |
++------+---------------+-------------+---------+-----------+---------+----------+---------------+--------+
+|   16 | Laptop        | Electronics | HP      |  55000.00 |      25 |      4.5 | 2024-03-15    | Indore |
+|   17 | Smartphone    | Electronics | Samsung |  25000.00 |      40 |      4.3 | 2025-01-20    | Bhopal |
+|   18 | Headphones    | Electronics | Sony    |   2500.00 |      60 |      4.2 | 2023-06-10    | Pune   |
+|   19 | Office Chair  | Furniture   | Godrej  |   5500.00 |      15 |      4.1 | 2022-08-12    | Mumbai |
+|   21 | T-Shirt       | Clothing    | Puma    |    800.00 |      50 |      4.0 | 2025-04-18    | Indore |
+|   22 | Jeans         | Clothing    | Levis   |   1800.00 |      35 |      4.3 | 2023-09-25    | Bhopal |
+|   25 | Smart TV      | Electronics | Samsung |  45000.00 |      12 |      4.6 | 2025-07-22    | Delhi  |
+|   28 | Jacket        | Clothing    | Puma    |   3000.00 |      20 |      4.2 | 2026-02-08    | Pune   |
+|   30 | Gaming Laptop | Electronics | HP      | 100000.00 |      10 |      4.8 | 2026-06-15    | Delhi  |
++------+---------------+-------------+---------+-----------+---------+----------+---------------+--------+
+9 rows in set (0.00 sec)
+11. Find products whose rating is between 3 and 5, and whose price is greater than ₹20,000.
+
+
+mysql> select * from product where p_rating between 3 and 5 and p_price>20000;
++------+---------------+-------------+---------+-----------+---------+----------+---------------+--------+
+| p_id | p_name        | p_cat       | p_brand | p_price   | p_stock | p_rating | p_manufacdate | p_city |
++------+---------------+-------------+---------+-----------+---------+----------+---------------+--------+
+|   16 | Laptop        | Electronics | HP      |  55000.00 |      25 |      4.5 | 2024-03-15    | Indore |
+|   17 | Smartphone    | Electronics | Samsung |  25000.00 |      40 |      4.3 | 2025-01-20    | Bhopal |
+|   25 | Smart TV      | Electronics | Samsung |  45000.00 |      12 |      4.6 | 2025-07-22    | Delhi  |
+|   27 | Sofa Set      | Furniture   | Godrej  |  35000.00 |       5 |      4.7 | 2023-05-16    | Bhopal |
+|   30 | Gaming Laptop | Electronics | HP      | 100000.00 |      10 |      4.8 | 2026-06-15    | Delhi  |
++------+---------------+-------------+---------+-----------+---------+----------+---------------+--------+
+5 rows in set (0.00 sec)
+
+12. Find products manufactured between 2023 and 2025, whose category is Electronics or Furniture.
+mysql> select * from product where p_manufacdate between '2023-01-01' and '2025-12-31' and p_cat in ('Electronics','Furniture');
++------+--------------+-------------+---------+----------+---------+----------+---------------+--------+
+| p_id | p_name       | p_cat       | p_brand | p_price  | p_stock | p_rating | p_manufacdate | p_city |
++------+--------------+-------------+---------+----------+---------+----------+---------------+--------+
+|   16 | Laptop       | Electronics | HP      | 55000.00 |      25 |      4.5 | 2024-03-15    | Indore |
+|   17 | Smartphone   | Electronics | Samsung | 25000.00 |      40 |      4.3 | 2025-01-20    | Bhopal |
+|   18 | Headphones   | Electronics | Sony    |  2500.00 |      60 |      4.2 | 2023-06-10    | Pune   |
+|   20 | Dining Table | Furniture   | IKEA    | 18000.00 |       8 |      4.4 | 2024-11-05    | Delhi  |
+|   25 | Smart TV     | Electronics | Samsung | 45000.00 |      12 |      4.6 | 2025-07-22    | Delhi  |
+|   27 | Sofa Set     | Furniture   | Godrej  | 35000.00 |       5 |      4.7 | 2023-05-16    | Bhopal |
++------+--------------+-------------+---------+----------+---------+----------+---------------+--------+
+6 rows in set (0.00 sec)
+
+13. Find products whose name starts with S.
+
+mysql> select * from product where p_name like "s%";
++------+------------+-------------+---------+----------+---------+----------+---------------+--------+
+| p_id | p_name     | p_cat       | p_brand | p_price  | p_stock | p_rating | p_manufacdate | p_city |
++------+------------+-------------+---------+----------+---------+----------+---------------+--------+
+|   17 | Smartphone | Electronics | Samsung | 25000.00 |      40 |      4.3 | 2025-01-20    | Bhopal |
+|   25 | Smart TV   | Electronics | Samsung | 45000.00 |      12 |      4.6 | 2025-07-22    | Delhi  |
+|   27 | Sofa Set   | Furniture   | Godrej  | 35000.00 |       5 |      4.7 | 2023-05-16    | Bhopal |
++------+------------+-------------+---------+----------+---------+----------+---------------+--------+
+3 rows in set (0.00 sec)
+
+14. Find products whose name contains phone anywhere.
+
+mysql> select * from product where p_name like "%phone%";
++------+------------+-------------+---------+----------+---------+----------+---------------+--------+
+| p_id | p_name     | p_cat       | p_brand | p_price  | p_stock | p_rating | p_manufacdate | p_city |
++------+------------+-------------+---------+----------+---------+----------+---------------+--------+
+|   17 | Smartphone | Electronics | Samsung | 25000.00 |      40 |      4.3 | 2025-01-20    | Bhopal |
+|   18 | Headphones | Electronics | Sony    |  2500.00 |      60 |      4.2 | 2023-06-10    | Pune   |
++------+------------+-------------+---------+----------+---------+----------+---------------+--------+
+2 rows in set (0.00 sec)
+
+mysql>
+15. Find products whose brand ends with a.
+mysql> select * from product where p_name like "%a";
+Empty set (0.00 sec)
+
+16. Find products from Indore or Pune, whose price is between ₹20,000 and ₹70,000, and whose rating is at least 4.
+
+mysql> select * from product where p_city in ('Indore','pune') and p_price between 20000 and 70000 and p_rating>=4;
++------+--------+-------------+---------+----------+---------+----------+---------------+--------+
+| p_id | p_name | p_cat       | p_brand | p_price  | p_stock | p_rating | p_manufacdate | p_city |
++------+--------+-------------+---------+----------+---------+----------+---------------+--------+
+|   16 | Laptop | Electronics | HP      | 55000.00 |      25 |      4.5 | 2024-03-15    | Indore |
++------+--------+-------------+---------+----------+---------+----------+---------------+--------+
+1 row in set (0.00 sec)
+
+
+17. Find products belonging to Electronics or Furniture, whose stock is greater than 10, whose price is less than ₹60,000, and whose manufacturing date is after 2022.
+
+mysql> select * from product where p_cat in ('Electronics','Furniture') and p_stock > 10 and p_price <60000 and P_manufacdate>'2022-12-31';
++------+------------+-------------+---------+----------+---------+----------+---------------+--------+
+| p_id | p_name     | p_cat       | p_brand | p_price  | p_stock | p_rating | p_manufacdate | p_city |
++------+------------+-------------+---------+----------+---------+----------+---------------+--------+
+|   16 | Laptop     | Electronics | HP      | 55000.00 |      25 |      4.5 | 2024-03-15    | Indore |
+|   17 | Smartphone | Electronics | Samsung | 25000.00 |      40 |      4.3 | 2025-01-20    | Bhopal |
+|   18 | Headphones | Electronics | Sony    |  2500.00 |      60 |      4.2 | 2023-06-10    | Pune   |
+|   25 | Smart TV   | Electronics | Samsung | 45000.00 |      12 |      4.6 | 2025-07-22    | Delhi  |
++------+------------+-------------+---------+----------+---------+----------+---------------+--------+
+4 rows in set (0.00 sec)
+18. Find products whose name contains the letter a, whose price is NOT between ₹10,000 and ₹50,000, and whose stock is greater than 5.
+
+mysql> select * from product where p_name like "%a%" and p_price not between 10000 and 50000 and p_stock>5;
++------+---------------+-------------+------------+-----------+---------+----------+---------------+--------+
+| p_id | p_name        | p_cat       | p_brand    | p_price   | p_stock | p_rating | p_manufacdate | p_city |
++------+---------------+-------------+------------+-----------+---------+----------+---------------+--------+
+|   16 | Laptop        | Electronics | HP         |  55000.00 |      25 |      4.5 | 2024-03-15    | Indore |
+|   18 | Headphones    | Electronics | Sony       |   2500.00 |      60 |      4.2 | 2023-06-10    | Pune   |
+|   19 | Office Chair  | Furniture   | Godrej     |   5500.00 |      15 |      4.1 | 2022-08-12    | Mumbai |
+|   22 | Jeans         | Clothing    | Levis      |   1800.00 |      35 |      4.3 | 2023-09-25    | Bhopal |
+|   28 | Jacket        | Clothing    | Puma       |   3000.00 |      20 |      4.2 | 2026-02-08    | Pune   |
+|   29 | Wheat Flour   | Grocery     | Aashirvaad |    500.00 |     100 |      4.4 | 2025-10-30    | Mumbai |
+|   30 | Gaming Laptop | Electronics | HP         | 100000.00 |      10 |      4.8 | 2026-06-15    | Delhi  |
++------+---------------+-------------+------------+-----------+---------+----------+---------------+--------+
+7 rows in set (0.00 sec)
+
+
+
+19. Find products manufactured between 2022 and 2025, belonging to Electronics, Clothing, or Furniture, having a rating greater than 3, and whose city is not Mumbai.
+
+
+mysql> select * from product where p_cat in ('Electronics','Furniture','Clothing') and p_manufacdate  between '2022-01-01' and '2025-12-31' and p_rating>3 and p_city!='Mumbai';
++------+-------------------+-------------+---------+----------+---------+----------+---------------+--------+
+| p_id | p_name            | p_cat       | p_brand | p_price  | p_stock | p_rating | p_manufacdate | p_city |
++------+-------------------+-------------+---------+----------+---------+----------+---------------+--------+
+|   16 | Laptop            | Electronics | HP      | 55000.00 |      25 |      4.5 | 2024-03-15    | Indore |
+|   17 | Smartphone        | Electronics | Samsung | 25000.00 |      40 |      4.3 | 2025-01-20    | Bhopal |
+|   18 | Headphones        | Electronics | Sony    |  2500.00 |      60 |      4.2 | 2023-06-10    | Pune   |
+|   20 | Dining Table      | Furniture   | IKEA    | 18000.00 |       8 |      4.4 | 2024-11-05    | Delhi  |
+|   21 | T-Shirt           | Clothing    | Puma    |   800.00 |      50 |      4.0 | 2025-04-18    | Indore |
+|   22 | Jeans             | Clothing    | Levis   |  1800.00 |      35 |      4.3 | 2023-09-25    | Bhopal |
+|   25 | Smart TV          | Electronics | Samsung | 45000.00 |      12 |      4.6 | 2025-07-22    | Delhi  |
+|   26 | Bluetooth Speaker | Electronics | Sony    |  2500.00 |       0 |      4.1 | 2022-12-01    | Indore |
+|   27 | Sofa Set          | Furniture   | Godrej  | 35000.00 |       5 |      4.7 | 2023-05-16    | Bhopal |
++------+-------------------+-------------+---------+----------+---------+----------+---------------+--------+
+9 rows in set (0.00 sec)
+
+20. Find products whose name starts with S or M, whose city is not Indore or Mumbai, whose price is between ₹15,000 and ₹80,000, whose rating is at least 4, and whose manufacturing date is after 2023.
+
+mysql> select * from product where (p_name like "m%" or p_name like "s%") and p_city not in ("Indore",'mumbai') and p_price between 15000 and 80000 and p_rating>=4 and p_manufacdate>'2023-01-01';
++------+------------+-------------+---------+----------+---------+----------+---------------+--------+
+| p_id | p_name     | p_cat       | p_brand | p_price  | p_stock | p_rating | p_manufacdate | p_city |
++------+------------+-------------+---------+----------+---------+----------+---------------+--------+
+|   17 | Smartphone | Electronics | Samsung | 25000.00 |      40 |      4.3 | 2025-01-20    | Bhopal |
+|   25 | Smart TV   | Electronics | Samsung | 45000.00 |      12 |      4.6 | 2025-07-22    | Delhi  |
+|   27 | Sofa Set   | Furniture   | Godrej  | 35000.00 |       5 |      4.7 | 2023-05-16    | Bhopal |
++------+------------+-------------+---------+----------+---------+----------+---------------+--------+

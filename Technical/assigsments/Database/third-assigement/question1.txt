@@ -1,0 +1,572 @@
+Assignment 1— Employee Management System
+
+
+You are developing an Employee Management System for a company.
+
+Create an employees table with the following information:
+
+Employee ID
+Employee Name
+Department
+City
+Salary
+Experience in years
+Age
+Joining Date
+Sample Data
+
+Insert at least 15 employees with different values.
+
+Your data must include:
+
+At least 4 different departments — IT, HR, Finance, Sales
+At least 5 different cities — Indore, Bhopal, Pune, Mumbai, Bangalore
+Salaries ranging from ₹30,000 to ₹1,00,000
+Experience ranging from 1 to 10 years
+Age ranging from 22 to 40 years
+Joining dates from 2020 to 2026
+Some employees should have the same department
+Some employees should have the same city
+Some employees should have similar salaries
+Include employees who joined in different years
+
+
+
+
+
+Write SQL queries to find:
+=============================
+
+Employees whose salary is greater than ₹60,000.
+Employees whose salary is less than ₹50,000.
+Employees whose age is greater than 30.
+Employees whose experience is greater than or equal to 5 years.
+Employees working in IT or Finance.
+Employees working in IT, HR, or Sales.
+Employees not working in IT or HR.
+Employees from Indore or Pune.
+Employees who are not from Indore, Mumbai, or Bhopal.
+Employees whose salary is between ₹40,000 and ₹70,000.
+Employees whose age is between 25 and 35.
+Employees whose experience is between 3 and 7 years.
+Employees who joined between 2022 and 2025.
+Employees who joined before 2023.
+Employees who joined after 2024.
+Employees from Indore AND working in IT.
+Employees working in IT AND having salary greater than ₹70,000.
+Employees whose salary is between ₹50,000 and ₹90,000 AND experience is greater than 4 years.
+Employees working in IT or Finance AND salary greater than ₹60,000.
+Employees whose joining date is between 2021 and 2024 AND salary is greater than ₹50,000.
+Employees whose salary is not between ₹40,000 and ₹70,000.
+Employees whose department is not IT, HR, or Sales.
+Employees whose joining date is not between 2022 and 2025.
+Employees from Indore or Pune, whose salary is between ₹45,000 and ₹80,000, and whose experience is more than 3 years.
+Employees who did not join between 2020 and 2023 and whose salary is greater than ₹60,000.
+Find employees who are from Indore, Pune, or Bangalore, whose salary is between ₹50,000 and ₹90,000, and whose experience is at least 4 years.
+Find employees who are not from Bhopal or Mumbai, are not working in HR, and joined between 2021 and 2025.
+Find employees working in IT or Finance, whose salary is greater than ₹60,000, whose age is between 25 and 35, and who joined after 2022.
+Find employees whose salary is NOT between ₹40,000 and ₹75,000, whose experience is between 2 and 8 years, and who are not working in Sales.
+Find employees who are from Indore or Pune, working in IT, Finance, or HR, with salary between ₹45,000 and ₹85,000, and who joined between 2020 and 2024.
+
+mysql> create table empdata(emp_id int primary key AUTO_INCREMENT,emp_name varchar(50),emp_dep  varchar(20),emp_city  varchar(20),emp_salary decimal(10,2),emp_age int ,emp_join_data date, emp_sample_data date,CHECK (emp_age>=0))
+    -> ;
+Query OK, 0 rows affected (0.14 sec)
+
+
+mysql> desc empdata;
++-----------------+---------------+------+-----+---------+----------------+
+| Field           | Type          | Null | Key | Default | Extra          |
++-----------------+---------------+------+-----+---------+----------------+
+| emp_id          | int           | NO   | PRI | NULL    | auto_increment |
+| emp_name        | varchar(50)   | YES  |     | NULL    |                |
+| emp_dep         | varchar(20)   | YES  |     | NULL    |                |
+| emp_city        | varchar(20)   | YES  |     | NULL    |                |
+| emp_salary      | decimal(10,2) | YES  |     | NULL    |                |
+| emp_age         | int           | YES  |     | NULL    |                |
+| emp_join_data   | date          | YES  |     | NULL    |                |
+| emp_sample_data | date          | YES  |     | NULL    |                |
+| emp_experience  | int           | YES  |     | NULL    |                |
++-----------------+---------------+------+-----+---------+----------------+
+9 rows in set (0.00 sec)
+
+
+mysql> INSERT INTO empdata
+    -> (emp_name, emp_dep, emp_city, emp_salary, emp_age,
+    ->  emp_join_data, emp_sample_data, emp_experience)
+    -> VALUES
+    -> ('Aarav Sharma',   'IT',      'Indore',    75000.00, 25, '2022-06-15', '2026-01-01', 3),
+    -> ('Priya Verma',    'HR',      'Bhopal',    45000.00, 28, '2021-03-10', '2026-01-01', 5),
+    -> ('Rahul Patel',    'Finance', 'Pune',      65000.00, 30, '2020-08-20', '2026-01-01', 6),
+    -> ('Sneha Gupta',    'Sales',   'Mumbai',    55000.00, 24, '2024-01-12', '2026-01-01', 2),
+    -> ('Vikram Singh',   'IT',      'Bangalore', 90000.00, 32, '2022-11-05', '2026-01-01', 8),
+    -> ('Ananya Jain',    'HR',      'Indore',    48000.00, 26, '2023-07-18', '2026-01-01', 3),
+    -> ('Rohit Yadav',    'Finance', 'Bhopal',    70000.00, 35, '2020-02-14', '2026-01-01', 10),
+    -> ('Kavya Mishra',   'Sales',   'Pune',      60000.00, 27, '2022-09-01', '2026-01-01', 4),
+    -> ('Aditya Joshi',   'IT',      'Mumbai',   100000.00, 40, '2021-04-25', '2026-01-01', 10),
+    -> ('Neha Thakur',    'HR',      'Bangalore', 42000.00, 23, '2025-02-10', '2026-01-01', 1),
+    -> ('Karan Mehta',    'Finance', 'Indore',    65000.00, 31, '2021-12-08', '2026-01-01', 7),
+    -> ('Pooja Soni',     'Sales',   'Bhopal',    58000.00, 29, '2023-05-22', '2026-01-01', 5),
+    -> ('Manish Dubey',   'IT',      'Pune',      85000.00, 36, '2024-07-30', '2026-01-01', 9),
+    -> ('Riya Kapoor',    'Finance', 'Mumbai',    30000.00, 22, '2026-01-15', '2026-01-01', 1),
+    -> ('Deepak Rathore', 'Sales',   'Bangalore', 75000.00, 34, '2024-10-11', '2026-01-01', 6);;
+Query OK, 15 rows affected (0.01 sec)
+Records: 15  Duplicates: 0  Warnings: 0
+
+
+
+Employees whose salary is greater than ₹60,000.
+mysql> select * from empdata where emp_salary>60000;
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+| emp_id | emp_name       | emp_dep | emp_city  | emp_salary | emp_age | emp_join_data | emp_sample_data | emp_experience |
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+|      1 | Aarav Sharma   | IT      | Indore    |   75000.00 |      25 | 2022-06-15    | 2026-01-01      |              3 |
+|      3 | Rahul Patel    | Finance | Pune      |   65000.00 |      30 | 2020-08-20    | 2026-01-01      |              6 |
+|      5 | Vikram Singh   | IT      | Bangalore |   90000.00 |      32 | 2022-11-05    | 2026-01-01      |              8 |
+|      7 | Rohit Yadav    | Finance | Bhopal    |   70000.00 |      35 | 2020-02-14    | 2026-01-01      |             10 |
+|      9 | Aditya Joshi   | IT      | Mumbai    |  100000.00 |      40 | 2021-04-25    | 2026-01-01      |             10 |
+|     11 | Karan Mehta    | Finance | Indore    |   65000.00 |      31 | 2021-12-08    | 2026-01-01      |              7 |
+|     13 | Manish Dubey   | IT      | Pune      |   85000.00 |      36 | 2024-07-30    | 2026-01-01      |              9 |
+|     15 | Deepak Rathore | Sales   | Bangalore |   75000.00 |      34 | 2024-10-11    | 2026-01-01      |              6 |
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+8 rows in set (0.01 sec)
+
+Employees whose salary is less than ₹50,000.
+
+
+mysql> select * from empdata where emp_salary<50000;
++--------+-------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+| emp_id | emp_name    | emp_dep | emp_city  | emp_salary | emp_age | emp_join_data | emp_sample_data | emp_experience |
++--------+-------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+|      2 | Priya Verma | HR      | Bhopal    |   45000.00 |      28 | 2021-03-10    | 2026-01-01      |              5 |
+|      6 | Ananya Jain | HR      | Indore    |   48000.00 |      26 | 2023-07-18    | 2026-01-01      |              3 |
+|     10 | Neha Thakur | HR      | Bangalore |   42000.00 |      23 | 2025-02-10    | 2026-01-01      |              1 |
+|     14 | Riya Kapoor | Finance | Mumbai    |   30000.00 |      22 | 2026-01-15    | 2026-01-01      |              1 |
++--------+-------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+4 rows in set (0.00 sec)
+
+Employees whose age is greater than 30.
+
+mysql> select * from empdata where emp_age>30;
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+| emp_id | emp_name       | emp_dep | emp_city  | emp_salary | emp_age | emp_join_data | emp_sample_data | emp_experience |
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+|      5 | Vikram Singh   | IT      | Bangalore |   90000.00 |      32 | 2022-11-05    | 2026-01-01      |              8 |
+|      7 | Rohit Yadav    | Finance | Bhopal    |   70000.00 |      35 | 2020-02-14    | 2026-01-01      |             10 |
+|      9 | Aditya Joshi   | IT      | Mumbai    |  100000.00 |      40 | 2021-04-25    | 2026-01-01      |             10 |
+|     11 | Karan Mehta    | Finance | Indore    |   65000.00 |      31 | 2021-12-08    | 2026-01-01      |              7 |
+|     13 | Manish Dubey   | IT      | Pune      |   85000.00 |      36 | 2024-07-30    | 2026-01-01      |              9 |
+|     15 | Deepak Rathore | Sales   | Bangalore |   75000.00 |      34 | 2024-10-11    | 2026-01-01      |              6 |
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+6 rows in set (0.00 sec)
+
+mysql>
+
+Employees whose experience is greater than or equal to 5 years.
+mysql> select * from empdata where emp_experience>=5;
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+| emp_id | emp_name       | emp_dep | emp_city  | emp_salary | emp_age | emp_join_data | emp_sample_data | emp_experience |
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+|      2 | Priya Verma    | HR      | Bhopal    |   45000.00 |      28 | 2021-03-10    | 2026-01-01      |              5 |
+|      3 | Rahul Patel    | Finance | Pune      |   65000.00 |      30 | 2020-08-20    | 2026-01-01      |              6 |
+|      5 | Vikram Singh   | IT      | Bangalore |   90000.00 |      32 | 2022-11-05    | 2026-01-01      |              8 |
+|      7 | Rohit Yadav    | Finance | Bhopal    |   70000.00 |      35 | 2020-02-14    | 2026-01-01      |             10 |
+|      9 | Aditya Joshi   | IT      | Mumbai    |  100000.00 |      40 | 2021-04-25    | 2026-01-01      |             10 |
+|     11 | Karan Mehta    | Finance | Indore    |   65000.00 |      31 | 2021-12-08    | 2026-01-01      |              7 |
+|     12 | Pooja Soni     | Sales   | Bhopal    |   58000.00 |      29 | 2023-05-22    | 2026-01-01      |              5 |
+|     13 | Manish Dubey   | IT      | Pune      |   85000.00 |      36 | 2024-07-30    | 2026-01-01      |              9 |
+|     15 | Deepak Rathore | Sales   | Bangalore |   75000.00 |      34 | 2024-10-11    | 2026-01-01      |              6 |
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+9 rows in set (0.00 sec)
+
+mysql>
+
+
+Employees working in IT or Finance.
+mysql> select * from empdata where emp_dep in ('IT' ,'Finance');
++--------+--------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+| emp_id | emp_name     | emp_dep | emp_city  | emp_salary | emp_age | emp_join_data | emp_sample_data | emp_experience |
++--------+--------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+|      1 | Aarav Sharma | IT      | Indore    |   75000.00 |      25 | 2022-06-15    | 2026-01-01      |              3 |
+|      3 | Rahul Patel  | Finance | Pune      |   65000.00 |      30 | 2020-08-20    | 2026-01-01      |              6 |
+|      5 | Vikram Singh | IT      | Bangalore |   90000.00 |      32 | 2022-11-05    | 2026-01-01      |              8 |
+|      7 | Rohit Yadav  | Finance | Bhopal    |   70000.00 |      35 | 2020-02-14    | 2026-01-01      |             10 |
+|      9 | Aditya Joshi | IT      | Mumbai    |  100000.00 |      40 | 2021-04-25    | 2026-01-01      |             10 |
+|     11 | Karan Mehta  | Finance | Indore    |   65000.00 |      31 | 2021-12-08    | 2026-01-01      |              7 |
+|     13 | Manish Dubey | IT      | Pune      |   85000.00 |      36 | 2024-07-30    | 2026-01-01      |              9 |
+|     14 | Riya Kapoor  | Finance | Mumbai    |   30000.00 |      22 | 2026-01-15    | 2026-01-01      |              1 |
++--------+--------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+8 rows in set (0.00 sec)
+
+Employees working in IT, HR, or Sales.
+
+mysql> select * from empdata where emp_dep in ('IT' ,'Finance','Sales');
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+| emp_id | emp_name       | emp_dep | emp_city  | emp_salary | emp_age | emp_join_data | emp_sample_data | emp_experience |
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+|      1 | Aarav Sharma   | IT      | Indore    |   75000.00 |      25 | 2022-06-15    | 2026-01-01      |              3 |
+|      3 | Rahul Patel    | Finance | Pune      |   65000.00 |      30 | 2020-08-20    | 2026-01-01      |              6 |
+|      4 | Sneha Gupta    | Sales   | Mumbai    |   55000.00 |      24 | 2024-01-12    | 2026-01-01      |              2 |
+|      5 | Vikram Singh   | IT      | Bangalore |   90000.00 |      32 | 2022-11-05    | 2026-01-01      |              8 |
+|      7 | Rohit Yadav    | Finance | Bhopal    |   70000.00 |      35 | 2020-02-14    | 2026-01-01      |             10 |
+|      8 | Kavya Mishra   | Sales   | Pune      |   60000.00 |      27 | 2022-09-01    | 2026-01-01      |              4 |
+|      9 | Aditya Joshi   | IT      | Mumbai    |  100000.00 |      40 | 2021-04-25    | 2026-01-01      |             10 |
+|     11 | Karan Mehta    | Finance | Indore    |   65000.00 |      31 | 2021-12-08    | 2026-01-01      |              7 |
+|     12 | Pooja Soni     | Sales   | Bhopal    |   58000.00 |      29 | 2023-05-22    | 2026-01-01      |              5 |
+|     13 | Manish Dubey   | IT      | Pune      |   85000.00 |      36 | 2024-07-30    | 2026-01-01      |              9 |
+|     14 | Riya Kapoor    | Finance | Mumbai    |   30000.00 |      22 | 2026-01-15    | 2026-01-01      |              1 |
+|     15 | Deepak Rathore | Sales   | Bangalore |   75000.00 |      34 | 2024-10-11    | 2026-01-01      |              6 |
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+12 rows in set (0.00 sec)
+
+Employees not working in IT or HR.
+mysql> select * from empdata where emp_dep not in ('IT' ,'HR');
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+| emp_id | emp_name       | emp_dep | emp_city  | emp_salary | emp_age | emp_join_data | emp_sample_data | emp_experience |
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+|      3 | Rahul Patel    | Finance | Pune      |   65000.00 |      30 | 2020-08-20    | 2026-01-01      |              6 |
+|      4 | Sneha Gupta    | Sales   | Mumbai    |   55000.00 |      24 | 2024-01-12    | 2026-01-01      |              2 |
+|      7 | Rohit Yadav    | Finance | Bhopal    |   70000.00 |      35 | 2020-02-14    | 2026-01-01      |             10 |
+|      8 | Kavya Mishra   | Sales   | Pune      |   60000.00 |      27 | 2022-09-01    | 2026-01-01      |              4 |
+|     11 | Karan Mehta    | Finance | Indore    |   65000.00 |      31 | 2021-12-08    | 2026-01-01      |              7 |
+|     12 | Pooja Soni     | Sales   | Bhopal    |   58000.00 |      29 | 2023-05-22    | 2026-01-01      |              5 |
+|     14 | Riya Kapoor    | Finance | Mumbai    |   30000.00 |      22 | 2026-01-15    | 2026-01-01      |              1 |
+|     15 | Deepak Rathore | Sales   | Bangalore |   75000.00 |      34 | 2024-10-11    | 2026-01-01      |              6 |
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+8 rows in set (0.00 sec)
+
+
+
+Employees from Indore or Pune.
+
+mysql> select * from empdata where emp_city  in ('Indore' ,'Pune');
++--------+--------------+---------+----------+------------+---------+---------------+-----------------+----------------+
+| emp_id | emp_name     | emp_dep | emp_city | emp_salary | emp_age | emp_join_data | emp_sample_data | emp_experience |
++--------+--------------+---------+----------+------------+---------+---------------+-----------------+----------------+
+|      1 | Aarav Sharma | IT      | Indore   |   75000.00 |      25 | 2022-06-15    | 2026-01-01      |              3 |
+|      3 | Rahul Patel  | Finance | Pune     |   65000.00 |      30 | 2020-08-20    | 2026-01-01      |              6 |
+|      6 | Ananya Jain  | HR      | Indore   |   48000.00 |      26 | 2023-07-18    | 2026-01-01      |              3 |
+|      8 | Kavya Mishra | Sales   | Pune     |   60000.00 |      27 | 2022-09-01    | 2026-01-01      |              4 |
+|     11 | Karan Mehta  | Finance | Indore   |   65000.00 |      31 | 2021-12-08    | 2026-01-01      |              7 |
+|     13 | Manish Dubey | IT      | Pune     |   85000.00 |      36 | 2024-07-30    | 2026-01-01      |              9 |
++--------+--------------+---------+----------+------------+---------+---------------+-----------------+----------------+
+6 rows in set (0.00 sec)
+
+
+Employees who are not from Indore, Mumbai, or Bhopal.
+
+mysql> select * from empdata where emp_city not in ('Indore' ,'Bhopal','Mumbai');
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+| emp_id | emp_name       | emp_dep | emp_city  | emp_salary | emp_age | emp_join_data | emp_sample_data | emp_experience |
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+|      3 | Rahul Patel    | Finance | Pune      |   65000.00 |      30 | 2020-08-20    | 2026-01-01      |              6 |
+|      5 | Vikram Singh   | IT      | Bangalore |   90000.00 |      32 | 2022-11-05    | 2026-01-01      |              8 |
+|      8 | Kavya Mishra   | Sales   | Pune      |   60000.00 |      27 | 2022-09-01    | 2026-01-01      |              4 |
+|     10 | Neha Thakur    | HR      | Bangalore |   42000.00 |      23 | 2025-02-10    | 2026-01-01      |              1 |
+|     13 | Manish Dubey   | IT      | Pune      |   85000.00 |      36 | 2024-07-30    | 2026-01-01      |              9 |
+|     15 | Deepak Rathore | Sales   | Bangalore |   75000.00 |      34 | 2024-10-11    | 2026-01-01      |              6 |
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+6 rows in set (0.00 sec)
+
+Employees whose salary is between ₹40,000 and ₹70,000.
+
+mysql> select * from empdata where emp_salary between 40000 and 70000;
++--------+--------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+| emp_id | emp_name     | emp_dep | emp_city  | emp_salary | emp_age | emp_join_data | emp_sample_data | emp_experience |
++--------+--------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+|      2 | Priya Verma  | HR      | Bhopal    |   45000.00 |      28 | 2021-03-10    | 2026-01-01      |              5 |
+|      3 | Rahul Patel  | Finance | Pune      |   65000.00 |      30 | 2020-08-20    | 2026-01-01      |              6 |
+|      4 | Sneha Gupta  | Sales   | Mumbai    |   55000.00 |      24 | 2024-01-12    | 2026-01-01      |              2 |
+|      6 | Ananya Jain  | HR      | Indore    |   48000.00 |      26 | 2023-07-18    | 2026-01-01      |              3 |
+|      7 | Rohit Yadav  | Finance | Bhopal    |   70000.00 |      35 | 2020-02-14    | 2026-01-01      |             10 |
+|      8 | Kavya Mishra | Sales   | Pune      |   60000.00 |      27 | 2022-09-01    | 2026-01-01      |              4 |
+|     10 | Neha Thakur  | HR      | Bangalore |   42000.00 |      23 | 2025-02-10    | 2026-01-01      |              1 |
+|     11 | Karan Mehta  | Finance | Indore    |   65000.00 |      31 | 2021-12-08    | 2026-01-01      |              7 |
+|     12 | Pooja Soni   | Sales   | Bhopal    |   58000.00 |      29 | 2023-05-22    | 2026-01-01      |              5 |
++--------+--------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+9 rows in set (0.00 sec)
+
+Employees whose age is between 25 and 35.
+
+mysql> select * from empdata where emp_age between 25 and 35;
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+| emp_id | emp_name       | emp_dep | emp_city  | emp_salary | emp_age | emp_join_data | emp_sample_data | emp_experience |
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+|      1 | Aarav Sharma   | IT      | Indore    |   75000.00 |      25 | 2022-06-15    | 2026-01-01      |              3 |
+|      2 | Priya Verma    | HR      | Bhopal    |   45000.00 |      28 | 2021-03-10    | 2026-01-01      |              5 |
+|      3 | Rahul Patel    | Finance | Pune      |   65000.00 |      30 | 2020-08-20    | 2026-01-01      |              6 |
+|      5 | Vikram Singh   | IT      | Bangalore |   90000.00 |      32 | 2022-11-05    | 2026-01-01      |              8 |
+|      6 | Ananya Jain    | HR      | Indore    |   48000.00 |      26 | 2023-07-18    | 2026-01-01      |              3 |
+|      7 | Rohit Yadav    | Finance | Bhopal    |   70000.00 |      35 | 2020-02-14    | 2026-01-01      |             10 |
+|      8 | Kavya Mishra   | Sales   | Pune      |   60000.00 |      27 | 2022-09-01    | 2026-01-01      |              4 |
+|     11 | Karan Mehta    | Finance | Indore    |   65000.00 |      31 | 2021-12-08    | 2026-01-01      |              7 |
+|     12 | Pooja Soni     | Sales   | Bhopal    |   58000.00 |      29 | 2023-05-22    | 2026-01-01      |              5 |
+|     15 | Deepak Rathore | Sales   | Bangalore |   75000.00 |      34 | 2024-10-11    | 2026-01-01      |              6 |
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+10 rows in set (0.00 sec)
+
+Employees whose experience is between 3 and 7 years.
+mysql> select * from empdata where emp_experience between 3 and 7;
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+| emp_id | emp_name       | emp_dep | emp_city  | emp_salary | emp_age | emp_join_data | emp_sample_data | emp_experience |
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+|      1 | Aarav Sharma   | IT      | Indore    |   75000.00 |      25 | 2022-06-15    | 2026-01-01      |              3 |
+|      2 | Priya Verma    | HR      | Bhopal    |   45000.00 |      28 | 2021-03-10    | 2026-01-01      |              5 |
+|      3 | Rahul Patel    | Finance | Pune      |   65000.00 |      30 | 2020-08-20    | 2026-01-01      |              6 |
+|      6 | Ananya Jain    | HR      | Indore    |   48000.00 |      26 | 2023-07-18    | 2026-01-01      |              3 |
+|      8 | Kavya Mishra   | Sales   | Pune      |   60000.00 |      27 | 2022-09-01    | 2026-01-01      |              4 |
+|     11 | Karan Mehta    | Finance | Indore    |   65000.00 |      31 | 2021-12-08    | 2026-01-01      |              7 |
+|     12 | Pooja Soni     | Sales   | Bhopal    |   58000.00 |      29 | 2023-05-22    | 2026-01-01      |              5 |
+|     15 | Deepak Rathore | Sales   | Bangalore |   75000.00 |      34 | 2024-10-11    | 2026-01-01      |              6 |
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+8 rows in set (0.00 sec)
+Employees who joined between 2022 and 2025.
+
+mysql> select * from empdata where emp_join_data between '2022-01-01' and '2025-12-31';
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+| emp_id | emp_name       | emp_dep | emp_city  | emp_salary | emp_age | emp_join_data | emp_sample_data | emp_experience |
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+|      1 | Aarav Sharma   | IT      | Indore    |   75000.00 |      25 | 2022-06-15    | 2026-01-01      |              3 |
+|      4 | Sneha Gupta    | Sales   | Mumbai    |   55000.00 |      24 | 2024-01-12    | 2026-01-01      |              2 |
+|      5 | Vikram Singh   | IT      | Bangalore |   90000.00 |      32 | 2022-11-05    | 2026-01-01      |              8 |
+|      6 | Ananya Jain    | HR      | Indore    |   48000.00 |      26 | 2023-07-18    | 2026-01-01      |              3 |
+|      8 | Kavya Mishra   | Sales   | Pune      |   60000.00 |      27 | 2022-09-01    | 2026-01-01      |              4 |
+|     10 | Neha Thakur    | HR      | Bangalore |   42000.00 |      23 | 2025-02-10    | 2026-01-01      |              1 |
+|     12 | Pooja Soni     | Sales   | Bhopal    |   58000.00 |      29 | 2023-05-22    | 2026-01-01      |              5 |
+|     13 | Manish Dubey   | IT      | Pune      |   85000.00 |      36 | 2024-07-30    | 2026-01-01      |              9 |
+|     15 | Deepak Rathore | Sales   | Bangalore |   75000.00 |      34 | 2024-10-11    | 2026-01-01      |              6 |
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+9 rows in set (0.00 sec)
+
+
+Employees who joined before 2023.
+
+mysql> select * from empdata where emp_join_data <'2023-01-01' ;
++--------+--------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+| emp_id | emp_name     | emp_dep | emp_city  | emp_salary | emp_age | emp_join_data | emp_sample_data | emp_experience |
++--------+--------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+|      1 | Aarav Sharma | IT      | Indore    |   75000.00 |      25 | 2022-06-15    | 2026-01-01      |              3 |
+|      2 | Priya Verma  | HR      | Bhopal    |   45000.00 |      28 | 2021-03-10    | 2026-01-01      |              5 |
+|      3 | Rahul Patel  | Finance | Pune      |   65000.00 |      30 | 2020-08-20    | 2026-01-01      |              6 |
+|      5 | Vikram Singh | IT      | Bangalore |   90000.00 |      32 | 2022-11-05    | 2026-01-01      |              8 |
+|      7 | Rohit Yadav  | Finance | Bhopal    |   70000.00 |      35 | 2020-02-14    | 2026-01-01      |             10 |
+|      8 | Kavya Mishra | Sales   | Pune      |   60000.00 |      27 | 2022-09-01    | 2026-01-01      |              4 |
+|      9 | Aditya Joshi | IT      | Mumbai    |  100000.00 |      40 | 2021-04-25    | 2026-01-01      |             10 |
+|     11 | Karan Mehta  | Finance | Indore    |   65000.00 |      31 | 2021-12-08    | 2026-01-01      |              7 |
++--------+--------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+8 rows in set (0.00 sec)
+
+mysql>
+Employees who joined after 2024.
+mysql> select * from empdata where emp_join_data >'2024-01-01' ;
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+| emp_id | emp_name       | emp_dep | emp_city  | emp_salary | emp_age | emp_join_data | emp_sample_data | emp_experience |
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+|      4 | Sneha Gupta    | Sales   | Mumbai    |   55000.00 |      24 | 2024-01-12    | 2026-01-01      |              2 |
+|     10 | Neha Thakur    | HR      | Bangalore |   42000.00 |      23 | 2025-02-10    | 2026-01-01      |              1 |
+|     13 | Manish Dubey   | IT      | Pune      |   85000.00 |      36 | 2024-07-30    | 2026-01-01      |              9 |
+|     14 | Riya Kapoor    | Finance | Mumbai    |   30000.00 |      22 | 2026-01-15    | 2026-01-01      |              1 |
+|     15 | Deepak Rathore | Sales   | Bangalore |   75000.00 |      34 | 2024-10-11    | 2026-01-01      |              6 |
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+5 rows in set (0.00 sec)
+
+
+Employees from Indore AND working in IT.
+mysql> select * from empdata where emp_dep ='IT' and emp_city='Indore' ;
++--------+--------------+---------+----------+------------+---------+---------------+-----------------+----------------+
+| emp_id | emp_name     | emp_dep | emp_city | emp_salary | emp_age | emp_join_data | emp_sample_data | emp_experience |
++--------+--------------+---------+----------+------------+---------+---------------+-----------------+----------------+
+|      1 | Aarav Sharma | IT      | Indore   |   75000.00 |      25 | 2022-06-15    | 2026-01-01      |              3 |
++--------+--------------+---------+----------+------------+---------+---------------+-----------------+----------------+
+1 row in set (0.00 sec)
+
+Employees working in IT AND having salary greater than ₹70,000.
+
+mysql> select * from empdata where emp_dep ='IT' and emp_salary>70000;
++--------+--------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+| emp_id | emp_name     | emp_dep | emp_city  | emp_salary | emp_age | emp_join_data | emp_sample_data | emp_experience |
++--------+--------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+|      1 | Aarav Sharma | IT      | Indore    |   75000.00 |      25 | 2022-06-15    | 2026-01-01      |              3 |
+|      5 | Vikram Singh | IT      | Bangalore |   90000.00 |      32 | 2022-11-05    | 2026-01-01      |              8 |
+|      9 | Aditya Joshi | IT      | Mumbai    |  100000.00 |      40 | 2021-04-25    | 2026-01-01      |             10 |
+|     13 | Manish Dubey | IT      | Pune      |   85000.00 |      36 | 2024-07-30    | 2026-01-01      |              9 |
++--------+--------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+4 rows in set (0.00 sec)
+
+Employees whose salary is between ₹50,000 and ₹90,000 AND experience is greater than 4 years.
+mysql> select * from empdata where  emp_experience >3 and emp_salary between 50000 and 90000
+    -> ;
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+| emp_id | emp_name       | emp_dep | emp_city  | emp_salary | emp_age | emp_join_data | emp_sample_data | emp_experience |
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+|      3 | Rahul Patel    | Finance | Pune      |   65000.00 |      30 | 2020-08-20    | 2026-01-01      |              6 |
+|      5 | Vikram Singh   | IT      | Bangalore |   90000.00 |      32 | 2022-11-05    | 2026-01-01      |              8 |
+|      7 | Rohit Yadav    | Finance | Bhopal    |   70000.00 |      35 | 2020-02-14    | 2026-01-01      |             10 |
+|      8 | Kavya Mishra   | Sales   | Pune      |   60000.00 |      27 | 2022-09-01    | 2026-01-01      |              4 |
+|     11 | Karan Mehta    | Finance | Indore    |   65000.00 |      31 | 2021-12-08    | 2026-01-01      |              7 |
+|     12 | Pooja Soni     | Sales   | Bhopal    |   58000.00 |      29 | 2023-05-22    | 2026-01-01      |              5 |
+|     13 | Manish Dubey   | IT      | Pune      |   85000.00 |      36 | 2024-07-30    | 2026-01-01      |              9 |
+|     15 | Deepak Rathore | Sales   | Bangalore |   75000.00 |      34 | 2024-10-11    | 2026-01-01      |              6 |
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+8 rows in set (0.00 sec)
+Employees working in IT or Finance AND salary greater than ₹60,000.
+
+mysql> select * from empdata where  emp_salary>60000 and emp_city in ('Indore','Pune');
++--------+--------------+---------+----------+------------+---------+---------------+-----------------+----------------+
+| emp_id | emp_name     | emp_dep | emp_city | emp_salary | emp_age | emp_join_data | emp_sample_data | emp_experience |
++--------+--------------+---------+----------+------------+---------+---------------+-----------------+----------------+
+|      1 | Aarav Sharma | IT      | Indore   |   75000.00 |      25 | 2022-06-15    | 2026-01-01      |              3 |
+|      3 | Rahul Patel  | Finance | Pune     |   65000.00 |      30 | 2020-08-20    | 2026-01-01      |              6 |
+|     11 | Karan Mehta  | Finance | Indore   |   65000.00 |      31 | 2021-12-08    | 2026-01-01      |              7 |
+|     13 | Manish Dubey | IT      | Pune     |   85000.00 |      36 | 2024-07-30    | 2026-01-01      |              9 |
++--------+--------------+---------+----------+------------+---------+---------------+-----------------+----------------+
+4 rows in set (0.01 sec)
+Employees whose joining date is between 2021 and 2024 AND salary is greater than ₹50,000.
+mysql> select * from empdata where  emp_join_data between '2021-01-01' and '2024-12-31'  and emp_salary>50000;
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+| emp_id | emp_name       | emp_dep | emp_city  | emp_salary | emp_age | emp_join_data | emp_sample_data | emp_experience |
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+|      1 | Aarav Sharma   | IT      | Indore    |   75000.00 |      25 | 2022-06-15    | 2026-01-01      |              3 |
+|      4 | Sneha Gupta    | Sales   | Mumbai    |   55000.00 |      24 | 2024-01-12    | 2026-01-01      |              2 |
+|      5 | Vikram Singh   | IT      | Bangalore |   90000.00 |      32 | 2022-11-05    | 2026-01-01      |              8 |
+|      8 | Kavya Mishra   | Sales   | Pune      |   60000.00 |      27 | 2022-09-01    | 2026-01-01      |              4 |
+|      9 | Aditya Joshi   | IT      | Mumbai    |  100000.00 |      40 | 2021-04-25    | 2026-01-01      |             10 |
+|     11 | Karan Mehta    | Finance | Indore    |   65000.00 |      31 | 2021-12-08    | 2026-01-01      |              7 |
+|     12 | Pooja Soni     | Sales   | Bhopal    |   58000.00 |      29 | 2023-05-22    | 2026-01-01      |              5 |
+|     13 | Manish Dubey   | IT      | Pune      |   85000.00 |      36 | 2024-07-30    | 2026-01-01      |              9 |
+|     15 | Deepak Rathore | Sales   | Bangalore |   75000.00 |      34 | 2024-10-11    | 2026-01-01      |              6 |
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+9 rows in set (0.00 sec)
+Employees whose salary is not between ₹40,000 and ₹70,000.
+mysql> select * from empdata where  emp_salary not between 40000 and 70000
+    -> ;
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+| emp_id | emp_name       | emp_dep | emp_city  | emp_salary | emp_age | emp_join_data | emp_sample_data | emp_experience |
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+|      1 | Aarav Sharma   | IT      | Indore    |   75000.00 |      25 | 2022-06-15    | 2026-01-01      |              3 |
+|      5 | Vikram Singh   | IT      | Bangalore |   90000.00 |      32 | 2022-11-05    | 2026-01-01      |              8 |
+|      9 | Aditya Joshi   | IT      | Mumbai    |  100000.00 |      40 | 2021-04-25    | 2026-01-01      |             10 |
+|     13 | Manish Dubey   | IT      | Pune      |   85000.00 |      36 | 2024-07-30    | 2026-01-01      |              9 |
+|     14 | Riya Kapoor    | Finance | Mumbai    |   30000.00 |      22 | 2026-01-15    | 2026-01-01      |              1 |
+|     15 | Deepak Rathore | Sales   | Bangalore |   75000.00 |      34 | 2024-10-11    | 2026-01-01      |              6 |
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+6 rows in set (0.00 sec)
+
+Employees whose department is not IT, HR, or Sales.
+mysql> select * from empdata where  emp_dep not in ('HR','IT','Sales');
++--------+-------------+---------+----------+------------+---------+---------------+-----------------+----------------+
+| emp_id | emp_name    | emp_dep | emp_city | emp_salary | emp_age | emp_join_data | emp_sample_data | emp_experience |
++--------+-------------+---------+----------+------------+---------+---------------+-----------------+----------------+
+|      3 | Rahul Patel | Finance | Pune     |   65000.00 |      30 | 2020-08-20    | 2026-01-01      |              6 |
+|      7 | Rohit Yadav | Finance | Bhopal   |   70000.00 |      35 | 2020-02-14    | 2026-01-01      |             10 |
+|     11 | Karan Mehta | Finance | Indore   |   65000.00 |      31 | 2021-12-08    | 2026-01-01      |              7 |
+|     14 | Riya Kapoor | Finance | Mumbai   |   30000.00 |      22 | 2026-01-15    | 2026-01-01      |              1 |
++--------+-------------+---------+----------+------------+---------+---------------+-----------------+----------------+
+4 rows in set (0.00 sec)
+
+
+Employees whose joining date is not between 2022 and 2025.
+
+mysql> select * from empdata where  emp_join_data not between '2022-01-01' and '2025-12-31'
+    -> ;
++--------+--------------+---------+----------+------------+---------+---------------+-----------------+----------------+
+| emp_id | emp_name     | emp_dep | emp_city | emp_salary | emp_age | emp_join_data | emp_sample_data | emp_experience |
++--------+--------------+---------+----------+------------+---------+---------------+-----------------+----------------+
+|      2 | Priya Verma  | HR      | Bhopal   |   45000.00 |      28 | 2021-03-10    | 2026-01-01      |              5 |
+|      3 | Rahul Patel  | Finance | Pune     |   65000.00 |      30 | 2020-08-20    | 2026-01-01      |              6 |
+|      7 | Rohit Yadav  | Finance | Bhopal   |   70000.00 |      35 | 2020-02-14    | 2026-01-01      |             10 |
+|      9 | Aditya Joshi | IT      | Mumbai   |  100000.00 |      40 | 2021-04-25    | 2026-01-01      |             10 |
+|     11 | Karan Mehta  | Finance | Indore   |   65000.00 |      31 | 2021-12-08    | 2026-01-01      |              7 |
+|     14 | Riya Kapoor  | Finance | Mumbai   |   30000.00 |      22 | 2026-01-15    | 2026-01-01      |              1 |
++--------+--------------+---------+----------+------------+---------+---------------+-----------------+----------------+
+6 rows in set (0.00 sec)
+Employees from Indore or Pune, whose salary is between ₹45,000 and ₹80,000, and whose experience is more than 3 years.
+mysql> select * from empdata where emp_city in ('Indore','Pune') and emp_salary between 45000 and 80000 and emp_experience>3;
++--------+--------------+---------+----------+------------+---------+---------------+-----------------+----------------+
+| emp_id | emp_name     | emp_dep | emp_city | emp_salary | emp_age | emp_join_data | emp_sample_data | emp_experience |
++--------+--------------+---------+----------+------------+---------+---------------+-----------------+----------------+
+|      3 | Rahul Patel  | Finance | Pune     |   65000.00 |      30 | 2020-08-20    | 2026-01-01      |              6 |
+|      8 | Kavya Mishra | Sales   | Pune     |   60000.00 |      27 | 2022-09-01    | 2026-01-01      |              4 |
+|     11 | Karan Mehta  | Finance | Indore   |   65000.00 |      31 | 2021-12-08    | 2026-01-01      |              7 |
++--------+--------------+---------+----------+------------+---------+---------------+-----------------+----------------+
+3 rows in set (0.00 sec)
+
+Employees who did not join between 2020 and 2023 and whose salary is greater than ₹60,000.
+
+mysql> select * from empdata where  emp_join_data not between '2020-01-01' and '2023-12-31' and emp_salary>60000;
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+| emp_id | emp_name       | emp_dep | emp_city  | emp_salary | emp_age | emp_join_data | emp_sample_data | emp_experience |
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+|     13 | Manish Dubey   | IT      | Pune      |   85000.00 |      36 | 2024-07-30    | 2026-01-01      |              9 |
+|     15 | Deepak Rathore | Sales   | Bangalore |   75000.00 |      34 | 2024-10-11    | 2026-01-01      |              6 |
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+2 rows in set (0.00 sec)
+
+Find employees who are from Indore, Pune, or Bangalore, whose salary is between ₹50,000 and ₹90,000, and whose experience is at least 4 years.
+
+mysql> select * from empdata where  emp_city in ('Indore','Pune','Bangalore') and emp_salary  between 50000 and 90000 and emp_experience>=4;
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+| emp_id | emp_name       | emp_dep | emp_city  | emp_salary | emp_age | emp_join_data | emp_sample_data | emp_experience |
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+|      3 | Rahul Patel    | Finance | Pune      |   65000.00 |      30 | 2020-08-20    | 2026-01-01      |              6 |
+|      5 | Vikram Singh   | IT      | Bangalore |   90000.00 |      32 | 2022-11-05    | 2026-01-01      |              8 |
+|      8 | Kavya Mishra   | Sales   | Pune      |   60000.00 |      27 | 2022-09-01    | 2026-01-01      |              4 |
+|     11 | Karan Mehta    | Finance | Indore    |   65000.00 |      31 | 2021-12-08    | 2026-01-01      |              7 |
+|     13 | Manish Dubey   | IT      | Pune      |   85000.00 |      36 | 2024-07-30    | 2026-01-01      |              9 |
+|     15 | Deepak Rathore | Sales   | Bangalore |   75000.00 |      34 | 2024-10-11    | 2026-01-01      |              6 |
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+6 rows in set (0.00 sec)
+
+mysql>
+Find employees who are not from Bhopal or Mumbai, are not working in HR, and joined between 2021 and 2025.
+mysql> select * from empdata where emp_city not in ('Bhopal','Mumbai') and emp_dep not in ('HR') and emp_join_data between '2021-01-01' and '2025-12-31';
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+| emp_id | emp_name       | emp_dep | emp_city  | emp_salary | emp_age | emp_join_data | emp_sample_data | emp_experience |
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+|      1 | Aarav Sharma   | IT      | Indore    |   75000.00 |      25 | 2022-06-15    | 2026-01-01      |              3 |
+|      5 | Vikram Singh   | IT      | Bangalore |   90000.00 |      32 | 2022-11-05    | 2026-01-01      |              8 |
+|      8 | Kavya Mishra   | Sales   | Pune      |   60000.00 |      27 | 2022-09-01    | 2026-01-01      |              4 |
+|     11 | Karan Mehta    | Finance | Indore    |   65000.00 |      31 | 2021-12-08    | 2026-01-01      |              7 |
+|     13 | Manish Dubey   | IT      | Pune      |   85000.00 |      36 | 2024-07-30    | 2026-01-01      |              9 |
+|     15 | Deepak Rathore | Sales   | Bangalore |   75000.00 |      34 | 2024-10-11    | 2026-01-01      |              6 |
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+6 rows in set (0.01 sec)
+
+mysql>
+
+Find employees working in IT or Finance, whose salary is greater than ₹60,000, whose age is between 25 and 35, and who joined after 2022.
+
+mysql> select * from empdata where emp_dep not in ('HR','Finance') and emp_salary>60000 and emp_age between 25 and 35 and emp_join_data>'2022-01-01';
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+| emp_id | emp_name       | emp_dep | emp_city  | emp_salary | emp_age | emp_join_data | emp_sample_data | emp_experience |
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+|      1 | Aarav Sharma   | IT      | Indore    |   75000.00 |      25 | 2022-06-15    | 2026-01-01      |              3 |
+|      5 | Vikram Singh   | IT      | Bangalore |   90000.00 |      32 | 2022-11-05    | 2026-01-01      |              8 |
+|     15 | Deepak Rathore | Sales   | Bangalore |   75000.00 |      34 | 2024-10-11    | 2026-01-01      |              6 |
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+3 rows in set (0.00 sec)
+
+mysql>
+Find employees whose salary is NOT between ₹40,000 and ₹75,000, whose experience is between 2 and 8 years, and who are not working in Sales.
+
+mysql> select * from empdata where emp_salary not in (40000,75000) and emp_experience between 2 and 8  and emp_dep!='Sales';
++--------+--------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+| emp_id | emp_name     | emp_dep | emp_city  | emp_salary | emp_age | emp_join_data | emp_sample_data | emp_experience |
++--------+--------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+|      2 | Priya Verma  | HR      | Bhopal    |   45000.00 |      28 | 2021-03-10    | 2026-01-01      |              5 |
+|      3 | Rahul Patel  | Finance | Pune      |   65000.00 |      30 | 2020-08-20    | 2026-01-01      |              6 |
+|      5 | Vikram Singh | IT      | Bangalore |   90000.00 |      32 | 2022-11-05    | 2026-01-01      |              8 |
+|      6 | Ananya Jain  | HR      | Indore    |   48000.00 |      26 | 2023-07-18    | 2026-01-01      |              3 |
+|     11 | Karan Mehta  | Finance | Indore    |   65000.00 |      31 | 2021-12-08    | 2026-01-01      |              7 |
++--------+--------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+5 rows in set (0.06 sec)
+Find employees who are from Indore or Pune, working in IT, Finance, or HR, with salary between ₹45,000 and ₹85,000, and who joined between 2020 and 2024.
+
+mysql> select * from empdata where emp_city not in ('Indore','Pune') and emp_dep not in ('IT','Finance','HR') and emp_salary between 45000 and 85000  and emp_join_data between '2020-01-01' and '2024-12-31';
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+| emp_id | emp_name       | emp_dep | emp_city  | emp_salary | emp_age | emp_join_data | emp_sample_data | emp_experience |
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+|      4 | Sneha Gupta    | Sales   | Mumbai    |   55000.00 |      24 | 2024-01-12    | 2026-01-01      |              2 |
+|     12 | Pooja Soni     | Sales   | Bhopal    |   58000.00 |      29 | 2023-05-22    | 2026-01-01      |              5 |
+|     15 | Deepak Rathore | Sales   | Bangalore |   75000.00 |      34 | 2024-10-11    | 2026-01-01      |              6 |
++--------+----------------+---------+-----------+------------+---------+---------------+-----------------+----------------+
+3 rows in set (0.00 sec)
