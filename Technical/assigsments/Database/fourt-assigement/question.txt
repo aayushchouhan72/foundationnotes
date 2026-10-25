@@ -1,0 +1,491 @@
+# Assignment 6 — Employee Management System
+
+**Use the `employees` table and sample data given below.**
+
+## Table Structure
+
+Create an `employees` table with the following columns:
+
+* `employee_id`
+* `employee_name`
+* `department`
+* `city`
+* `salary`
+* `joining_date`
+* `experience`
+* `age`
+* `gender`
+* `employment_type`
+* `skills`
+* `email`
+* `manager_id`
+
+### Data Type Requirements
+
+Use:
+
+* `ENUM` for `gender`
+* `ENUM` for `employment_type`
+* `SET` for `skills`
+* `DATE` for `joining_date`
+* `DATE` for any other date column if required
+* Allow appropriate columns such as `email` and `manager_id` to contain `NULL`
+
+Insert **at least 10 employees** with different values.
+
+Your data must include:
+
+* At least SOME different departments
+* At least SOME different cities
+* Some employees with `NULL` email
+* Some employees with `NULL` manager_id
+* Different employment types such as `FULL_TIME`, `PART_TIME`, `CONTRACT`, `INTERN`
+* Different combinations of skills using `SET`
+* Employees who joined before 2022
+* Employees who joined between 2022 and 2024
+* Employees who joined after 2024
+* Different salary ranges
+* Different experience levels
+* Both male and female employees
+
+---
+
+## Write SQL queries for the following questions:
+
+Find employees from IT, Finance, or HR who joined after '2023-01-01', have salary between ₹40,000 and ₹90,000, and have experience greater than 3 years.
+
+mysql> select * from emp1 where emp_dep in ('it','finance','hr') and emp_join_date>'2023-01-01' and emp_sal between 40000 and 90000 and emp_exp>3;
+Empty set (0.01 sec)
+
+Find employees whose email is NULL, salary is greater than ₹50,000, and joining date is after '2022-01-01'.
+
+mysql> select * from emp1 where emp_email is NULL and emp_sal > 50000 and emp_join_date >'2022-01-01';
+Empty set (0.01 sec)
+  
+Find employees whose manager_id is NOT NULL, department is not HR, and salary is either below ₹40,000 or above ₹80,000.
+
+
+
+mysql> select * from emp1 where (emp_man_id is not NULL) and (emp_dep !='hr' or emp_sal between 40000 and 80000);
++--------+----------------+------------+------------+----------+---------------+---------+---------+---------+-----------+-----------------------+------------------+------------+
+| emp_id | emp_name       | emp_dep    | emp_city   | emp_sal  | emp_join_date | emp_exp | emp_age | emp_gen | emp_type  | emp_skills            | emp_email        | emp_man_id |
++--------+----------------+------------+------------+----------+---------------+---------+---------+---------+-----------+-----------------------+------------------+------------+
+|    101 | Rahul Sharma   | IT         | Indore     | 45000.00 | 2020-03-15    |       6 |      28 | male    | full time | Java,python           | rahul@gmail.com  |          0 |
+|    103 | Amit Patel     | Finance    | Mumbai     | 65000.00 | 2022-02-20    |       4 |      30 | male    | full time | Java,c++              | amit@gmail.com   |        101 |
+|    104 | Sneha Gupta    | IT         | Pune       | 72000.00 | 2023-05-12    |       3 |      27 | female  | part time | Java,python,react     | sneha@gmail.com  |        101 |
+|    105 | Vikas Singh    | Marketing  | Delhi      | 30000.00 | 2025-01-18    |       1 |      23 | male    | trainee   | python                | vikas@gmail.com  |        102 |
+|    106 | Neha Jain      | Sales      | Indore     | 28000.00 | 2025-06-01    |       1 |      24 | female  | part time | c++,react             | neha@gmail.com   |        102 |
+|    107 | Rohit Mehta    | IT         | Bengaluru  | 95000.00 | 2019-11-25    |       8 |      34 | male    | full time | Java,python,c++,react | rohit@gmail.com  |          0 |
+|    108 | Anjali Rao     | Finance    | Hyderabad  | 52000.00 | 2022-09-14    |       4 |      31 | female  | full time | python,c++            | anjali@gmail.com |        103 |
+|    109 | Karan Malhotra | Operations | Jaipur     | 41000.00 | 2024-03-08    |       2 |      26 | male    | part time | Java,react            | karan@gmail.com  |        101 |
+|    111 | Arjun Nair     | IT         | Chennai    | 85000.00 | 2021-04-05    |       7 |      32 | male    | full time | Java,c++,react        | arjun@gmail.com  |        107 |
+|    112 | Kavya Reddy    | Research   | Hyderabad  | 25000.00 | 2026-02-11    |       0 |      22 | female  | trainee   | python,react          | kavya@gmail.com  |        104 |
+|    113 | Suresh Yadav   | Sales      | Bhopal     | 32000.00 | 2020-12-01    |       5 |      33 | male    | part time | c++                   | suresh@gmail.com |        103 |
+|    114 | Divya Kapoor   | IT         | Pune       | 60000.00 | 2024-11-20    |       2 |      25 | female  | full time | Java,python           | divya@gmail.com  |        107 |
+|    115 | Manish Kumar   | Marketing  | Delhi      | 22000.00 | 2026-04-15    |       0 |      21 | male    | trainee   | react                 | manish@gmail.com |        105 |
+|    116 | Riya Shah      | Design     | Mumbai     | 48000.00 | 2022-06-30    |       4 |      29 | female  | part time | python,react          | riya@gmail.com   |        104 |
+|    117 | Deepak Joshi   | Operations | Indore     | 55000.00 | 2018-08-10    |       9 |      36 | male    | full time | Java,c++              | deepak@gmail.com |          0 |
+|    118 | Simran Kaur    | Research   | Chandigarh | 18000.00 | 2025-09-01    |       0 |      22 | female  | trainee   | python                | simran@gmail.com |        112 |
+|    119 | Nikhil Das     | IT         | Kolkata    | 78000.00 | 2023-01-16    |       3 |      27 | male    | full time | Java,python,c++       | nikhil@gmail.com |        111 |
+|    120 | Meera Iyer     | Finance    | Chennai    | 90000.00 | 2026-07-05    |       1 |      26 | female  | full time | Java,react            | meera@gmail.com  |        103 |
++--------+----------------+------------+------------+----------+---------------+---------+---------+---------+-----------+-----------------------+------------------+------------+
+18 rows in set (0.00 sec)
+Find employees from Indore, Pune, or Delhi who joined between '2022-01-01' and '2025-12-31', have salary greater than ₹45,000, and experience of at least 3 years.
+
+mysql> select * from emp1 where emp_city in ('indore','pune','delhi') and  emp_join_date between '2022-01-01' and '2025-12-31' and  emp_sal>45000 and emp_exp>3;
+Empty set (0.00 sec)
+
+
+Find employees who are FULL_TIME, have JAVA or PYTHON in their skills, salary greater than ₹50,000, and email is NOT NULL.
+
+
+mysql> select * from emp1 where emp_type='full_time' and (emp_skills='python' or emp_skills='java') and emp_sal>50000 and emp_email is not null;
+Empty set (0.00 sec)
+
+
+Find employees whose name starts with A or S, joining date is after '2023-01-01', salary is between ₹30,000 and ₹80,000, and age is between 25 and 35.
+mysql> select * from emp1 where (emp_name like "a%" or emp_name like "s%") and emp_join_date >'2023-01-01' and emp_sal between 30000 and 80000 and emp_age between 25 and 35;
++--------+-------------+---------+----------+----------+---------------+---------+---------+---------+-----------+-------------------+-----------------+------------+
+| emp_id | emp_name    | emp_dep | emp_city | emp_sal  | emp_join_date | emp_exp | emp_age | emp_gen | emp_type  | emp_skills        | emp_email       | emp_man_id |
++--------+-------------+---------+----------+----------+---------------+---------+---------+---------+-----------+-------------------+-----------------+------------+
+|    104 | Sneha Gupta | IT      | Pune     | 72000.00 | 2023-05-12    |       3 |      27 | female  | part time | Java,python,react | sneha@gmail.com |        101 |
++--------+-------------+---------+----------+----------+---------------+---------+---------+---------+-----------+-------------------+-----------------+------------+
+1 row in set (0.01 sec)
+
+
+Find employees who belong to IT or Finance, have JAVA in skills, experience greater than 4 years, and salary is NOT between ₹50,000 and ₹80,000.
+
+
+mysql> select * from emp1 where emp_dep in ('it','finance') and emp_skills='java' and emp_exp>4 and emp_sal not between 50000 and 80000;
+Empty set (0.00 sec)
+
+
+Find employees whose department is IT, HR, or Marketing, city is not Mumbai, salary is greater than ₹40,000, and either email is NULL or manager_id is NULL.
+mysql> select * from emp1 where emp_dep in ('it','hr','marketing') and emp_city='Mumbai' and emp_sal>40000 and (emp_man_id is null or emp_email is null);
+Empty set (0.00 sec)
+Find employees who joined after '2022-01-01', are not INTERN, have salary greater than ₹45,000, and have either SQL or PYTHON in their skills.
+
+mysql> select * from emp1 where emp_join_date>'2022-01-01' and emp_type <>'intern' and emp_sal>45000 and emp_skills in ('python','sql');
+Empty set (0.00 sec)
+
+Find employees whose salary is greater than ₹60,000 OR experience is greater than 7 years, but exclude employees from Mumbai and Bhopal.
+
+mysql> select * from emp1 where emp_city not in ("mumbai",'bhopal') and(emp_sal>60000 or emp_exp>7)
+    -> ;
++--------+--------------+------------+-----------+----------+---------------+---------+---------+---------+-----------+-----------------------+------------------+------------+
+| emp_id | emp_name     | emp_dep    | emp_city  | emp_sal  | emp_join_date | emp_exp | emp_age | emp_gen | emp_type  | emp_skills            | emp_email        | emp_man_id |
++--------+--------------+------------+-----------+----------+---------------+---------+---------+---------+-----------+-----------------------+------------------+------------+
+|    104 | Sneha Gupta  | IT         | Pune      | 72000.00 | 2023-05-12    |       3 |      27 | female  | part time | Java,python,react     | sneha@gmail.com  |        101 |
+|    107 | Rohit Mehta  | IT         | Bengaluru | 95000.00 | 2019-11-25    |       8 |      34 | male    | full time | Java,python,c++,react | rohit@gmail.com  |          0 |
+|    111 | Arjun Nair   | IT         | Chennai   | 85000.00 | 2021-04-05    |       7 |      32 | male    | full time | Java,c++,react        | arjun@gmail.com  |        107 |
+|    117 | Deepak Joshi | Operations | Indore    | 55000.00 | 2018-08-10    |       9 |      36 | male    | full time | Java,c++              | deepak@gmail.com |          0 |
+|    119 | Nikhil Das   | IT         | Kolkata   | 78000.00 | 2023-01-16    |       3 |      27 | male    | full time | Java,python,c++       | nikhil@gmail.com |        111 |
+|    120 | Meera Iyer   | Finance    | Chennai   | 90000.00 | 2026-07-05    |       1 |      26 | female  | full time | Java,react            | meera@gmail.com  |        103 |
++--------+--------------+------------+-----------+----------+---------------+---------+---------+---------+-----------+-----------------------+------------------+------------+
+6 rows in set (0.00 sec)
+Find employees who joined between '2023-01-01' and '2026-12-31', belong to Electronics-related departments? Instead, use: departments IT or Development, salary greater than ₹50,000, and email is NOT NULL.
+
+mysql> select * from emp1 where emp_join_date between  '2023-01-01' and '2026-12-31  and emp_dep in ('it','development') and emp_sal>50000 and emp_email is not null ;
++--------+--------------+---------+----------+----------+---------------+---------+---------+---------+-----------+-------------------+------------------+------------+
+| emp_id | emp_name     | emp_dep | emp_city | emp_sal  | emp_join_date | emp_exp | emp_age | emp_gen | emp_type  | emp_skills        | emp_email        | emp_man_id |
++--------+--------------+---------+----------+----------+---------------+---------+---------+---------+-----------+-------------------+------------------+------------+
+|    104 | Sneha Gupta  | IT      | Pune     | 72000.00 | 2023-05-12    |       3 |      27 | female  | part time | Java,python,react | sneha@gmail.com  |        101 |
+|    114 | Divya Kapoor | IT      | Pune     | 60000.00 | 2024-11-20    |       2 |      25 | female  | full time | Java,python       | divya@gmail.com  |        107 |
+|    119 | Nikhil Das   | IT      | Kolkata  | 78000.00 | 2023-01-16    |       3 |      27 | male    | full time | Java,python,c++   | nikhil@gmail.com |        111 |
++--------+--------------+---------+----------+----------+---------------+---------+---------+---------+-----------+-------------------+------------------+------------+
+3 rows in set (0.01 sec)
+Find employees whose name contains the letter a, department is not HR, salary is between ₹35,000 and ₹75,000, and joining date is after '2022-06-01'.
+mysql> select * from emp1 where emp_name like "%a%" and emp_dep!='hr' and  (emp_sal not between 35000  and 75000) and emp_join_date>'2022-06-01';
++--------+--------------+-----------+------------+----------+---------------+---------+---------+---------+-----------+-----------------+------------------+------------+
+| emp_id | emp_name     | emp_dep   | emp_city   | emp_sal  | emp_join_date | emp_exp | emp_age | emp_gen | emp_type  | emp_skills      | emp_email        | emp_man_id |
++--------+--------------+-----------+------------+----------+---------------+---------+---------+---------+-----------+-----------------+------------------+------------+
+|    105 | Vikas Singh  | Marketing | Delhi      | 30000.00 | 2025-01-18    |       1 |      23 | male    | trainee   | python          | vikas@gmail.com  |        102 |
+|    106 | Neha Jain    | Sales     | Indore     | 28000.00 | 2025-06-01    |       1 |      24 | female  | part time | c++,react       | neha@gmail.com   |        102 |
+|    112 | Kavya Reddy  | Research  | Hyderabad  | 25000.00 | 2026-02-11    |       0 |      22 | female  | trainee   | python,react    | kavya@gmail.com  |        104 |
+|    115 | Manish Kumar | Marketing | Delhi      | 22000.00 | 2026-04-15    |       0 |      21 | male    | trainee   | react           | manish@gmail.com |        105 |
+|    118 | Simran Kaur  | Research  | Chandigarh | 18000.00 | 2025-09-01    |       0 |      22 | female  | trainee   | python          | simran@gmail.com |        112 |
+|    119 | Nikhil Das   | IT        | Kolkata    | 78000.00 | 2023-01-16    |       3 |      27 | male    | full time | Java,python,c++ | nikhil@gmail.com |        111 |
+|    120 | Meera Iyer   | Finance   | Chennai    | 90000.00 | 2026-07-05    |       1 |      26 | female  | full time | Java,react      | meera@gmail.com  |        103 |
++--------+--------------+-----------+------------+----------+---------------+---------+---------+---------+-----------+-----------------+------------------+------------+
+7 rows in set (0.00 sec)
+Find employees who have both JAVA and SQL skills, salary greater than ₹55,000, experience greater than 3 years, and manager_id is NOT NULL.
+mysql> select * from emp1 where emp_skills in ('java','sql') and emp_sal>55000 and emp_exp>3 and emp_man_id is not null;
+Empty set (0.01 sec)
+
+Find employees who have PYTHON or REACT skills, belong to IT or Development, joined after '2023-01-01', and salary is greater than ₹50,000.
+
+mysql> select * from emp1 where emp_skills in ('React','python') and emp_dep in ('it','development') and emp_join_date>'2023-01-01' and emp_sal>50000;
+Empty set (0.01 sec)
+Find employees whose employment type is CONTRACT or PART_TIME, salary is greater than ₹35,000, joining date is between '2022-01-01' and '2025-12-31', and email is NOT NULL.
+
+
+mysql> select * from emp1 where emp_type in ('contract','part time') and emp_join_date between '2023-01-01' and '2025-12-31' and emp_sal>35000 and emp_email is not null;
++--------+----------------+------------+----------+----------+---------------+---------+---------+---------+-----------+-------------------+-----------------+------------+
+| emp_id | emp_name       | emp_dep    | emp_city | emp_sal  | emp_join_date | emp_exp | emp_age | emp_gen | emp_type  | emp_skills        | emp_email       | emp_man_id |
++--------+----------------+------------+----------+----------+---------------+---------+---------+---------+-----------+-------------------+-----------------+------------+
+|    104 | Sneha Gupta    | IT         | Pune     | 72000.00 | 2023-05-12    |       3 |      27 | female  | part time | Java,python,react | sneha@gmail.com |        101 |
+|    109 | Karan Malhotra | Operations | Jaipur   | 41000.00 | 2024-03-08    |       2 |      26 | male    | part time | Java,react        | karan@gmail.com |        101 |
++--------+----------------+------------+----------+----------+---------------+---------+---------+---------+-----------+-------------------+-----------------+------------+
+2 rows in set (0.00 sec)
+
+Find employees whose gender is FEMALE, department is IT or Finance, salary is greater than ₹45,000, and experience is greater than 2 years.
+
+mysql> select * from emp1 where emp_gen='female' and emp_dep in ('it','finance') and  emp_sal>45000 and emp_exp>2 ;
++--------+-------------+---------+-----------+----------+---------------+---------+---------+---------+-----------+-------------------+------------------+------------+
+| emp_id | emp_name    | emp_dep | emp_city  | emp_sal  | emp_join_date | emp_exp | emp_age | emp_gen | emp_type  | emp_skills        | emp_email        | emp_man_id |
++--------+-------------+---------+-----------+----------+---------------+---------+---------+---------+-----------+-------------------+------------------+------------+
+|    104 | Sneha Gupta | IT      | Pune      | 72000.00 | 2023-05-12    |       3 |      27 | female  | part time | Java,python,react | sneha@gmail.com  |        101 |
+|    108 | Anjali Rao  | Finance | Hyderabad | 52000.00 | 2022-09-14    |       4 |      31 | female  | full time | python,c++        | anjali@gmail.com |        103 |
++--------+-------------+---------+-----------+----------+---------------+---------+---------+---------+-----------+-------------------+------------------+------------+
+2 rows in set (0.00 sec)
+Find employees whose city is Indore, Pune, or Delhi, department is not HR, joining date is after '2023-01-01', salary is between ₹40,000 and ₹1,00,000, and manager_id is NOT NULL.
+
+mysql> select * from emp1 where emp_city in ('indore','pune','delhi') and emp_dep!='hr' and emp_join_date>'2023-01-01' and emp_sal between 40000 and 100000 and emp_man_id is not null;
++--------+--------------+---------+----------+----------+---------------+---------+---------+---------+-----------+-------------------+-----------------+------------+
+| emp_id | emp_name     | emp_dep | emp_city | emp_sal  | emp_join_date | emp_exp | emp_age | emp_gen | emp_type  | emp_skills        | emp_email       | emp_man_id |
++--------+--------------+---------+----------+----------+---------------+---------+---------+---------+-----------+-------------------+-----------------+------------+
+|    104 | Sneha Gupta  | IT      | Pune     | 72000.00 | 2023-05-12    |       3 |      27 | female  | part time | Java,python,react | sneha@gmail.com |        101 |
+|    114 | Divya Kapoor | IT      | Pune     | 60000.00 | 2024-11-20    |       2 |      25 | female  | full time | Java,python       | divya@gmail.com |        107 |
++--------+--------------+---------+----------+----------+---------------+---------+---------+---------+-----------+-------------------+-----------------+------------+
+2 rows in set (0.01 sec)
+
+Find employees whose salary is NOT between ₹30,000 and ₹60,000, experience is greater than 5 years, and either department is IT or Finance.
+
+mysql> select * from emp1 where emp_sal not between 30000 and 60000 and emp_exp>5 and emp_dep in ('it','finance');
++--------+-------------+---------+-----------+----------+---------------+---------+---------+---------+-----------+-----------------------+-----------------+------------+
+| emp_id | emp_name    | emp_dep | emp_city  | emp_sal  | emp_join_date | emp_exp | emp_age | emp_gen | emp_type  | emp_skills            | emp_email       | emp_man_id |
++--------+-------------+---------+-----------+----------+---------------+---------+---------+---------+-----------+-----------------------+-----------------+------------+
+|    107 | Rohit Mehta | IT      | Bengaluru | 95000.00 | 2019-11-25    |       8 |      34 | male    | full time | Java,python,c++,react | rohit@gmail.com |          0 |
+|    111 | Arjun Nair  | IT      | Chennai   | 85000.00 | 2021-04-05    |       7 |      32 | male    | full time | Java,c++,react        | arjun@gmail.com |        107 |
++--------+-------------+---------+-----------+----------+---------------+---------+---------+---------+-----------+-----------------------+-----------------+------------+
+2 rows in set (0.00 sec)
+Find employees whose email is NULL OR manager_id is NULL, but salary must be greater than ₹40,000 and joining date must be after '2022-01-01'.
+
+mysql> select * from emp1 where (emp_email is null or emp_man_id is null) and emp_sal>40000 and emp_join_date>'2022-01-01';
+Empty set (0.00 sec)
+Find employees whose name starts with S OR contains a, department is IT or Finance, salary is between ₹40,000 and ₹90,000, and experience is at least 3 years.
+
+mysql> select * from emp1 where (emp_name like 's%' and emp_name like "%a%" ) and emp_dep in ('it','finance') and emp_sal between 40000 and 90000 and emp_exp>3;
+Empty set (0.00 sec)
+Find employees who joined between '2022-01-01' and '2025-12-31', are not from Mumbai or Bhopal, salary is greater than ₹50,000, and have JAVA in their skills.
+mysql> select * from emp1 where emp_join_date between '2022-01-01' and '2025-12-31' and emp_city not in ('mumbai' ,'bhopal') and emp_sal>50000 and emp_skills='java';
+Empty set (0.00 sec)
+Find employees who are FULL_TIME, joined after '2023-01-01', have salary greater than ₹60,000, and have either JAVA + SQL or PYTHON + REACT skills.
+mysql> select * from emp1 where emp_type='full time' and emp_join_date>'2023-01-01'and emp_sal>60000 and ((emp_skills='java'and emp_skills='sql') or (emp_skills='python'and emp_skills='react'));
+Empty set (0.01 sec)
+Find employees from IT, Finance, or Development whose salary is between ₹45,000 and ₹90,000, experience is greater than 3 years, email is NOT NULL, and manager_id is NOT NULL.
+
+mysql> select * from emp1 where emp_dep in ('it','finance','development') and emp_sal between 45000 and 90000 and emp_exp>3 and emp_email is not null and emp_man_id is not null;
++--------+--------------+---------+-----------+----------+---------------+---------+---------+---------+-----------+----------------+------------------+------------+
+| emp_id | emp_name     | emp_dep | emp_city  | emp_sal  | emp_join_date | emp_exp | emp_age | emp_gen | emp_type  | emp_skills     | emp_email        | emp_man_id |
++--------+--------------+---------+-----------+----------+---------------+---------+---------+---------+-----------+----------------+------------------+------------+
+|    101 | Rahul Sharma | IT      | Indore    | 45000.00 | 2020-03-15    |       6 |      28 | male    | full time | Java,python    | rahul@gmail.com  |          0 |
+|    103 | Amit Patel   | Finance | Mumbai    | 65000.00 | 2022-02-20    |       4 |      30 | male    | full time | Java,c++       | amit@gmail.com   |        101 |
+|    108 | Anjali Rao   | Finance | Hyderabad | 52000.00 | 2022-09-14    |       4 |      31 | female  | full time | python,c++     | anjali@gmail.com |        103 |
+|    111 | Arjun Nair   | IT      | Chennai   | 85000.00 | 2021-04-05    |       7 |      32 | male    | full time | Java,c++,react | arjun@gmail.com  |        107 |
++--------+--------------+---------+-----------+----------+---------------+---------+---------+---------+-----------+----------------+------------------+------------+
+4 rows in set (0.00 sec)
+Find employees whose joining date is after '2023-01-01', department is not HR, salary is greater than ₹50,000 OR experience is greater than 6 years, and city is not Mumbai.
+mysql> select * from emp1 where emp_join_date>'2023-01-01' and emp_dep != 'hr' and emp_sal>50000 and emp_exp>6 and emp_city!='mumbai';
+Empty set (0.00 sec)
+Find employees whose name starts with A or M, gender is FEMALE, employment type is FULL_TIME, salary is greater than ₹45,000, and email is NOT NULL.
+
+
+mysql> select * from emp1 where (emp_name like "a%" or emp_name like 'm%') and emp_gen='female' and emp_type='full time' and emp_sal>45000 and emp_email is not null;
++--------+------------+---------+-----------+----------+---------------+---------+---------+---------+-----------+------------+------------------+------------+
+| emp_id | emp_name   | emp_dep | emp_city  | emp_sal  | emp_join_date | emp_exp | emp_age | emp_gen | emp_type  | emp_skills | emp_email        | emp_man_id |
++--------+------------+---------+-----------+----------+---------------+---------+---------+---------+-----------+------------+------------------+------------+
+|    108 | Anjali Rao | Finance | Hyderabad | 52000.00 | 2022-09-14    |       4 |      31 | female  | full time | python,c++ | anjali@gmail.com |        103 |
+|    120 | Meera Iyer | Finance | Chennai   | 90000.00 | 2026-07-05    |       1 |      26 | female  | full time | Java,react | meera@gmail.com  |        103 |
++--------+------------+---------+-----------+----------+---------------+---------+---------+---------+-----------+------------+------------------+------------+
+2 rows in set (0.00 sec)
+Find employees who have JAVA or SPRING in their skills, joined after '2022-01-01', salary is NOT between ₹40,000 and ₹70,000, and manager_id is NOT NULL.
+
+mysql> select * from emp1 where emp_skills in ('java','spring') and emp_join_date>'2022-01-01' and emp_sal not between 40000 and 70000 and emp_man_id is not null;
+Empty set (0.00 sec)
+Find employees from Indore, Pune, or Delhi whose joining date is between '2023-01-01' and '2026-12-31', salary is between ₹40,000 and ₹1,00,000, experience is greater than 2 years, and either email or manager_id is NULL.
+
+mysql> select * from emp1 where emp_city in ('indore','pune','delhi') AND emp_join_date between '2023-01-01' and '2026-12-31' and emp_sal between 40000 and 100000 and emp_exp>2 and (emp_email is null or emp_man_id is null);
+Empty set (0.00 sec)
+
+Create table emp1(emp_id int ,emp_name varchar(30),emp_dep varchar(30),emp_city varchar(40),emp_sal decimal(10,2),emp_join_date  date ,emp_exp int,emp_age int check(age>0),emp_gen enum ('male','female'),emp_type  enum('full time', 'part time','trainee'),emp_skills set ('Java','python','c++','react'),emp_email varchar(30) not NULL,emp_man_id int not NULL)
+mysql> use batch19
+Database changed
+mysql> select * from emp1
+    -> ;
+Empty set (0.04 sec)
+
+mysql> desc emp1;
++---------------+-----------------------------------------+------+-----+---------+-------+
+| Field         | Type                                    | Null | Key | Default | Extra |
++---------------+-----------------------------------------+------+-----+---------+-------+
+| emp_id        | int                                     | YES  |     | NULL    |       |
+| emp_name      | varchar(30)                             | YES  |     | NULL    |       |
+| emp_dep       | varchar(30)                             | YES  |     | NULL    |       |
+| emp_city      | varchar(40)                             | YES  |     | NULL    |       |
+| emp_sal       | decimal(10,2)                           | YES  |     | NULL    |       |
+| emp_join_date | date                                    | YES  |     | NULL    |       |
+| emp_exp       | int                                     | YES  |     | NULL    |       |
+| emp_age       | int                                     | YES  |     | NULL    |       |
+| emp_gen       | enum('male','female')                   | YES  |     | NULL    |       |
+| emp_type      | enum('full time','part time','trainee') | YES  |     | NULL    |       |
+| emp_skills    | set('Java','python','c++','react')      | YES  |     | NULL    |       |
+| emp_email     | varchar(30)                             | NO   |     | NULL    |       |
+| emp_man_id    | int                                     | NO   |     | NULL    |       |
++---------------+-----------------------------------------+------+-----+---------+-------+
+13 rows in set (0.01 sec)
+
+mysql> ALTER TABLE emp1
+    -> MODIFY emp_email VARCHAR(30) NULL,
+    -> MODIFY emp_man_id INT NULL,
+    -> MODIFY emp_type
+    -> ENUM('full time', 'part time', 'trainee', 'contract', 'intern');
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> INSERT INTO emp1
+    -> (emp_id, emp_name, emp_dep, emp_city, emp_sal,
+    ->  emp_join_date, emp_exp, emp_age, emp_gen,
+    ->  emp_type, emp_skills, emp_email, emp_man_id)
+    -> VALUES
+    -> (101, 'Rahul Sharma', 'IT', 'Indore', 45000.00,
+    ->  '2020-03-15', 6, 28, 'male',
+    ->  'full time', 'Java,python', 'rahul@gmail.com', NULL),
+    ->
+    -> (102, 'Priya Verma', 'HR', 'Bhopal', 38000.00,
+    ->  '2021-07-10', 5, 29, 'female',
+    ->  'python,react', 'priya@gmail.com', 101),
+    ->
+    -> (103, 'Amit Patel', 'Finance', 'Mumbai', 65000.00,
+    ->  '2022-02-20', 4, 30, 'male',
+    ->  'Java,c++', 'amit@gmail.com', 101),
+    ->
+    -> (104, 'Sneha Gupta', 'IT', 'Pune', 72000.00,
+    ->  '2023-05-12', 3, 27, 'female',
+    ->  'Java,python,react', NULL, 101),
+    ->
+    -> (105, 'Vikas Singh', 'Marketing', 'Delhi', 30000.00,
+    ->  '2025-01-18', 1, 23, 'male',
+    ->  'python', 'vikas@gmail.com', 102),
+    ->
+    -> (106, 'Neha Jain', 'Sales', 'Indore', 28000.00,
+    ->  '2025-06-01', 1, 24, 'female',
+    ->  'react,c++', 'neha@gmail.com', 102),
+    ->
+    -> (107, 'Rohit Mehta', 'IT', 'Bengaluru', 95000.00,
+    ->  '2019-11-25', 8, 34, 'male',
+    ->  'Java,python,c++,react', 'rohit@gmail.com', NULL),
+    ->
+    -> (108, 'Anjali Rao', 'Finance', 'Hyderabad', 52000.00,
+    ->  '2022-09-14', 4, 31, 'female',
+    ->  'python,c++', 'anjali@gmail.com', 103),
+    ->
+    -> (109, 'Karan Malhotra', 'Operations', 'Jaipur', 41000.00,
+    ->  '2024-03-08', 2, 26, 'male',
+    ->  'Java,react', NULL, 101),
+    ->
+    -> (110, 'Pooja Mishra', 'HR', 'Lucknow', 35000.00,
+    ->  '2023-08-19', 3, 28, 'female',
+    ->  'python', 'pooja@gmail.com', 102),
+    ->
+    -> (111, 'Arjun Nair', 'IT', 'Chennai', 85000.00,
+    ->  '2021-04-05', 7, 32, 'male',
+    ->  'Java,c++,react', 'arjun@gmail.com', 107),
+    ->
+    -> (112, 'Kavya Reddy', 'Research', 'Hyderabad', 25000.00,
+    ->  '2026-02-11', 0, 22, 'female',
+    ->  'python,react', 'kavya@gmail.com', 104),
+    ->
+    -> (113, 'Suresh Yadav', 'Sales', 'Bhopal', 32000.00,
+    ->  '2020-12-01', 5, 33, 'male',
+    ->  'c++', NULL, NULL, 103),
+    ->
+    -> (114, 'Divya Kapoor', 'IT', 'Pune', 60000.00,
+    ->  '2024-11-20', 2, 25, 'female',
+    ->  'Java,python', 'divya@gmail.com', 107),
+    ->
+    -> (115, 'Manish Kumar', 'Marketing', 'Delhi', 22000.00,
+    ->  '2026-04-15', 0, 21, 'male',
+    ->  'react', 'manish@gmail.com', 105),
+    ->
+    -> (116, 'Riya Shah', 'Design', 'Mumbai', 48000.00,
+    ->  '2022-06-30', 4, 29, 'female',
+    ->  'python,react', 'riya@gmail.com', 104),
+    ->
+    -> (117, 'Deepak Joshi', 'Operations', 'Indore', 55000.00,
+    ->  '2018-08-10', 9, 36, 'male',
+    ->  'Java,c++', 'deepak@gmail.com', NULL),
+    ->
+    -> (118, 'Simran Kaur', 'Research', 'Chandigarh', 18000.00,
+    ->  '2025-09-01', 0, 22, 'female',
+    ->  'python', NULL, 112),
+    ->
+    -> (119, 'Nikhil Das', 'IT', 'Kolkata', 78000.00,
+    ->  '2023-01-16', 3, 27, 'male',
+    ->  'Java,python,c++', 'nikhil@gmail.com', 111),
+    ->
+    -> (120, 'Meera Iyer', 'Finance', 'Chennai', 90000.00,
+    ->  '2026-07-05', 1, 26, 'female',
+    ->  'Java,react', 'meera@gmail.com', 103);
+ERROR 1136 (21S01): Column count doesn't match value count at row 2
+mysql> (102, 'Priya Verma', 'HR', 'Bhopal', 38000.00,
+    ->  '2021-07-10', 5, 29, 'female',
+    ->  'python,react', 'priya@gmail.com', 101),
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '102, 'Priya Verma', 'HR', 'Bhopal', 38000.00,
+ '2021-07-10', 5, 29, 'female',
+ '' at line 1
+mysql> select * from emp1;
+Empty set (0.00 sec)
+
+mysql>
+mysql> INSERT INTO emp1
+    -> (emp_id, emp_name, emp_dep, emp_city, emp_sal,
+    ->  emp_join_date, emp_exp, emp_age, emp_gen,
+    ->  emp_type, emp_skills, emp_email, emp_man_id)
+    -> VALUES
+    -> (101, 'Rahul Sharma', 'IT', 'Indore', 45000.00, '2020-03-15', 6, 28, 'male', 'full time', 'Java,python', 'rahul@gmail.com', 0),
+    -> (102, 'Priya Verma', 'HR', 'Bhopal', 38000.00, '2021-07-10', 5, 29, 'female', 'full time', 'python,react', 'priya@gmail.com', 101),
+    -> (103, 'Amit Patel', 'Finance', 'Mumbai', 65000.00, '2022-02-20', 4, 30, 'male', 'full time', 'Java,c++', 'amit@gmail.com', 101),
+    -> (104, 'Sneha Gupta', 'IT', 'Pune', 72000.00, '2023-05-12', 3, 27, 'female', 'part time', 'Java,python,react', 'sneha@gmail.com', 101),
+    -> (105, 'Vikas Singh', 'Marketing', 'Delhi', 30000.00, '2025-01-18', 1, 23, 'male', 'trainee', 'python', 'vikas@gmail.com', 102),
+    -> (106, 'Neha Jain', 'Sales', 'Indore', 28000.00, '2025-06-01', 1, 24, 'female', 'part time', 'react,c++', 'neha@gmail.com', 102),
+    -> (107, 'Rohit Mehta', 'IT', 'Bengaluru', 95000.00, '2019-11-25', 8, 34, 'male', 'full time', 'Java,python,c++,react', 'rohit@gmail.com', 0),
+    -> (108, 'Anjali Rao', 'Finance', 'Hyderabad', 52000.00, '2022-09-14', 4, 31, 'female', 'full time', 'python,c++', 'anjali@gmail.com', 103),
+    -> (109, 'Karan Malhotra', 'Operations', 'Jaipur', 41000.00, '2024-03-08', 2, 26, 'male', 'part time', 'Java,react', 'karan@gmail.com', 101),
+    -> (110, 'Pooja Mishra', 'HR', 'Lucknow', 35000.00, '2023-08-19', 3, 28, 'female', 'trainee', 'python', 'pooja@gmail.com', 102),
+    -> (111, 'Arjun Nair', 'IT', 'Chennai', 85000.00, '2021-04-05', 7, 32, 'male', 'full time', 'Java,c++,react', 'arjun@gmail.com', 107),
+    -> (112, 'Kavya Reddy', 'Research', 'Hyderabad', 25000.00, '2026-02-11', 0, 22, 'female', 'trainee', 'python,react', 'kavya@gmail.com', 104),
+    -> (113, 'Suresh Yadav', 'Sales', 'Bhopal', 32000.00, '2020-12-01', 5, 33, 'male', 'part time', 'c++', 'suresh@gmail.com', 103),
+    -> (114, 'Divya Kapoor', 'IT', 'Pune', 60000.00, '2024-11-20', 2, 25, 'female', 'full time', 'Java,python', 'divya@gmail.com', 107),
+    -> (115, 'Manish Kumar', 'Marketing', 'Delhi', 22000.00, '2026-04-15', 0, 21, 'male', 'trainee', 'react', 'manish@gmail.com', 105),
+    -> (116, 'Riya Shah', 'Design', 'Mumbai', 48000.00, '2022-06-30', 4, 29, 'female', 'part time', 'python,react', 'riya@gmail.com', 104),
+    -> (117, 'Deepak Joshi', 'Operations', 'Indore', 55000.00, '2018-08-10', 9, 36, 'male', 'full time', 'Java,c++', 'deepak@gmail.com', 0),
+    -> (118, 'Simran Kaur', 'Research', 'Chandigarh', 18000.00, '2025-09-01', 0, 22, 'female', 'trainee', 'python', 'simran@gmail.com', 112),
+    -> (119, 'Nikhil Das', 'IT', 'Kolkata', 78000.00, '2023-01-16', 3, 27, 'male', 'full time', 'Java,python,c++', 'nikhil@gmail.com', 111),
+    -> (120, 'Meera Iyer', 'Finance', 'Chennai', 90000.00, '2026-07-05', 1, 26, 'female', 'full time', 'Java,react', 'meera@gmail.com', 103);
+Query OK, 20 rows affected (0.01 sec)
+Records: 20  Duplicates: 0  Warnings: 0
+
+mysql> select * from emp1;
++--------+----------------+------------+------------+----------+---------------+---------+---------+---------+-----------+-----------------------+------------------+------------+
+| emp_id | emp_name       | emp_dep    | emp_city   | emp_sal  | emp_join_date | emp_exp | emp_age | emp_gen | emp_type  | emp_skills            | emp_email        | emp_man_id |
++--------+----------------+------------+------------+----------+---------------+---------+---------+---------+-----------+-----------------------+------------------+------------+
+|    101 | Rahul Sharma   | IT         | Indore     | 45000.00 | 2020-03-15    |       6 |      28 | male    | full time | Java,python           | rahul@gmail.com  |          0 |
+|    102 | Priya Verma    | HR         | Bhopal     | 38000.00 | 2021-07-10    |       5 |      29 | female  | full time | python,react          | priya@gmail.com  |        101 |
+|    103 | Amit Patel     | Finance    | Mumbai     | 65000.00 | 2022-02-20    |       4 |      30 | male    | full time | Java,c++              | amit@gmail.com   |        101 |
+|    104 | Sneha Gupta    | IT         | Pune       | 72000.00 | 2023-05-12    |       3 |      27 | female  | part time | Java,python,react     | sneha@gmail.com  |        101 |
+|    105 | Vikas Singh    | Marketing  | Delhi      | 30000.00 | 2025-01-18    |       1 |      23 | male    | trainee   | python                | vikas@gmail.com  |        102 |
+|    106 | Neha Jain      | Sales      | Indore     | 28000.00 | 2025-06-01    |       1 |      24 | female  | part time | c++,react             | neha@gmail.com   |        102 |
+|    107 | Rohit Mehta    | IT         | Bengaluru  | 95000.00 | 2019-11-25    |       8 |      34 | male    | full time | Java,python,c++,react | rohit@gmail.com  |          0 |
+|    108 | Anjali Rao     | Finance    | Hyderabad  | 52000.00 | 2022-09-14    |       4 |      31 | female  | full time | python,c++            | anjali@gmail.com |        103 |
+|    109 | Karan Malhotra | Operations | Jaipur     | 41000.00 | 2024-03-08    |       2 |      26 | male    | part time | Java,react            | karan@gmail.com  |        101 |
+|    110 | Pooja Mishra   | HR         | Lucknow    | 35000.00 | 2023-08-19    |       3 |      28 | female  | trainee   | python                | pooja@gmail.com  |        102 |
+|    111 | Arjun Nair     | IT         | Chennai    | 85000.00 | 2021-04-05    |       7 |      32 | male    | full time | Java,c++,react        | arjun@gmail.com  |        107 |
+|    112 | Kavya Reddy    | Research   | Hyderabad  | 25000.00 | 2026-02-11    |       0 |      22 | female  | trainee   | python,react          | kavya@gmail.com  |        104 |
+|    113 | Suresh Yadav   | Sales      | Bhopal     | 32000.00 | 2020-12-01    |       5 |      33 | male    | part time | c++                   | suresh@gmail.com |        103 |
+|    114 | Divya Kapoor   | IT         | Pune       | 60000.00 | 2024-11-20    |       2 |      25 | female  | full time | Java,python           | divya@gmail.com  |        107 |
+|    115 | Manish Kumar   | Marketing  | Delhi      | 22000.00 | 2026-04-15    |       0 |      21 | male    | trainee   | react                 | manish@gmail.com |        105 |
+|    116 | Riya Shah      | Design     | Mumbai     | 48000.00 | 2022-06-30    |       4 |      29 | female  | part time | python,react          | riya@gmail.com   |        104 |
+|    117 | Deepak Joshi   | Operations | Indore     | 55000.00 | 2018-08-10    |       9 |      36 | male    | full time | Java,c++              | deepak@gmail.com |          0 |
+|    118 | Simran Kaur    | Research   | Chandigarh | 18000.00 | 2025-09-01    |       0 |      22 | female  | trainee   | python                | simran@gmail.com |        112 |
+|    119 | Nikhil Das     | IT         | Kolkata    | 78000.00 | 2023-01-16    |       3 |      27 | male    | full time | Java,python,c++       | nikhil@gmail.com |        111 |
+|    120 | Meera Iyer     | Finance    | Chennai    | 90000.00 | 2026-07-05    |       1 |      26 | female  | full time | Java,react            | meera@gmail.com  |        103 |
++--------+----------------+------------+------------+----------+---------------+---------+---------+---------+-----------+-----------------------+------------------+------------+
+20 rows in set (0.00 sec)
+
+mysql>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
