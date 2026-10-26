@@ -1,0 +1,761 @@
+QNO 1:
+Table Name: staff_update
+
+| Column         | Data Type                      |
+| -------------- | ------------------------------ |
+| `staff_id`     | INT PRIMARY KEY AUTO_INCREMENT |
+| `staff_name`   | VARCHAR(50)                    |
+| `department`   | VARCHAR(30)                    |
+| `city`         | VARCHAR(30)                    |
+| `salary`       | DECIMAL(10,2)                  |
+| `experience`   | INT                            |
+| `age`          | INT                            |
+| `joining_date` | DATE                           |
+| `status`       | VARCHAR(20)                    |
+===================================================
+
+mysql> create table staff(sta_id int primary key auto_increment,sta_name varchar(50) ,sta_dep varchar(30) , stu_city varchar(30),stu_sal decimal(10,2) ,stu_exp int,stu_age int,stu_join_date date,stu_status varchar(20));
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> desc staff;
++---------------+---------------+------+-----+---------+----------------+
+| Field         | Type          | Null | Key | Default | Extra          |
++---------------+---------------+------+-----+---------+----------------+
+| sta_id        | int           | NO   | PRI | NULL    | auto_increment |
+| sta_name      | varchar(50)   | YES  |     | NULL    |                |
+| sta_dep       | varchar(30)   | YES  |     | NULL    |                |
+| stu_city      | varchar(30)   | YES  |     | NULL    |                |
+| stu_sal       | decimal(10,2) | YES  |     | NULL    |                |
+| stu_exp       | int           | YES  |     | NULL    |                |
+| stu_age       | int           | YES  |     | NULL    |                |
+| stu_join_date | date          | YES  |     | NULL    |                |
+| stu_status    | varchar(20)   | YES  |     | NULL    |                |
++---------------+---------------+------+-----+---------+----------------+
+9 rows in set (0.01 sec)
+
+DATA:--
+('Aarav', 'IT', 'Indore', 48000, 3, 26, '2022-04-15', 'Active'),
+('Bhavna', 'HR', 'Bhopal', 56000, 5, 31, '2020-08-20', 'Active'),
+('Chetan', 'Finance', 'Delhi', 62000, 7, 35, '2018-03-10', 'Active'),
+('Divya', 'IT', 'Pune', 78000, 9, 38, '2016-11-05', 'Active'),
+('Eshan', 'Sales', 'Indore', 51000, 4, 29, '2021-06-18', 'Inactive'),
+('Farah', 'HR', NULL, 68000, 6, 34, '2019-01-25', 'Active');
+
+
+mysql> insert into staff(sta_name,sta_dep,stu_city,stu_sal,stu_exp,stu_age,stu_join_date,stu_status) values('Aarav', 'IT', 'Indore', 48000, 3, 26, '2022-04-15', 'Active');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into staff(sta_name,sta_dep,stu_city,stu_sal,stu_exp,stu_age,stu_join_date,stu_status) values('Bhavna', 'HR', 'Bhopal', 56000, 5, 31, '2020-08-20', 'Active'),
+    -> ('Chetan', 'Finance', 'Delhi', 62000, 7, 35, '2018-03-10', 'Active'),
+    -> ('Divya', 'IT', 'Pune', 78000, 9, 38, '2016-11-05', 'Active'),
+    -> ('Eshan', 'Sales', 'Indore', 51000, 4, 29, '2021-06-18', 'Inactive'),
+    -> ('Farah', 'HR', NULL, 68000, 6, 34, '2019-01-25', 'Active');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from stuff;
+ERROR 1146 (42S02): Table 'batch19.stuff' doesn't exist
+mysql> select * from staff;
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+| sta_id | sta_name | sta_dep | stu_city | stu_sal  | stu_exp | stu_age | stu_join_date | stu_status |
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+|      1 | Aarav    | IT      | Indore   | 48000.00 |       3 |      26 | 2022-04-15    | Active     |
+|      2 | Bhavna   | HR      | Bhopal   | 56000.00 |       5 |      31 | 2020-08-20    | Active     |
+|      3 | Chetan   | Finance | Delhi    | 62000.00 |       7 |      35 | 2018-03-10    | Active     |
+|      4 | Divya    | IT      | Pune     | 78000.00 |       9 |      38 | 2016-11-05    | Active     |
+|      5 | Eshan    | Sales   | Indore   | 51000.00 |       4 |      29 | 2021-06-18    | Inactive   |
+|      6 | Farah    | HR      | NULL     | 68000.00 |       6 |      34 | 2019-01-25    | Active     |
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+6 rows in set (0.00 sec)
+
+mysql>
+
+Questions
+
+Q1. Aarav's salary needs to be revised to ₹52,000. Update his salary using his employee ID.
+
+mysql> update staff set stu_sal=52000 where id=1;
+ERROR 1054 (42S22): Unknown column 'id' in 'where clause'
+mysql> update staff set stu_sal=52000 where sta_id=1;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from staff;
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+| sta_id | sta_name | sta_dep | stu_city | stu_sal  | stu_exp | stu_age | stu_join_date | stu_status |
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+|      1 | Aarav    | IT      | Indore   | 52000.00 |       3 |      26 | 2022-04-15    | Active     |
+|      2 | Bhavna   | HR      | Bhopal   | 56000.00 |       5 |      31 | 2020-08-20    | Active     |
+|      3 | Chetan   | Finance | Delhi    | 62000.00 |       7 |      35 | 2018-03-10    | Active     |
+|      4 | Divya    | IT      | Pune     | 78000.00 |       9 |      38 | 2016-11-05    | Active     |
+|      5 | Eshan    | Sales   | Indore   | 51000.00 |       4 |      29 | 2021-06-18    | Inactive   |
+|      6 | Farah    | HR      | NULL     | 68000.00 |       6 |      34 | 2019-01-25    | Active     |
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+6 rows in set (0.00 sec)
+
+
+Q2. Bhavna has been transferred to the Finance department in Indore. Update both her department and city.
+mysql> update staff set sta_dep='Finance',stu_city='indore' where sta_id=2;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from staff;
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+| sta_id | sta_name | sta_dep | stu_city | stu_sal  | stu_exp | stu_age | stu_join_date | stu_status |
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+|      1 | Aarav    | IT      | Indore   | 52000.00 |       3 |      26 | 2022-04-15    | Active     |
+|      2 | Bhavna   | Finance | indore   | 56000.00 |       5 |      31 | 2020-08-20    | Active     |
+|      3 | Chetan   | Finance | Delhi    | 62000.00 |       7 |      35 | 2018-03-10    | Active     |
+|      4 | Divya    | IT      | Pune     | 78000.00 |       9 |      38 | 2016-11-05    | Active     |
+|      5 | Eshan    | Sales   | Indore   | 51000.00 |       4 |      29 | 2021-06-18    | Inactive   |
+|      6 | Farah    | HR      | NULL     | 68000.00 |       6 |      34 | 2019-01-25    | Active     |
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+6 rows in set (0.00 sec)
+
+mysql>
+Q3. Give a ₹4,000 increment to employees whose salary is below ₹60,000, who have at least 3 years of experience, and who do not belong to Sales.
+mysql> update staff set stu_sal=stu_sal+4000 where stu_sal<60000;
+Query OK, 3 rows affected (0.01 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> select * from staff;
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+| stu_id | stu_name | stu_dep | stu_city | stu_sal  | stu_exp | stu_age | stu_join_date | stu_status |
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+|      1 | Aarav    | IT      | Indore   | 56000.00 |       3 |      26 | 2022-04-15    | Active     |
+|      2 | Bhavna   | Finance | indore   | 60000.00 |       5 |      31 | 2020-08-20    | Active     |
+|      3 | Chetan   | Finance | Delhi    | 62000.00 |       7 |      35 | 2018-03-10    | Active     |
+|      4 | Divya    | IT      | Pune     | 78000.00 |       9 |      38 | 2016-11-05    | Active     |
+|      5 | Eshan    | Sales   | Indore   | 55000.00 |       4 |      29 | 2021-06-18    | Inactive   |
+|      6 | Farah    | HR      | NULL     | 68000.00 |       6 |      34 | 2019-01-25    | Active     |
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+6 rows in set (0.00 sec)
+Q4. Give a ₹3,000 increment to employees who either belong to IT with at least 3 years of experience or belong to HR with at least 5 years of experience.
+mysql> update staff set stu_sal=stu_sal+3000 where (stu_dep='it'and stu_exp>=3) or (stu_dep='hr'and stu_exp>=5);
+Query OK, 3 rows affected (0.01 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> select * from staff;
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+| stu_id | stu_name | stu_dep | stu_city | stu_sal  | stu_exp | stu_age | stu_join_date | stu_status |
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+|      1 | Aarav    | IT      | Indore   | 59000.00 |       3 |      26 | 2022-04-15    | Active     |
+|      2 | Bhavna   | Finance | indore   | 60000.00 |       5 |      31 | 2020-08-20    | Active     |
+|      3 | Chetan   | Finance | Delhi    | 62000.00 |       7 |      35 | 2018-03-10    | Active     |
+|      4 | Divya    | IT      | Pune     | 81000.00 |       9 |      38 | 2016-11-05    | Active     |
+|      5 | Eshan    | Sales   | Indore   | 55000.00 |       4 |      29 | 2021-06-18    | Inactive   |
+|      6 | Farah    | HR      | NULL     | 71000.00 |       6 |      34 | 2019-01-25    | Active     |
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+6 rows in set (0.00 sec)
+Q5. Give a 10% increment to employees from IT or Finance whose current salary is below ₹70,000.
+mysql> update staff set stu_sal=stu_sal*1.1 where stu_dep in ('it','finance') and stu_sal<70000;
+Query OK, 3 rows affected (0.01 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> select * from staff;
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+| stu_id | stu_name | stu_dep | stu_city | stu_sal  | stu_exp | stu_age | stu_join_date | stu_status |
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+|      1 | Aarav    | IT      | Indore   | 64900.00 |       3 |      26 | 2022-04-15    | Active     |
+|      2 | Bhavna   | Finance | indore   | 66000.00 |       5 |      31 | 2020-08-20    | Active     |
+|      3 | Chetan   | Finance | Delhi    | 68200.00 |       7 |      35 | 2018-03-10    | Active     |
+|      4 | Divya    | IT      | Pune     | 81000.00 |       9 |      38 | 2016-11-05    | Active     |
+|      5 | Eshan    | Sales   | Indore   | 55000.00 |       4 |      29 | 2021-06-18    | Inactive   |
+|      6 | Farah    | HR      | NULL     | 71000.00 |       6 |      34 | 2019-01-25    | Active     |
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+6 rows in set (0.00 sec)
+
+mysql
+Q6. Give a ₹2,500 increment to employees who are neither from HR nor Sales and have between 5 and 8 years of experience.
+mysql> update staff set stu_sal=stu_sal+2500 where stu_dep not in ('hr','sales') and stu_exp between 5 and 8;
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from staff;
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+| stu_id | stu_name | stu_dep | stu_city | stu_sal  | stu_exp | stu_age | stu_join_date | stu_status |
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+|      1 | Aarav    | IT      | Indore   | 64900.00 |       3 |      26 | 2022-04-15    | Active     |
+|      2 | Bhavna   | Finance | indore   | 68500.00 |       5 |      31 | 2020-08-20    | Active     |
+|      3 | Chetan   | Finance | Delhi    | 70700.00 |       7 |      35 | 2018-03-10    | Active     |
+|      4 | Divya    | IT      | Pune     | 81000.00 |       9 |      38 | 2016-11-05    | Active     |
+|      5 | Eshan    | Sales   | Indore   | 55000.00 |       4 |      29 | 2021-06-18    | Inactive   |
+|      6 | Farah    | HR      | NULL     | 71000.00 |       6 |      34 | 2019-01-25    | Active     |
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+6 rows in set (0.00 sec)
+
+mysql>
+
+
+Q7. Give a ₹5,000 increment to employees whose salary is between ₹50,000 and ₹70,000, excluding Finance employees.
+mysql> update staff set stu_sal=stu_sal+5000 where stu_sal  between 50000 and 70000 and stu_dep!='Finance';
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from staff;
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+| stu_id | stu_name | stu_dep | stu_city | stu_sal  | stu_exp | stu_age | stu_join_date | stu_status |
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+|      1 | Aarav    | IT      | Indore   | 69900.00 |       3 |      26 | 2022-04-15    | Active     |
+|      2 | Bhavna   | Finance | indore   | 68500.00 |       5 |      31 | 2020-08-20    | Active     |
+|      3 | Chetan   | Finance | Delhi    | 70700.00 |       7 |      35 | 2018-03-10    | Active     |
+|      4 | Divya    | IT      | Pune     | 81000.00 |       9 |      38 | 2016-11-05    | Active     |
+|      5 | Eshan    | Sales   | Indore   | 60000.00 |       4 |      29 | 2021-06-18    | Inactive   |
+|      6 | Farah    | HR      | NULL     | 71000.00 |       6 |      34 | 2019-01-25    | Active     |
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+6 rows in set (0.00 sec)
+
+mysql>
+
+Q8. Give a 7% increment to employees whose names start with either A or D.
+
+mysql> update staff set stu_sal=stu_sal*1.07 where stu_name like "a%" or stu_name like "d%";
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from staff;
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+| stu_id | stu_name | stu_dep | stu_city | stu_sal  | stu_exp | stu_age | stu_join_date | stu_status |
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+|      1 | Aarav    | IT      | Indore   | 74793.00 |       3 |      26 | 2022-04-15    | Active     |
+|      2 | Bhavna   | Finance | indore   | 68500.00 |       5 |      31 | 2020-08-20    | Active     |
+|      3 | Chetan   | Finance | Delhi    | 70700.00 |       7 |      35 | 2018-03-10    | Active     |
+|      4 | Divya    | IT      | Pune     | 86670.00 |       9 |      38 | 2016-11-05    | Active     |
+|      5 | Eshan    | Sales   | Indore   | 60000.00 |       4 |      29 | 2021-06-18    | Inactive   |
+|      6 | Farah    | HR      | NULL     | 71000.00 |       6 |      34 | 2019-01-25    | Active     |
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+6 rows in set (0.00 sec)
+
+mysql>
+Q9. Farah's city is missing. Update her city to Mumbai without modifying employees whose city is already available.
+mysql> update staff set stu_city='mumbai' where stu_name = 'Farah';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from staff;
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+| stu_id | stu_name | stu_dep | stu_city | stu_sal  | stu_exp | stu_age | stu_join_date | stu_status |
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+|      1 | Aarav    | IT      | Indore   | 74793.00 |       3 |      26 | 2022-04-15    | Active     |
+|      2 | Bhavna   | Finance | indore   | 68500.00 |       5 |      31 | 2020-08-20    | Active     |
+|      3 | Chetan   | Finance | Delhi    | 70700.00 |       7 |      35 | 2018-03-10    | Active     |
+|      4 | Divya    | IT      | Pune     | 86670.00 |       9 |      38 | 2016-11-05    | Active     |
+|      5 | Eshan    | Sales   | Indore   | 60000.00 |       4 |      29 | 2021-06-18    | Inactive   |
+|      6 | Farah    | HR      | mumbai   | 71000.00 |       6 |      34 | 2019-01-25    | Active     |
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+Q10. Give a 10% increment to employees who joined before January 1, 2020 and whose salary is below ₹70,000.
+mysql> update staff set stu_sal=stu_sal*1.1 where stu_join_date<'2020-01-01' and stu_sal<70000;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> select * from staff;
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+| stu_id | stu_name | stu_dep | stu_city | stu_sal  | stu_exp | stu_age | stu_join_date | stu_status |
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+|      1 | Aarav    | IT      | Indore   | 74793.00 |       3 |      26 | 2022-04-15    | Active     |
+|      2 | Bhavna   | Finance | indore   | 68500.00 |       5 |      31 | 2020-08-20    | Active     |
+|      3 | Chetan   | Finance | Delhi    | 70700.00 |       7 |      35 | 2018-03-10    | Active     |
+|      4 | Divya    | IT      | Pune     | 86670.00 |       9 |      38 | 2016-11-05    | Active     |
+|      5 | Eshan    | Sales   | Indore   | 60000.00 |       4 |      29 | 2021-06-18    | Inactive   |
+|      6 | Farah    | HR      | mumbai   | 71000.00 |       6 |      34 | 2019-01-25    | Active     |
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+6 rows in set (0.00 sec)
+
+mysql>
+Q11. For IT employees having at least 5 years of experience, increase salary by 8%, increase experience by 1 year, and change their status to Promoted.
+mysql> update staff set stu_sal=stu_sal*1.08,stu_exp=stu_exp+1,stu_status='promoted' where stu_dep = 'it' and stu_exp>=5;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from staff;
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+| stu_id | stu_name | stu_dep | stu_city | stu_sal  | stu_exp | stu_age | stu_join_date | stu_status |
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+|      1 | Aarav    | IT      | Indore   | 74793.00 |       3 |      26 | 2022-04-15    | Active     |
+|      2 | Bhavna   | Finance | indore   | 68500.00 |       5 |      31 | 2020-08-20    | Active     |
+|      3 | Chetan   | Finance | Delhi    | 70700.00 |       7 |      35 | 2018-03-10    | Active     |
+|      4 | Divya    | IT      | Pune     | 93603.60 |      10 |      38 | 2016-11-05    | promoted   |
+|      5 | Eshan    | Sales   | Indore   | 60000.00 |       4 |      29 | 2021-06-18    | Inactive   |
+|      6 | Farah    | HR      | mumbai   | 71000.00 |       6 |      34 | 2019-01-25    | Active     |
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+6 rows in set (0.00 sec)
+
+mysql
+Q12. Give a ₹6,000 increment to employees having at least 5 years of experience, salary below ₹75,000, and belonging to either HR or Finance.
+
+mysql> update staff set stu_sal=stu_sal+6000 where stu_exp>=5 and stu_sal<75000 and stu_dep in ('hr','finance');
+Query OK, 3 rows affected (0.01 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> select * from staff;
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+| stu_id | stu_name | stu_dep | stu_city | stu_sal  | stu_exp | stu_age | stu_join_date | stu_status |
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+|      1 | Aarav    | IT      | Indore   | 74793.00 |       3 |      26 | 2022-04-15    | Active     |
+|      2 | Bhavna   | Finance | indore   | 74500.00 |       5 |      31 | 2020-08-20    | Active     |
+|      3 | Chetan   | Finance | Delhi    | 76700.00 |       7 |      35 | 2018-03-10    | Active     |
+|      4 | Divya    | IT      | Pune     | 93603.60 |      10 |      38 | 2016-11-05    | promoted   |
+|      5 | Eshan    | Sales   | Indore   | 60000.00 |       4 |      29 | 2021-06-18    | Inactive   |
+|      6 | Farah    | HR      | mumbai   | 77000.00 |       6 |      34 | 2019-01-25    | Active     |
++--------+----------+---------+----------+----------+---------+---------+---------------+------------+
+6 rows in set (0.01 sec)
+
+mysql>
+Q13. Apply the following salary revisions in a single statement:
+
+IT → 12%
+HR → 9%
+Finance → 8%
+Sales → 5%
+
+mysql> update staff
+    -> set stu_sal = case
+    ->     WHEN stu_dep = 'IT' THEN stu_sal * 1.12
+    ->     WHEN stu_dep = 'HR' THEN stu_sal * 1.09
+    ->     WHEN stu_dep = 'Finance' THEN stu_sal * 1.08
+    ->     WHEN stu_dep = 'Sales' THEN stu_sal * 1.05
+    -> else stu_sal
+    -> end;
+Query OK, 6 rows affected, 1 warning (0.01 sec)
+Rows matched: 6  Changed: 6  Warnings: 1
+
+mysql> select * from staff;
++--------+----------+---------+----------+-----------+---------+---------+---------------+------------+
+| stu_id | stu_name | stu_dep | stu_city | stu_sal   | stu_exp | stu_age | stu_join_date | stu_status |
++--------+----------+---------+----------+-----------+---------+---------+---------------+------------+
+|      1 | Aarav    | IT      | Indore   |  83768.16 |       3 |      26 | 2022-04-15    | Active     |
+|      2 | Bhavna   | Finance | indore   |  80460.00 |       5 |      31 | 2020-08-20    | Active     |
+|      3 | Chetan   | Finance | Delhi    |  82836.00 |       7 |      35 | 2018-03-10    | Active     |
+|      4 | Divya    | IT      | Pune     | 104836.03 |      10 |      38 | 2016-11-05    | promoted   |
+|      5 | Eshan    | Sales   | Indore   |  63000.00 |       4 |      29 | 2021-06-18    | Inactive   |
+|      6 | Farah    | HR      | mumbai   |  83930.00 |       6 |      34 | 2019-01-25    | Active     |
++--------+----------+---------+----------+-----------+---------+---------+---------------+------------+
+6 rows in set (0.00 sec)
+
+mysql>
+
+
+
+
+Q14. Apply salary increments according to experience:
+
+8 or more years → 15%
+5–7 years → 10%
+3–4 years → 7%
+Less than 3 years → 5%
+
+mysql> update staff
+    -> set stu_sal=case
+    -> when stu_exp>8 then stu_sal*1.15
+    -> when stu_exp between 5 and 7 then stu_sal*1.1
+    -> when stu_exp between 3 and 4 then stu_sal*1.07
+    -> when stu_exp<3 then stu_sal*1.05
+    -> else stu_sal
+    -> end;
+Query OK, 6 rows affected, 2 warnings (0.01 sec)
+Rows matched: 6  Changed: 6  Warnings: 2
+
+mysql> select * from staff;
++--------+----------+---------+----------+-----------+---------+---------+---------------+------------+
+| stu_id | stu_name | stu_dep | stu_city | stu_sal   | stu_exp | stu_age | stu_join_date | stu_status |
++--------+----------+---------+----------+-----------+---------+---------+---------------+------------+
+|      1 | Aarav    | IT      | Indore   |  89631.93 |       3 |      26 | 2022-04-15    | Active     |
+|      2 | Bhavna   | Finance | indore   |  88506.00 |       5 |      31 | 2020-08-20    | Active     |
+|      3 | Chetan   | Finance | Delhi    |  91119.60 |       7 |      35 | 2018-03-10    | Active     |
+|      4 | Divya    | IT      | Pune     | 120561.43 |      10 |      38 | 2016-11-05    | promoted   |
+|      5 | Eshan    | Sales   | Indore   |  67410.00 |       4 |      29 | 2021-06-18    | Inactive   |
+|      6 | Farah    | HR      | mumbai   |  92323.00 |       6 |      34 | 2019-01-25    | Active     |
++--------+----------+---------+----------+-----------+---------+---------+---------------+------------+
+6 rows in set (0.00 sec)
+
+mysql>
+
+Q15. Apply these salary revisions in a single statement:
+
+IT employees with at least 8 years → 18%
+Other IT employees → 10%
+HR employees with at least 6 years → 12%
+Other HR employees → 7%
+Finance employees → 8%
+Sales employees → 5%
+
+
+mysql> update staff
+    -> set stu_sal=case
+    -> when stu_exp>8 then stu_sal*1.18
+    -> when stu_exp between 3 and 4 then stu_sal*1.07^C
+mysql> update staff
+    -> set stu_sal=case
+    -> when stu_dep='it' and stu_exp>=3 then stu_sal*1.18
+    -> when stu_dep='it' then stu_sal*1.1
+    -> when stu_dep='hr' and stu_exp>=6 then stu_sal*1.12
+    -> when stu_dep='hr' then stu_sal*1.07
+    -> when stu_dep='finance' then stu_sal*1.08
+    -> when stu_dep='sales' then stu_sal*1.05
+    -> else stu_sal
+    -> end;
+Query OK, 6 rows affected, 3 warnings (0.01 sec)
+Rows matched: 6  Changed: 6  Warnings: 3
+
+mysql> select * from staff;
++--------+----------+---------+----------+-----------+---------+---------+---------------+------------+
+| stu_id | stu_name | stu_dep | stu_city | stu_sal   | stu_exp | stu_age | stu_join_date | stu_status |
++--------+----------+---------+----------+-----------+---------+---------+---------------+------------+
+|      1 | Aarav    | IT      | Indore   | 105765.68 |       3 |      26 | 2022-04-15    | Active     |
+|      2 | Bhavna   | Finance | indore   |  95586.48 |       5 |      31 | 2020-08-20    | Active     |
+|      3 | Chetan   | Finance | Delhi    |  98409.17 |       7 |      35 | 2018-03-10    | Active     |
+|      4 | Divya    | IT      | Pune     | 142262.49 |      10 |      38 | 2016-11-05    | promoted   |
+|      5 | Eshan    | Sales   | Indore   |  70780.50 |       4 |      29 | 2021-06-18    | Inactive   |
+|      6 | Farah    | HR      | mumbai   | 103401.76 |       6 |      34 | 2019-01-25    | Active     |
++--------+----------+---------+----------+-----------+---------+---------+---------------+------------+
+6 rows in set (0.01 sec)
+
+mysql>
+
+Q16. Update the status of every employee according to salary:
+
+₹75,000 or more → Senior
+₹60,000–₹74,999 → Experienced
+₹50,000–₹59,999 → Regular
+Below ₹50,000 → Junior
+
+
+mysql> update staff
+    -> set stu_status=case
+    -> when stu_sal>=75000 then 'senior'
+    -> when stu_sal between 60000 and 74999 then 'Experienced'
+    -> when stu_sal between 50000 and 59999 then 'Regular'
+    -> else 'junior'
+    -> end;
+Query OK, 6 rows affected (0.01 sec)
+Rows matched: 6  Changed: 6  Warnings: 0
+
+mysql> select * from stuff;
+ERROR 1146 (42S02): Table 'batch19.stuff' doesn't exist
+mysql> select * from staff;
++--------+----------+---------+----------+-----------+---------+---------+---------------+-------------+
+| stu_id | stu_name | stu_dep | stu_city | stu_sal   | stu_exp | stu_age | stu_join_date | stu_status  |
++--------+----------+---------+----------+-----------+---------+---------+---------------+-------------+
+|      1 | Aarav    | IT      | Indore   | 105765.68 |       3 |      26 | 2022-04-15    | senior      |
+|      2 | Bhavna   | Finance | indore   |  95586.48 |       5 |      31 | 2020-08-20    | senior      |
+|      3 | Chetan   | Finance | Delhi    |  98409.17 |       7 |      35 | 2018-03-10    | senior      |
+|      4 | Divya    | IT      | Pune     | 142262.49 |      10 |      38 | 2016-11-05    | senior      |
+|      5 | Eshan    | Sales   | Indore   |  70780.50 |       4 |      29 | 2021-06-18    | Experienced |
+|      6 | Farah    | HR      | mumbai   | 103401.76 |       6 |      34 | 2019-01-25    | senior      |
++--------+----------+---------+----------+-----------+---------+---------+---------------+-------------+
+6 rows in set (0.00 sec)
+
+mysql>
+
+Q17. Display all employees with departments arranged in this business priority:
+
+Finance → IT → HR → Sales
+
+Do not change the actual department values.
+mysql> select * from staff order by FIELD(stu_dep,'Finance','it','hr','sales');
++--------+----------+---------+----------+-----------+---------+---------+---------------+-------------+
+| stu_id | stu_name | stu_dep | stu_city | stu_sal   | stu_exp | stu_age | stu_join_date | stu_status  |
++--------+----------+---------+----------+-----------+---------+---------+---------------+-------------+
+|      2 | Bhavna   | Finance | indore   |  95586.48 |       5 |      31 | 2020-08-20    | senior      |
+|      3 | Chetan   | Finance | Delhi    |  98409.17 |       7 |      35 | 2018-03-10    | senior      |
+|      1 | Aarav    | IT      | Indore   | 105765.68 |       3 |      26 | 2022-04-15    | senior      |
+|      4 | Divya    | IT      | Pune     | 142262.49 |      10 |      38 | 2016-11-05    | senior      |
+|      6 | Farah    | HR      | mumbai   | 103401.76 |       6 |      34 | 2019-01-25    | senior      |
+|      5 | Eshan    | Sales   | Indore   |  70780.50 |       4 |      29 | 2021-06-18    | Experienced |
++--------+----------+---------+----------+-----------+---------+---------+---------------+-------------+
+6 rows in set (0.01 sec)
+
+mysql>
+Q18. Display all employees with departments arranged in this order:
+
+IT → HR → Finance → Sales
+
+Within each department, display the employee with the highest salary first.
+
+mysql> select * from staff order by FIELD(stu_dep,'it','hr','finance','sales');
++--------+----------+---------+----------+-----------+---------+---------+---------------+-------------+
+| stu_id | stu_name | stu_dep | stu_city | stu_sal   | stu_exp | stu_age | stu_join_date | stu_status  |
++--------+----------+---------+----------+-----------+---------+---------+---------------+-------------+
+|      1 | Aarav    | IT      | Indore   | 105765.68 |       3 |      26 | 2022-04-15    | senior      |
+|      4 | Divya    | IT      | Pune     | 142262.49 |      10 |      38 | 2016-11-05    | senior      |
+|      6 | Farah    | HR      | mumbai   | 103401.76 |       6 |      34 | 2019-01-25    | senior      |
+|      2 | Bhavna   | Finance | indore   |  95586.48 |       5 |      31 | 2020-08-20    | senior      |
+|      3 | Chetan   | Finance | Delhi    |  98409.17 |       7 |      35 | 2018-03-10    | senior      |
+|      5 | Eshan    | Sales   | Indore   |  70780.50 |       4 |      29 | 2021-06-18    | Experienced |
++--------+----------+---------+----------+-----------+---------+---------+---------------+-------------+
+6 rows in set (0.00 sec)
+
+mysql>
+
+Q19. Display employees according to experience priority:
+
+8+ years → 5–7 years → 3–4 years → below 3 years
+
+mysql> select * from staff order by stu_exp desc;
++--------+----------+---------+----------+-----------+---------+---------+---------------+-------------+
+| stu_id | stu_name | stu_dep | stu_city | stu_sal   | stu_exp | stu_age | stu_join_date | stu_status  |
++--------+----------+---------+----------+-----------+---------+---------+---------------+-------------+
+|      4 | Divya    | IT      | Pune     | 142262.49 |      10 |      38 | 2016-11-05    | senior      |
+|      3 | Chetan   | Finance | Delhi    |  98409.17 |       7 |      35 | 2018-03-10    | senior      |
+|      6 | Farah    | HR      | mumbai   | 103401.76 |       6 |      34 | 2019-01-25    | senior      |
+|      2 | Bhavna   | Finance | indore   |  95586.48 |       5 |      31 | 2020-08-20    | senior      |
+|      5 | Eshan    | Sales   | Indore   |  70780.50 |       4 |      29 | 2021-06-18    | Experienced |
+|      1 | Aarav    | IT      | Indore   | 105765.68 |       3 |      26 | 2022-04-15    | senior      |
++--------+----------+---------+----------+-----------+---------+---------+---------------+-------------+
+6 rows in set (0.00 sec)
+
+mysql>
+
+Q20. Give a ₹5,000 increment to only one employee. The employee must belong to IT or HR, have at least 3 years of experience, and earn less than ₹70,000. If multiple employees qualify, update only the lowest-paid employee.
+
+
+mysql> update staff set stu_sal=stu_sal+5000 where stu_dep in ('it','hr') and stu_exp >= 3 and stu_sal<70000 order by stu_sal asc limit 1;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> select * from staff
+    -> ;
++--------+----------+---------+----------+-----------+---------+---------+---------------+-------------+
+| stu_id | stu_name | stu_dep | stu_city | stu_sal   | stu_exp | stu_age | stu_join_date | stu_status  |
++--------+----------+---------+----------+-----------+---------+---------+---------------+-------------+
+|      1 | Aarav    | IT      | Indore   | 105765.68 |       3 |      26 | 2022-04-15    | senior      |
+|      2 | Bhavna   | Finance | indore   |  95586.48 |       5 |      31 | 2020-08-20    | senior      |
+|      3 | Chetan   | Finance | Delhi    |  98409.17 |       7 |      35 | 2018-03-10    | senior      |
+|      4 | Divya    | IT      | Pune     | 142262.49 |      10 |      38 | 2016-11-05    | senior      |
+|      5 | Eshan    | Sales   | Indore   |  70780.50 |       4 |      29 | 2021-06-18    | Experienced |
+|      6 | Farah    | HR      | mumbai   | 103401.76 |       6 |      34 | 2019-01-25    | senior      |
++--------+----------+---------+----------+-----------+---------+---------+---------------+-------------+
+6 rows in set (0.00 sec)
+
+
+Q21. Give a 10% increment to only one employee. The employee must be Active and have at least 5 years of experience. If multiple employees qualify, update only the highest-paid employee.
+
+
+mysql> update staff set stu_sal=stu_sal*1.1 where  stu_exp >= 5 order by stu_sal desc limit 1;
+Query OK, 1 row affected, 1 warning (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 1
+
+Q22. Give a ₹3,000 increment to only one employee who is neither from HR nor Sales and has at least 3 years of experience. If multiple employees qualify, update the lowest-paid employee.
+
+mysql> update staff set stu_sal=stu_sal+3000 where stu_dep not in ('hr','sales') and stu_exp>=3 order by stu_sal asc limit 1;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql>
+Q23. Change the status to Promoted for only the highest-paid IT employee.
+
+mysql> update staff set stu_status='promoted' where stu_dep='it' order by stu_sal desc limit 1;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+Q24. Give a 12% increment to employees who are either IT employees with at least 5 years of experience or Finance employees earning below ₹65,000. In addition, only Active employees earning below ₹80,000 should receive the increment.
+mysql> update staff set stu_sal=stu_sal*1.12 where  (stu_dep ='it' and stu_exp>=5) or (stu_dep='finance' and stu_sal<65000) order by stu_sal desc limit 1;
+Query OK, 1 row affected, 1 warning (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 1
+
+
+Q25. Apply the following salary revision in one statement:
+
+IT + 8 or more years → 18%
+IT + 5–7 years → 12%
+HR + at least 6 years → 10%
+HR + less than 6 years → 7%
+Finance + salary below ₹65,000 → 10%
+Finance + salary ₹65,000 or above → 7%
+Sales + at least 4 years → 6%
+All remaining employees → 3%
+
+mysql> update staff
+    -> set stu_sal=case
+    -> when stu_dep='it' and stu_exp>=8 then stu_sal*1.18
+    -> when stu_dep='it' and stu_exp between 5 and 7 then stu_sal*1.12
+    -> when stu_dep='hr' and stu_exp>=6 then stu_sal*1.10
+    -> when stu_dep='hr' and stu_exp<6 then stu_sal*1.70
+    -> when stu_dep='finance' and stu_sal<65000 then stu_sal*1.10
+    -> when stu_dep='finance' and stu_sal>=65000 then stu_sal*1.70
+    -> when stu_dep='sales' and stu_exp>=4 then stu_sal*1.60
+    -> else stu_sal*1.03
+    -> end;
+Query OK, 6 rows affected, 5 warnings (0.01 sec)
+Rows matched: 6  Changed: 6  Warnings: 5
+
+mysql> select * from staff
+    -> ;
++--------+----------+---------+----------+-----------+---------+---------+---------------+-------------+
+| stu_id | stu_name | stu_dep | stu_city | stu_sal   | stu_exp | stu_age | stu_join_date | stu_status  |
++--------+----------+---------+----------+-----------+---------+---------+---------------+-------------+
+|      1 | Aarav    | IT      | Indore   | 108938.65 |       3 |      26 | 2022-04-15    | senior      |
+|      2 | Bhavna   | Finance | indore   | 167597.02 |       5 |      31 | 2020-08-20    | senior      |
+|      3 | Chetan   | Finance | Delhi    | 167295.59 |       7 |      35 | 2018-03-10    | senior      |
+|      4 | Divya    | IT      | Pune     | 206815.52 |      10 |      38 | 2016-11-05    | promoted    |
+|      5 | Eshan    | Sales   | Indore   | 113248.80 |       4 |      29 | 2021-06-18    | Experienced |
+|      6 | Farah    | HR      | mumbai   | 113741.94 |       6 |      34 | 2019-01-25    | senior      |
++--------+----------+---------+----------+-----------+---------+---------+---------------+-------------+
+6 rows in set (0.00 sec)
+
+mysql>
+
+Q26. Update both salary and status according to experience:
+
+8+ years → salary +15%, status Promoted
+5–7 years → salary +10%, status Eligible
+3–4 years → salary +7%, status Regular
+Below 3 years → salary +5%, status Junior
+
+
+mysql> update staff
+    -> set stu_sal=case
+    -> when stu_exp>=8 then stu_sal*1.15
+    -> when stu_exp between 5 and 7 then stu_sal*1.1
+    -> when stu_exp between 3 and 4 then stu_sal*1.07
+    -> else stu_sal*1.05
+    -> end,
+    -> stu_status=case
+    -> when stu_exp>=8 then 'promated'
+    -> when stu_exp between 5 and 7 then 'Eligible'
+    -> when stu_exp between 3 and 4 then 'Regular'
+    -> else 'junior'
+    -> end;
+Query OK, 6 rows affected, 6 warnings (0.01 sec)
+Rows matched: 6  Changed: 6  Warnings: 6
+
+mysql> select * from staff;
++--------+----------+---------+----------+-----------+---------+---------+---------------+------------+
+| stu_id | stu_name | stu_dep | stu_city | stu_sal   | stu_exp | stu_age | stu_join_date | stu_status |
++--------+----------+---------+----------+-----------+---------+---------+---------------+------------+
+|      1 | Aarav    | IT      | Indore   | 124723.87 |       3 |      26 | 2022-04-15    | Regular    |
+|      2 | Bhavna   | Finance | indore   | 202792.39 |       5 |      31 | 2020-08-20    | Eligible   |
+|      3 | Chetan   | Finance | Delhi    | 202427.67 |       7 |      35 | 2018-03-10    | Eligible   |
+|      4 | Divya    | IT      | Pune     | 273513.53 |      10 |      38 | 2016-11-05    | promated   |
+|      5 | Eshan    | Sales   | Indore   | 129658.56 |       4 |      29 | 2021-06-18    | Regular    |
+|      6 | Farah    | HR      | mumbai   | 137627.74 |       6 |      34 | 2019-01-25    | Eligible   |
++--------+----------+---------+----------+-----------+---------+---------+---------------+------------+
+6 rows in set (0.00 sec)
+
+mysql>
+
+Q27. Change the status to Promoted for employees who have at least 6 years of experience, salary of at least ₹60,000, are Active, and belong to IT, HR, or Finance.
+mysql> update staff set stu_status='promoted' where stu_exp>=6 and stu_sal>=60000 and stu_dep in ('it','hr','finance');
+Query OK, 3 rows affected (0.01 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> select * from staff;
++--------+----------+---------+----------+-----------+---------+---------+---------------+------------+
+| stu_id | stu_name | stu_dep | stu_city | stu_sal   | stu_exp | stu_age | stu_join_date | stu_status |
++--------+----------+---------+----------+-----------+---------+---------+---------------+------------+
+|      1 | Aarav    | IT      | Indore   | 124723.87 |       3 |      26 | 2022-04-15    | Regular    |
+|      2 | Bhavna   | Finance | indore   | 202792.39 |       5 |      31 | 2020-08-20    | Eligible   |
+|      3 | Chetan   | Finance | Delhi    | 202427.67 |       7 |      35 | 2018-03-10    | promoted   |
+|      4 | Divya    | IT      | Pune     | 273513.53 |      10 |      38 | 2016-11-05    | promoted   |
+|      5 | Eshan    | Sales   | Indore   | 129658.56 |       4 |      29 | 2021-06-18    | Regular    |
+|      6 | Farah    | HR      | mumbai   | 137627.74 |       6 |      34 | 2019-01-25    | promoted   |
++--------+----------+---------+----------+-----------+---------+---------+---------------+------------+
+6 rows in set (0.00 sec)
+
+mysql>
+Q28. Employees belonging to IT, having at least 5 years of experience, and currently living in Pune or Delhi should receive a 10% salary increment, have their city changed to Bangalore, and their status changed to Transferred.
+
+ysql> update staff set stu_sal=stu_sal*1.1,stu_city='bangalore',stu_status='tranferred' where  stu_dep='it' and stu_city in ('pune','delhi') and stu_exp>=5;
+Query OK, 1 row affected, 1 warning (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 1
+
+mysql> select * from staff;
++--------+----------+---------+-----------+-----------+---------+---------+---------------+------------+
+| stu_id | stu_name | stu_dep | stu_city  | stu_sal   | stu_exp | stu_age | stu_join_date | stu_status |
++--------+----------+---------+-----------+-----------+---------+---------+---------------+------------+
+|      1 | Aarav    | IT      | Indore    | 124723.87 |       3 |      26 | 2022-04-15    | Regular    |
+|      2 | Bhavna   | Finance | indore    | 202792.39 |       5 |      31 | 2020-08-20    | Eligible   |
+|      3 | Chetan   | Finance | Delhi     | 202427.67 |       7 |      35 | 2018-03-10    | promoted   |
+|      4 | Divya    | IT      | bangalore | 300864.88 |      10 |      38 | 2016-11-05    | tranferred |
+|      5 | Eshan    | Sales   | Indore    | 129658.56 |       4 |      29 | 2021-06-18    | Regular    |
+|      6 | Farah    | HR      | mumbai    | 137627.74 |       6 |      34 | 2019-01-25    | promoted   |
++--------+----------+---------+-----------+-----------+---------+---------+---------------+------------+
+6 rows in set (0.00 sec)
+
+mysql>
+Q29. Give a ₹7,000 special increment to only one eligible employee. The employee must belong to IT, HR, or Finance, have at least 4 years of experience, be Active, and earn less than ₹75,000. If multiple employees qualify, update only the lowest-paid employee.
+mysql> update staff set stu_sal=stu_sal+7000 where stu_exp>=4 and stu_sal>=75000 and stu_dep in ('it','hr','finance') order by stu_sal asc limit 1;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from staff;
++--------+----------+---------+-----------+-----------+---------+---------+---------------+------------+
+| stu_id | stu_name | stu_dep | stu_city  | stu_sal   | stu_exp | stu_age | stu_join_date | stu_status |
++--------+----------+---------+-----------+-----------+---------+---------+---------------+------------+
+|      1 | Aarav    | IT      | Indore    | 124723.87 |       3 |      26 | 2022-04-15    | Regular    |
+|      2 | Bhavna   | Finance | indore    | 202792.39 |       5 |      31 | 2020-08-20    | Eligible   |
+|      3 | Chetan   | Finance | Delhi     | 202427.67 |       7 |      35 | 2018-03-10    | promoted   |
+|      4 | Divya    | IT      | bangalore | 300864.88 |      10 |      38 | 2016-11-05    | tranferred |
+|      5 | Eshan    | Sales   | Indore    | 129658.56 |       4 |      29 | 2021-06-18    | Regular    |
+|      6 | Farah    | HR      | mumbai    | 144627.74 |       6 |      34 | 2019-01-25    | promoted   |
++--------+----------+---------+-----------+-----------+---------+---------+---------------+------------+
+6 rows in set (0.00 sec)
+
+mysql>
+Q30. The company wants to perform an annual salary revision using one statement:
+
+IT + experience >= 8 + salary >= ₹70,000 → 18%
+IT + experience >= 5 → 12%
+HR + experience >= 6 → 10%
+HR + experience < 6 → 7%
+Finance + salary < ₹65,000 → 10%
+Finance + salary >= ₹65,000 → 7%
+Sales + experience >= 4 → 6%
+All remaining employees → 3%
+
+Employees whose status is Inactive must not receive any increment.
+
+Additionally, update the status based on the applicable increment:
+
+15% or more → Promoted
+10%–14.99% → Eligible
+Below 10% → Under Review
+
+mysql> UPDATE staff
+    -> SET
+    ->     stu_sal = CASE
+    ->         WHEN stu_exp >= 8 AND stu_sal > 70000 AND stu_dep = 'IT'
+    ->             THEN stu_sal * 1.18
+    ->         WHEN stu_exp >= 5 AND stu_dep = 'IT'
+    ->             THEN stu_sal * 1.12
+    ->         WHEN stu_exp >= 6 AND stu_dep = 'HR'
+    ->             THEN stu_sal * 1.10
+    ->         WHEN stu_exp < 6 AND stu_dep = 'HR'
+    ->             THEN stu_sal * 1.70
+    ->         WHEN stu_sal < 65000 AND stu_dep = 'Finance'
+    ->             THEN stu_sal * 1.10
+    ->         WHEN stu_sal >= 65000 AND stu_dep = 'Finance'
+    ->             THEN stu_sal * 1.70
+    ->         WHEN stu_exp >= 4 AND stu_dep = 'Sales'
+    ->             THEN stu_sal * 1.60
+    ->         ELSE stu_sal * 1.03
+    ->     END,
+    ->
+    ->     stu_status = CASE
+    ->         WHEN stu_exp >= 8 AND stu_sal > 70000 AND stu_dep = 'IT'
+    ->             THEN 'promoted'
+    ->         WHEN stu_exp >= 5 AND stu_dep = 'IT'
+    ->             THEN 'Eligible'
+    ->         WHEN stu_exp >= 6 AND stu_dep = 'HR'
+    ->             THEN 'Eligible'
+    ->         WHEN stu_sal < 65000 AND stu_dep = 'Finance'
+    ->             THEN 'Eligible'
+    ->         ELSE 'Under Review'
+    ->     END;
+Query OK, 6 rows affected, 6 warnings (0.01 sec)
+Rows matched: 6  Changed: 6  Warnings: 6
+
+mysql> select * from staff;
++--------+----------+---------+-----------+-----------+---------+---------+---------------+--------------+
+| stu_id | stu_name | stu_dep | stu_city  | stu_sal   | stu_exp | stu_age | stu_join_date | stu_status   |
++--------+----------+---------+-----------+-----------+---------+---------+---------------+--------------+
+|      1 | Aarav    | IT      | Indore    | 128465.59 |       3 |      26 | 2022-04-15    | Under Review |
+|      2 | Bhavna   | Finance | indore    | 344747.06 |       5 |      31 | 2020-08-20    | Under Review |
+|      3 | Chetan   | Finance | Delhi     | 344127.04 |       7 |      35 | 2018-03-10    | Under Review |
+|      4 | Divya    | IT      | bangalore | 355020.56 |      10 |      38 | 2016-11-05    | promoted     |
+|      5 | Eshan    | Sales   | Indore    | 207453.70 |       4 |      29 | 2021-06-18    | Under Review |
+|      6 | Farah    | HR      | mumbai    | 159090.51 |       6 |      34 | 2019-01-25    | Eligible     |
++--------+----------+---------+-----------+-----------+---------+---------+---------------+--------------+
+6 rows in set (0.00 sec)
+
+mysql>
