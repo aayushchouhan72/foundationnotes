@@ -1,0 +1,122 @@
+1.
+Create a table named Students with the following columns:
+
+StudentID (INT, Primary Key)
+Name (VARCHAR(50), NOT NULL)
+Age (INT, should be between 18 and 25)
+Marks (DECIMAL(5,2), should be between 0 and 100)
+Insert the following records and observe what happens:
+
+(101, 'Alice', 20, 85.5)
+(102, 'Bob', 17, 90.0) (This should fail due to Age constraint)
+(103, 'Charlie', 22, 105.0) (This should fail due to Marks constraint)
+(104, 'David', 24, 75.0)
+
+mysql> create table student(s_id int primary key,name varchar(50) not null,age int ,marks decimal(5,2),check(age between 18 and 25 and marks between 0 and 100));
+ERROR 1050 (42S01): Table 'student' already exists
+mysql> create table t(s_id int primary key,name varchar(50) not null,age int ,marks decimal(5,2),check(age between 18 and 25 and marks between 0 and 100));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into t(s_id,name,age,marks) values(101, 'Alice', 20, 85.5);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into t(s_id,name,age,marks) values(102, 'Bob', 17, 90.0);
+ERROR 3819 (HY000): Check constraint 't_chk_1' is violated.
+mysql> insert into t(s_id,name,age,marks) values(103, 'Charlie', 22, 105.0);
+ERROR 3819 (HY000): Check constraint 't_chk_1' is violated.
+mysql> insert into t(s_id,name,age,marks) values(104, 'David', 24, 75.0);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from t;
++------+-------+------+-------+
+| s_id | name  | age  | marks |
++------+-------+------+-------+
+|  101 | Alice |   20 | 85.50 |
+|  104 | David |   24 | 75.00 |
++------+-------+------+-------+
+2 rows in set (0.00 sec)
+
+mysql>
+
+2.
+
+Create a table Patients with:
+
+PatientID (INT, Primary Key)
+PatientName (VARCHAR(50), NOT NULL)
+Age (INT, should be between 1 and 100)
+AdmissionStatus (VARCHAR(15), should be 'Admitted' or 'Discharged', DEFAULT 'Admitted')
+TreatmentCost (DECIMAL(10,2), should be at least 1000)
+Insert records and check constraints:
+
+(201, 'Michael', 25, 'Admitted', 5000)
+(202, 'Linda', 105, 'Admitted', 8000) (Should fail due to Age constraint)
+(203, 'David', 40, DEFAULT, 1200) (Should insert 'Admitted' as default)
+(204, 'Sarah', 30, 'Discharged', 700) (Should fail due to TreatmentCost constraint)
+
+
+mysql> create table p(p_id int primary key,name varchar(50) not null,age int,a_status varchar(15) default 'Admitted',t_cost decimal(10,2),check(age between 1 and 100 and (a_status='Admitted' or a_status='Discharged') and t_cost>=1000));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> insert into t(p_id,name,age,a_status,t_cost) values(201, 'Michael', 25, 'Admitted', 5000);
+ERROR 1054 (42S22): Unknown column 'p_id' in 'field list'
+mysql> insert into p(p_id,name,age,a_status,t_cost) values(201, 'Michael', 25, 'Admitted', 5000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into p(p_id,name,age,a_status,t_cost) values(202, 'Linda', 105, 'Admitted', 8000);
+ERROR 3819 (HY000): Check constraint 'p_chk_1' is violated.
+mysql> insert into p(p_id,name,age,a_status,t_cost) values(203, 'David', 40, DEFAULT, 1200);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into p(p_id,name,age,a_status,t_cost) values(204, 'Sarah', 30, 'Discharged', 700);
+ERROR 3819 (HY000): Check constraint 'p_chk_1' is violated.
+mysql> select * from p;
++------+---------+------+----------+---------+
+| p_id | name    | age  | a_status | t_cost  |
++------+---------+------+----------+---------+
+|  201 | Michael |   25 | Admitted | 5000.00 |
+|  203 | David   |   40 | Admitted | 1200.00 |
++------+---------+------+----------+---------+
+2 rows in set (0.00 sec)
+
+mysql>
+3.
+Create a table GymMembers with:
+
+MemberID (INT, Primary Key)
+MemberName (VARCHAR(50), NOT NULL)
+MembershipType (VARCHAR(15), should be 'Basic', 'Premium', or 'VIP', DEFAULT 'Basic')
+MonthlyFee (DECIMAL(6,2), should be at least 500)
+Insert records and check constraints:
+
+(501, 'John', 'Premium', 1200)
+(502, 'Emma', 'Gold', 800) (Should fail due to MembershipType constraint)
+(503, 'Daniel', DEFAULT, 700) (Should insert 'Basic' as default)
+(504, 'Sophia', 'VIP', 300) (Should fail due to MonthlyFee constraint)
+
+
+mysql> create table m(id int primary key ,name varchar(50) not null ,type enums ('basic','premium','vip') default 'basic',fee decimal(6,2) , check(fee>500));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'enums ('basic','premium','vip') default 'basic',fee decimal(6,2) , check(fee>500' at line 1
+mysql> create table m(id int primary key ,name varchar(50) not null ,type enum ('basic','premium','vip') default 'basic',fee decimal(6,2) , check(fee>500));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> insert into m(id,name,type,fee) values(501, 'John', 'Premium', 1200);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into m(id,name,type,fee) values(502, 'Emma', 'Gold', 800);
+ERROR 1265 (01000): Data truncated for column 'type' at row 1
+mysql> insert into m(id,name,type,fee) values(503, 'Daniel', DEFAULT, 700);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into m(id,name,type,fee) values(504, 'Sophia', 'VIP', 300);
+ERROR 3819 (HY000): Check constraint 'm_chk_1' is violated.
+mysql> select * from m;
++-----+--------+---------+---------+
+| id  | name   | type    | fee     |
++-----+--------+---------+---------+
+| 501 | John   | premium | 1200.00 |
+| 503 | Daniel | basic   |  700.00 |
++-----+--------+---------+---------+
+2 rows in set (0.00 sec)
+
+mysql>

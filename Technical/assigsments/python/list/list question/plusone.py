@@ -35,7 +35,7 @@
 
 nums = list(map(int,input("enter the list elements ...").split(",")))
 st=''
-
+max=''
 for i in nums:
     st+=str(i)
 lis=[]
