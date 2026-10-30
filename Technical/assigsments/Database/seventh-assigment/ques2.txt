@@ -1,0 +1,241 @@
+2.
+Student Performance Analysis
+Use the following students table for the queries.
+
+NOTE: use your friends names in the given table.
+Table: students
+student_id name class subject marks exam_date
+1 John 10 Math 85 2023-02-10
+2 Alice 10 Science 78 2023-03-15
+3 Bob 9 Math 92 2023-04-20
+4 David 9 Science 80 2023-05-25
+5 Eve 10 Math 88 2023-06-30
+6 Frank 9 Science 75 2023-07-10
+7 Grace 10 Math 90 2023-08-20
+8 Hank 9 Math 85 2023-09-15
+9 Ivy 10 Science 82 2023-10-10
+10 Jack 9 Science 79 2023-11-05
+
+mysql> select * from stu;
++------------+-------+-------+---------+-------+------------+
+| student_id | name  | class | subject | marks | exam_date  |
++------------+-------+-------+---------+-------+------------+
+|          1 | John  |    10 | Math    |    85 | 2023-02-10 |
+|          2 | Alice |    10 | Science |    78 | 2023-03-15 |
+|          3 | Bob   |     9 | Math    |    92 | 2023-04-20 |
+|          4 | David |     9 | Science |    80 | 2023-05-25 |
+|          5 | Eve   |    10 | Math    |    88 | 2023-06-30 |
+|          6 | Frank |     9 | Science |    75 | 2023-07-10 |
+|          7 | Grace |    10 | Math    |    90 | 2023-08-20 |
+|          8 | Hank  |     9 | Math    |    85 | 2023-09-15 |
+|          9 | Ivy   |    10 | Science |    82 | 2023-10-10 |
+|         10 | Jack  |     9 | Science |    79 | 2023-11-05 |
++------------+-------+-------+---------+-------+------------+
+10 rows in set (0.00 sec)
+
+
+Questions
+Find the total number of students in each class.
+mysql> select class,count(*) from stu group by class
+    -> ;
++-------+----------+
+| class | count(*) |
++-------+----------+
+|    10 |        5 |
+|     9 |        5 |
++-------+----------+
+2 rows in set (0.00 sec)
+
+Find the highest marks scored in Math.
+
+mysql> select name,max(marks) from stu where subject='math' group by name order by max(marks) desc limit 1;;
++------+------------+
+| name | max(marks) |
++------+------------+
+| Bob  |         92 |
++------+------------+
+1 row in set (0.00 sec)
+
+ERROR:
+No query specified
+Find the average marks in each subject.
+mysql> select subject ,avg(marks) from stu group by subject;
++---------+------------+
+| subject | avg(marks) |
++---------+------------+
+| Math    |         88 |
+| Science |       78.8 |
++---------+------------+
+2 rows in set (0.01 sec)
+
+mysql>
+
+Find the total number of students who scored above 80.
+
+mysql> select count(*) from stu where marks>80 ;
++----------+
+| count(*) |
++----------+
+|        6 |
++----------+
+1 row in set (0.00 sec)
+
+
+Find the number of students who took the exam in each month.
+mysql> SELECT
+    ->     MONTHNAME(exam_date) AS month_name,
+    ->     COUNT(*) AS total_students
+    -> FROM stu
+    -> GROUP BY MONTH(exam_date), MONTHNAME(exam_date)
+    -> ORDER BY MONTH(exam_date);
++------------+----------------+
+| month_name | total_students |
++------------+----------------+
+| February   |              1 |
+| March      |              1 |
+| April      |              1 |
+| May        |              1 |
+| June       |              1 |
+| July       |              1 |
+| August     |              1 |
+| September  |              1 |
+| October    |              1 |
+| November   |              1 |
++------------+----------------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT
+    ->     MONTHNAME(exam_date) AS month_name,
+    ->     COUNT(*) AS total_students
+    -> FROM stu
+    -> GROUP BY MONTH(exam_date), MONTHNAME(exam_date)
+    -> ORDER BY MONTH(exam_date) desc;
++------------+----------------+
+| month_name | total_students |
++------------+----------------+
+| November   |              1 |
+| October    |              1 |
+| September  |              1 |
+| August     |              1 |
+| July       |              1 |
+| June       |              1 |
+| May        |              1 |
+| April      |              1 |
+| March      |              1 |
+| February   |              1 |
++------------+----------------+
+10 rows in set (0.00 sec)
+
+mysql>
+Find the subject where students scored the highest average marks.
+mysql>  select subject ,avg(marks) from stu group by subject limit 1;
++---------+------------+
+| subject | avg(marks) |
++---------+------------+
+| Math    |         88 |
++---------+------------+
+1 row in set (0.00 sec)
+
+Find the student who scored the lowest marks in Science.
+
+mysql> select * from stu where marks=(select min(marks) from stu);
++------------+-------+-------+---------+-------+------------+
+| student_id | name  | class | subject | marks | exam_date  |
++------------+-------+-------+---------+-------+------------+
+|          6 | Frank |     9 | Science |    75 | 2023-07-10 |
++------------+-------+-------+---------+-------+------------+
+1 row in set (0.01 sec)
+
+Find the number of students in each class who scored more than 85.
+
+mysql> select class, count(*) from stu where marks>85 group by class
+    -> ;
++-------+----------+
+| class | count(*) |
++-------+----------+
+|     9 |        1 |
+|    10 |        2 |
++-------+----------+
+2 rows in set (0.00 sec)
+
+
+Find the average marks for each subject where the average is above 80.
+mysql> select subject, avg(marks) from stu  group by subject having avg(marks)>80;
++---------+------------+
+| subject | avg(marks) |
++---------+------------+
+| Math    |         88 |
++---------+------------+
+1 row in set (0.00 sec)
+
+Find the student who scored the highest marks overall.
+mysql> select * from stu where marks=(select max(marks) from stu)
+    -> ;
++------------+------+-------+---------+-------+------------+
+| student_id | name | class | subject | marks | exam_date  |
++------------+------+-------+---------+-------+------------+
+|          3 | Bob  |     9 | Math    |    92 | 2023-04-20 |
++------------+------+-------+---------+-------+------------+
+1 row in set (0.00 sec)
+
+
+Find the average marks in each subject and display only subjects where the average is above 80. (GROUP BY + HAVING)
+
++---------+------+
+| subject | avg  |
++---------+------+
+| Math    |   88 |
++---------+------+
+1 row in set (0.00 sec)
+
+Find the total number of students in each class and order them by class in descending order. (GROUP BY + ORDER BY)
+
+mysql> select class,count(*) from stu group by class order by count(*) desc;
++-------+----------+
+| class | count(*) |
++-------+----------+
+|    10 |        5 |
+|     9 |        5 |
++-------+----------+
+2 rows in set (0.00 sec)
+
+
+Find the subject where students scored the highest average marks, displaying only subjects where the average is above 85. (GROUP BY + HAVING + ORDER BY)
+
+mysql> select subject,avg(marks) from stu group by subject having avg(marks) >85 order by avg(marks) desc;
++---------+------------+
+| subject | avg(marks) |
++---------+------------+
+| Math    |         88 |
++---------+------------+
+1 row in set (0.00 sec)
+
+
+Find the student who scored the highest marks overall. (ORDER BY + LIMIT 1)
+
+mysql> select * from stu order by marks limit 1;
++------------+-------+-------+---------+-------+------------+
+| student_id | name  | class | subject | marks | exam_date  |
++------------+-------+-------+---------+-------+------------+
+|          6 | Frank |     9 | Science |    75 | 2023-07-10 |
++------------+-------+-------+---------+-------+------------+
+1 row in set (0.00 sec)
+
+Find the number of students in each class who scored more than 85, displaying only classes with more than 2 such students. (GROUP BY + HAVING)
+mysql> select class ,count(*) from stu  where marks>=85 group by class having  count(*) >=2;
++-------+----------+
+| class | count(*) |
++-------+----------+
+|    10 |        3 |
+|     9 |        2 |
++-------+----------+
+2 rows in set (0.00 sec)
+
+mysql>
+
+
+
+
+
+
+create table stu(student_id int , name VARCHAR(50), class int, subject VARCHAR(30), marks float, exam_date date);

@@ -1,0 +1,228 @@
+Assignment 1:
+
+ Employee Salary Analysis
+Use the following employees table to solve the questions below.
+
+NOTE:-use your friends names in the given table.
+Table: employees
+id name department job_role salary hire_date
+1 Alice HR       Manager       6000.00 2022-01-15
+2 Bob HR Recruiter 4000.00 2023-03-20
+3 Charlie IT Developer 5000.00 2022-07-25
+4 David IT Developer 5500.00 2021-12-05
+5 Eve IT Tester 4500.00 2023-06-10
+6 Frank IT Tester 4800.00 2023-09-12
+7 Grace Finance Analyst 5200.00 2021-11-18
+8 Hank Finance Analyst 5300.00 2022-04-30
+9 Ivy Finance Manager 7000.00 2023-08-14
+10 Jack HR Recruiter 4200.00 2022-10-05
+Questions
+Find the total number of employees in each department.
+
+mysql> select department,count(*) from employ group by department;
++------------+----------+
+| department | count(*) |
++------------+----------+
+| HR         |        3 |
+| IT         |        4 |
+| Finance    |        3 |
++------------+----------+
+3 rows in set (0.00 sec)
+
+
+Find the average salary of employees in each job role.
+
+mysql> select job_role,avg(salary) from employ group by job_role;
++-----------+-------------+
+| job_role  | avg(salary) |
++-----------+-------------+
+| Manager   | 6500.000000 |
+| Recruiter | 4100.000000 |
+| Developer | 5250.000000 |
+| Tester    | 4650.000000 |
+| Analyst   | 5250.000000 |
++-----------+-------------+
+5 rows in set (0.00 sec)
+
+
+Find the highest salary in the IT department.
+mysql> select * from employ where department='it' order by salary  desc limit 1;
++----+-------+------------+-----------+---------+------------+
+| id | name  | department | job_role  | salary  | hire_date  |
++----+-------+------------+-----------+---------+------------+
+|  4 | David | IT         | Developer | 5500.00 | 2021-12-05 |
++----+-------+------------+-----------+---------+------------+
+1 row in set (0.00 sec)
+
+Find the lowest salary among all employees.
+
+mysql> select * from employ order by salary  asc limit 1;
++----+------+------------+-----------+---------+------------+
+| id | name | department | job_role  | salary  | hire_date  |
++----+------+------------+-----------+---------+------------+
+|  2 | Bob  | HR         | Recruiter | 4000.00 | 2023-03-20 |
++----+------+------------+-----------+---------+------------+
+1 row in set (0.00 sec)
+
+mysql>
+Count the number of employees who joined after January 1, 2023.
+
+mysql> select count(*) from employ where hire_date>'2023--03-20';
++----------+
+| count(*) |
++----------+
+|        3 |
++----------+
+1 row in set, 1 warning (0.00 sec)
+Find the total salary paid in each department.
+
+
+
+mysql> select department ,sum(salary) from employ group by department ;
++------------+-------------+
+| department | sum(salary) |
++------------+-------------+
+| HR         |    14200.00 |
+| IT         |    19800.00 |
+| Finance    |    17500.00 |
++------------+-------------+
+3 rows in set (0.00 sec)
+
+
+Find the job role that has the highest total salary payout.
+
+mysql> select job_role,salary from employ order by salary desc limit 1;
++----------+---------+
+| job_role | salary  |
++----------+---------+
+| Manager  | 7000.00 |
++----------+---------+
+1 row in set (0.00 sec)
+
+mysql>
+Find the average salary of employees who joined after 2022.
+
+
+mysql> select avg(salary) from employ where hire_date>'2022-12-31';
++-------------+
+| avg(salary) |
++-------------+
+| 5075.000000 |
++-------------+
+1 row in set (0.00 sec)
+Find departments where the total salary exceeds 10,000.
+
+mysql> select department,sum(salary) from employ  group by department having sum(salary)>10000;
++------------+-------------+
+| department | sum(salary) |
++------------+-------------+
+| HR         |    14200.00 |
+| IT         |    19800.00 |
+| Finance    |    17500.00 |
++------------+-------------+
+3 rows in set (0.00 sec)
+
+
+Find the department with the highest number of employees.
+
+mysql> select department ,count(*) from employ group by department order by count(*) desc limit 1;
++------------+----------+
+| department | count(*) |
++------------+----------+
+| IT         |        4 |
++------------+----------+
+1 row in set (0.00 sec)
+create table employ(id int PRIMARY KEY, name VARCHAR(50), department ENUM('HR', 'IT', 'Finance'),job_role ENUM('Manager', 'Recruiter', 'Developer', 'Tester', 'Analyst') ,salary DECIMAL(10,2) ,hire_date date)
+
+
+INSERT INTO employees
+(id, name, department, job_role, salary, hire_date)
+VALUES
+(1, 'Alice', 'HR', 'Manager', 6000.00, '2022-01-15'),
+(2, 'Bob', 'HR', 'Recruiter', 4000.00, '2023-03-20'),
+(3, 'Charlie', 'IT', 'Developer', 5000.00, '2022-07-25'),
+(4, 'David', 'IT', 'Developer', 5500.00, '2021-12-05'),
+(5, 'Eve', 'IT', 'Tester', 4500.00, '2023-06-10'),
+(6, 'Frank', 'IT', 'Tester', 4800.00, '2023-09-12'),
+(7, 'Grace', 'Finance', 'Analyst', 5200.00, '2021-11-18'),
+(8, 'Hank', 'Finance', 'Analyst', 5300.00, '2022-04-30'),
+(9, 'Ivy', 'Finance', 'Manager', 7000.00, '2023-08-14'),
+(10, 'Jack', 'HR', 'Recruiter', 4200.00, '2022-10-05');
+
+
+mysql> select * from employ;
++----+---------+------------+-----------+---------+------------+
+| id | name    | department | job_role  | salary  | hire_date  |
++----+---------+------------+-----------+---------+------------+
+|  1 | Alice   | HR         | Manager   | 6000.00 | 2022-01-15 |
+|  2 | Bob     | HR         | Recruiter | 4000.00 | 2023-03-20 |
+|  3 | Charlie | IT         | Developer | 5000.00 | 2022-07-25 |
+|  4 | David   | IT         | Developer | 5500.00 | 2021-12-05 |
+|  5 | Eve     | IT         | Tester    | 4500.00 | 2023-06-10 |
+|  6 | Frank   | IT         | Tester    | 4800.00 | 2023-09-12 |
+|  7 | Grace   | Finance    | Analyst   | 5200.00 | 2021-11-18 |
+|  8 | Hank    | Finance    | Analyst   | 5300.00 | 2022-04-30 |
+|  9 | Ivy     | Finance    | Manager   | 7000.00 | 2023-08-14 |
+| 10 | Jack    | HR         | Recruiter | 4200.00 | 2022-10-05 |
++----+---------+------------+-----------+---------+------------+
+10 rows in set (0.00 sec)
+
+mysql>
+
+
+
+3.
+NOTE:USE TABLE from QNO 1:Table: employees
+
+Find the total number of employees in each department and display only those departments having more than 2 employees. (GROUP BY + HAVING)
+
+mysql> select department,count(*) from employ group by department having count(*)>2;
++------------+----------+
+| department | count(*) |
++------------+----------+
+| HR         |        3 |
+| IT         |        4 |
+| Finance    |        3 |
++------------+----------+
+3 rows in set (0.00 sec)
+
+Find the total salary paid in each department and display the results in descending order of total salary. (GROUP BY + ORDER BY)
+mysql>  select department,sum(salary) from employ  group by department order by sum(salary) desc;
++------------+-------------+
+| department | sum(salary) |
++------------+-------------+
+| IT         |    19800.00 |
+| Finance    |    17500.00 |
+| HR         |    14200.00 |
++------------+-------------+
+3 rows in set (0.00 sec)
+Find the job role that has the highest total salary payout, displaying only roles where total salary is above 10,000. (GROUP BY + HAVING + ORDER BY)
+
+mysql> select job_role,sum(salary) from employ group by job_role having sum(salary)>10000 order by sum(salary);
++-----------+-------------+
+| job_role  | sum(salary) |
++-----------+-------------+
+| Developer |    10500.00 |
+| Analyst   |    10500.00 |
+| Manager   |    13000.00 |
++-----------+-------------+
+3 rows in set (0.00 sec)
+
+mysql>
+Find the average salary of employees who joined after 2022, displaying only job roles where the average salary is above 4500. (WHERE + GROUP BY + HAVING)
+mysql> select department ,avg(salary) from employ where hire_date='2022-12-31' group by department having avg(salary)>4500;
+Empty set (0.00 sec)
+
+Find departments where the total salary exceeds 10,000 and order the results in ascending order of department name. (GROUP BY + HAVING + ORDER BY)
+
+mysql> select department,sum(salary) as sal from employ group by department having sal>10000 order by sal asc;
++------------+----------+
+| department | sal      |
++------------+----------+
+| HR         | 14200.00 |
+| Finance    | 17500.00 |
+| IT         | 19800.00 |
++------------+----------+
+3 rows in set (0.01 sec)
+
+

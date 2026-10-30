@@ -38,7 +38,7 @@ st=''
 max=''
 for i in nums:
     st+=str(i)
-lis=[]
+lis=[]ugu
 for i in str(int(st)+1):
     lis.append(int(i))
 
