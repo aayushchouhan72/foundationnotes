@@ -1,0 +1,1095 @@
+CASE STUDY: Hospital Management & Appointment System
+
+============================================================
+1. BUSINESS SCENARIO
+============================================================
+A private hospital wants to develop a MySQL database to manage its daily operations.
+The hospital has departments, doctors, patients, appointments, prescriptions and
+medicines.
+A patient can visit the hospital multiple times. Every visit is recorded as an
+appointment between a patient and a doctor.
+
+Each doctor belongs to a department.
+
+After an appointment, the doctor may create a prescription. A prescription can
+contain multiple medicines.
+
+The hospital also wants the database to maintain historical records wherever
+required.
+
+Your task is to analyze the business requirements and design the database.
+
+
+============================================================
+2. DEPARTMENT DATA
+============================================================
+
+department_id | department_name | floor_no
+------------------------------------------------
+101           | Cardiology       | 3
+102           | Neurology        | 4
+103           | Orthopedics      | 2
+104           | Dermatology      | 1
+
+
+create table doc_dep(dep_id int primary key AUTO_INCREMENT,dep_name varchar(40),floor_no int);
+============================================================
+3. DOCTOR DATA
+============================================================
+
+doctor_id | doctor_name      | specialization | department_id
+----------------------------------------------------------------
+201       | Dr. Rajesh Sharma| Cardiologist   | 101
+202       | Dr. Neha Verma   | Neurologist    | 102
+203       | Dr. Amit Jain    | Orthopedic     | 103
+204       | Dr. Priya Singh  | Dermatologist  | 104
+205       | Dr. Karan Mehta  | Cardiologist   | 101
+
+create table doc_data(doc_id int primary key AUTO_INCREMENT,doc_name varchar(40),doc_spa varchar(30),fk_dep_id int,constraint fk_id foreign key (fk_dep_id) reference doc_dep(dep_id) on delete set null on update CASCADE );
+============================================================
+4. PATIENT DATA
+============================================================
+
+patient_id | patient_name  | gender | city
+------------------------------------------------
+301        | Rahul Verma   | Male   | Indore
+302        | Sneha Sharma  | Female | Bhopal
+303        | Amit Patel    | Male   | Indore
+304        | Pooja Gupta   | Female | Ujjain
+305        | Rohan Jain    | Male   | Dewas
+306        | Neha Patel    | Female | Indore
+
+create table pat_data(pat_id int primary key AUTO_INCREMENT,pat_name varchar(20),gender enum('male','Female'),city varchar(30));
+============================================================
+5. MEDICINE DATA
+============================================================
+
+medicine_id | medicine_name | manufacturer       | price
+----------------------------------------------------------
+401         | Paracetamol   | ABC Pharma         | 30
+402         | Azithromycin  | XYZ Pharma         | 120
+403         | Pantoprazole  | MedLife            | 80
+404         | Amoxicillin   | HealthCare Pharma  | 150
+405         | Ibuprofen     | ABC Pharma         | 60
+406         | Cetirizine    | MedLife            | 45
+insert into medicine values(401,'Paracetamol','ABC Pharma',30),
+create table med_data(med_id int primary key AUTO_INCREMENT,med_name varchar(30),man_detail varchar(50),price decimal(10,2))
+============================================================
+6. APPOINTMENT
+============================================================
+
+The hospital wants to maintain appointment information.
+
+Each appointment belongs to:
+- One patient
+- One doctor
+- One department
+
+Therefore, the APPOINTMENT table will contain MULTIPLE FOREIGN KEYS.
+
+Required columns:
+
+appointment_id
+appointment_date
+appointment_time
+patient_id
+doctor_id
+department_id
+status
+
+
+The following data must be inserted:
+
+appointment_id | date       | time  | patient_id | doctor_id | department_id | status
+---------------------------------------------------------------------------------------
+501             | 2026-09-01 | 10:00 | 301        | 201       | 101           | Completed
+502             | 2026-09-01 | 11:00 | 302        | 202       | 102           | Completed
+503             | 2026-09-02 | 09:30 | 303        | 203       | 103           | Completed
+504             | 2026-09-02 | 12:00 | 304        | 204       | 104           | Cancelled
+505             | 2026-09-03 | 10:30 | 301        | 205       | 101           | Completed
+506             | 2026-09-03 | 11:30 | 305        | 203       | 103           | Completed
+507             | 2026-09-04 | 09:00 | 306        | 201       | 101           | Scheduled
+508             | 2026-09-04 | 14:00 | 302        | 202       | 102           | Scheduled
+
+create table app_data(app_id int primary key AUTO_INCREMENT,app_data data,app_time time,pat_id int,doctor_id int,department_id,status enum('Completed','Cancelled','Scheduled'),constraint fk_pat_id FOREIGN key (pat_id) reference pat_data(pat_id) on delete CASCADE,constraint fk_doc_id foreign key (doctor_id) reference doc_data(doc_id) on delete set null on update set null,constraint fk_dep_id (department_id) reference doc_dep(dep_id) );
+============================================================
+7. PRESCRIPTION
+============================================================
+
+After an appointment, a doctor can create a prescription.
+
+Each prescription belongs to:
+- One appointment
+- One patient
+- One doctor
+
+Required columns:
+
+prescription_id
+prescription_date
+appointment_id
+patient_id
+doctor_id
+remarks
+
+
+Data:
+
+prescription_id | date       | appointment_id | patient_id | doctor_id | remarks
+--------------------------------------------------------------------------------
+601             | 2026-09-01 | 501            | 301        | 201       | BP observation
+602             | 2026-09-01 | 502            | 302        | 202       | Migraine treatment
+603             | 2026-09-02 | 503            | 303        | 203       | Knee pain
+604             | 2026-09-03 | 505            | 301        | 205       | Heart checkup
+605             | 2026-09-03 | 506            | 305        | 203       | Back pain
+
+
+create table pres_data(pres_id int primary key AUTO_INCREMENT,pres_date date,app_id int,pat_id int ,doc_id int,remarks text,constraint fk_pat_id FOREIGN key (pat_id) reference pat_data(pat_id),constraint fk_doc_id foreign key (doctor_id) reference doc_data(doc_id),constraint fk_dep_id (app_id) reference doc_dep(app_id) on delete CASCADE)
+============================================================
+8. PRESCRIPTION_MEDICINE
+============================================================
+
+One prescription can contain multiple medicines.
+
+One medicine can be used in multiple prescriptions.
+
+Therefore, this is a MANY-TO-MANY relationship.
+
+Create a bridge table:
+
+prescription_medicine
+
+Required columns:
+
+prescription_id
+medicine_id
+dosage
+duration_days
+quantity
+
+Use a COMPOSITE PRIMARY KEY:
+
+PRIMARY KEY (prescription_id, medicine_id)
+
+
+Data:
+
+prescription_id | medicine_id | dosage | duration_days | quantity
+-----------------------------------------------------------------
+601             | 401         | 1-0-1  | 5             | 10
+601             | 403         | 1-0-0  | 5             | 5
+602             | 403         | 1-0-0  | 7             | 7
+602             | 406         | 0-0-1  | 5             | 5
+603             | 405         | 1-0-1  | 5             | 10
+603             | 403         | 1-0-0  | 5             | 5
+604             | 401         | 1-0-1  | 3             | 6
+604             | 403         | 1-0-0  | 3             | 3
+605             | 405         | 1-0-1  | 7             | 14
+
+create table pres_med(prescription_id int,medicine_id int,dosage varchar(5),duration_days int,quantity int, primary key (prescription_id,medicine_id) on delete CASCADE)
+============================================================
+9. RELATIONSHIPS TO IDENTIFY
+============================================================
+
+Identify and implement the following relationships:
+
+1. Department -> Doctor
+
+2. Patient -> Appointment
+
+3. Doctor -> Appointment
+
+4. Department -> Appointment
+
+5. Appointment -> Prescription
+
+6. Patient -> Prescription
+
+7. Doctor -> Prescription
+
+8. Prescription -> Prescription_Medicine
+
+9. Medicine -> Prescription_Medicine
+
+
+IMPORTANT:
+
+Do not simply create the tables randomly.
+
+Analyze which table is the PARENT and which table is the CHILD.
+
+
+============================================================
+10. ON DELETE BUSINESS REQUIREMENTS
+============================================================
+
+You must choose the correct ON DELETE action based on the following
+business scenarios.
+
+
+SCENARIO A - DEPARTMENT CLOSED
+--------------------------------
+
+Department 104 (Dermatology) is closed permanently.
+
+However, doctors who worked in that department should NOT be deleted.
+
+Their department_id should become NULL.
+
+Requirement:
+
+Department -> Doctor
+
+Use an appropriate ON DELETE action so that:
+
+Doctor remains
+department_id becomes NULL
+
+
+SCENARIO B - DOCTOR LEAVES THE HOSPITAL
+-----------------------------------------
+
+Doctor 203 leaves the hospital.
+
+The hospital wants to retain historical appointment records.
+
+Therefore, deleting the doctor must NOT delete the appointments.
+
+The doctor reference in existing appointments should become NULL.
+
+Requirement:
+
+Doctor -> Appointment
+
+Use:
+
+ON DELETE SET NULL
+
+
+SCENARIO C - TEST PATIENT IS DELETED
+-------------------------------------
+
+Patient 306 is test/demo data and management wants to permanently
+remove this patient.
+
+Appointments belonging to this test patient should also be removed.
+
+Requirement:
+
+Patient -> Appointment
+
+Use:
+
+ON DELETE CASCADE
+
+
+SCENARIO D - APPOINTMENT IS DELETED
+------------------------------------
+
+Appointment 501 is removed from the system.
+
+Any prescription created specifically for that appointment should
+also be removed.
+
+Requirement:
+
+Appointment -> Prescription
+
+Use:
+
+ON DELETE CASCADE
+
+
+SCENARIO E - PRESCRIPTION IS DELETED
+-------------------------------------
+
+Prescription 601 is deleted.
+
+Its records from prescription_medicine should automatically be removed.
+
+Requirement:
+
+Prescription -> Prescription_Medicine
+
+Use:
+
+ON DELETE CASCADE
+
+
+SCENARIO F - MEDICINE IS IN USE
+--------------------------------
+
+Medicine 406 is already being used in existing prescriptions.
+
+The hospital wants to protect historical prescription data.
+
+Therefore, a medicine that is referenced by prescription_medicine
+should NOT be deleted.
+
+Requirement:
+
+Medicine -> Prescription_Medicine
+
+Use an appropriate action such as:
+
+ON DELETE RESTRICT
+
+Students must explain why ON DELETE CASCADE would be dangerous
+in this situation.
+
+
+============================================================
+11. ON UPDATE CASCADE
+============================================================
+
+The hospital wants to change some department IDs during a data migration.
+
+For example:
+
+101 -> 1001
+102 -> 1002
+103 -> 1003
+104 -> 1004
+
+When a department ID changes, related foreign key values should
+automatically change.
+
+For example:
+
+department.department_id
+101 -> 1001
+
+The related values in:
+
+doctor.department_id
+appointment.department_id
+
+should automatically change from:
+
+101 -> 1001
+
+Requirement:
+
+Use ON UPDATE CASCADE wherever appropriate.
+
+Students must demonstrate this using an UPDATE statement.
+
+
+============================================================
+12. ON UPDATE SET NULL
+============================================================
+
+The hospital also wants to test a different update behavior.
+
+Suppose doctor ID 203 is changed to 250 during an administrative
+migration.
+
+For a relationship configured with ON UPDATE SET NULL, the old
+doctor reference in child records should become NULL rather than
+automatically changing to 250.
+
+Demonstrate:
+
+UPDATE doctor
+SET doctor_id = 250
+WHERE doctor_id = 203;
+
+Then check the related child records.
+
+Expected behavior for the relationship configured with
+ON UPDATE SET NULL:
+
+Old doctor reference -> NULL
+
+Students must explain the difference between:
+
+ON UPDATE CASCADE
+and
+ON UPDATE SET NULL
+
+
+============================================================
+13. REQUIRED TASKS
+============================================================
+
+TASK 1
+------
+
+Create a database named:
+
+hospital_management
+
+
+TASK 2
+------
+
+Create all required tables:
+
+1. department
+2. doctor
+3. patient
+4. appointment
+5. medicine
+6. prescription
+7. prescription_medicine
+
+
+TASK 3
+------
+
+Identify the PRIMARY KEY of every table.
+
+
+TASK 4
+------
+
+Identify every FOREIGN KEY.
+
+
+TASK 5
+------
+
+Implement all relationships correctly.
+
+
+TASK 6
+------
+
+For every FOREIGN KEY, decide and implement the appropriate:
+
+ON DELETE
+ON UPDATE
+
+
+TASK 7
+------
+
+Insert all the given data.
+
+
+TASK 8
+------
+
+Display every table using:
+
+SELECT * FROM table_name;
+
+mysql> select * from department;
++---------------+-----------------+----------+
+| department_id | department_name | floor_no |
++---------------+-----------------+----------+
+|           101 | cardiology      |        3 |
+|           102 | Neurology       |        4 |
+|           103 | Orthopedics     |        2 |
+|           104 | dermatology     |        1 |
++---------------+-----------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from doctor;
++-----------+-------------------+----------------+---------------+
+| doctor_id | doctor_name       | specialization | department_id |
++-----------+-------------------+----------------+---------------+
+|       201 | Dr. Rajesh Sharma | Cardiologist   |           101 |
+|       202 | Dr. Neha Verma    | neurologist    |           102 |
+|       203 | Dr. Amit Jain     | Orthopedic     |           103 |
+|       204 | Dr. Priya Singh   | Dermatologist  |           104 |
+|       205 | Dr. Karan Mehta   | Cardiologist   |           101 |
++-----------+-------------------+----------------+---------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from patient
+    -> ;
++------------+--------------+--------+--------+
+| patient_id | patient_name | gender | city   |
++------------+--------------+--------+--------+
+|        301 | Rahul Verma  | Male   | Indore |
+|        302 | Sneha Sharma | Female | Bhopal |
+|        303 | Amit Patel   | Male   | Indore |
+|        304 |  Pooja Gupta | Female | ujjain |
+|        305 | Rohan Jain   | Male   | dewas  |
+|        306 | neha patel   | Female | indore |
++------------+--------------+--------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select * from  medicine;
++-------------+---------------+-------------------+--------+
+| medicine_id | medicine_name | manufacturer      | price  |
++-------------+---------------+-------------------+--------+
+|         401 | Paracetamol   | ABC Pharma        |  30.00 |
+|         402 | Azithromycin  | XYZ Pharma        | 120.00 |
+|         403 | Pantoprazole  | MedLife           |  80.00 |
+|         404 | Amoxicillin   | HealthCare Pharma | 150.00 |
+|         405 | Ibuprofen     |  ABC Pharma       |  60.00 |
+|         406 | Cetirizine    | MedLife           |  45.00 |
++-------------+---------------+-------------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> show tables;
++-----------------------+
+| Tables_in_hos_manage  |
++-----------------------+
+| appointment           |
+| department            |
+| doctor                |
+| medicine              |
+| patient               |
+| prescription          |
+| prescription_medicine |
++-----------------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from  | appointment;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '| appointment' at line 1
+mysql> select * from   appointment;
++----------------+------------------+------------------+------------+-----------+---------------+-----------+
+| appointment_id | appointment_date | appointment_time | patient_id | doctor_id | department_id | status    |
++----------------+------------------+------------------+------------+-----------+---------------+-----------+
+|            501 | 2026-09-01       | 10:00:00         |        301 |       201 |           101 | Completed |
+|            502 | 2026-09-01       | 11:00:00         |        302 |       202 |           102 | Completed |
+|            503 | 2026-09-02       | 09:30:00         |        303 |       203 |           103 | Completed |
+|            504 | 2026-09-02       | 12:00:00         |        304 |       204 |           104 | Cancelled |
+|            505 | 2026-09-03       | 10:30:00         |        301 |       205 |           101 | Completed |
+|            506 | 2026-09-03       | 11:30:00         |        305 |       203 |           103 | Completed |
+|            507 | 2026-09-04       | 09:00:00         |        306 |       201 |           101 | Scheduled |
+|            508 | 2026-09-04       | 14:00:00         |        302 |       202 |           102 | Scheduled |
++----------------+------------------+------------------+------------+-----------+---------------+-----------+
+8 rows in set (0.00 sec)
+
+mysql> select * from   prescription;
++-----------------+-------------------+----------------+------------+-----------+--------------------+
+| prescription_id | prescription_date | appointment_id | patient_id | doctor_id | remarks            |
++-----------------+-------------------+----------------+------------+-----------+--------------------+
+|             601 | 2026-09-01        |            501 |        301 |       201 | BP observation     |
+|             602 | 2026-09-01        |            502 |        302 |       202 | Migraine treatment |
+|             603 | 2026-09-02        |            503 |        303 |       203 | Knee pain          |
+|             604 | 2026-09-03        |            505 |        301 |       205 | Heart checkup      |
+|             605 | 2026-09-03        |            506 |        305 |       203 | Back pain          |
++-----------------+-------------------+----------------+------------+-----------+--------------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from   prescription_medicine;
++-----------------+-------------+--------+---------------+----------+
+| prescription_id | medicine_id | dosage | duration_days | quantity |
++-----------------+-------------+--------+---------------+----------+
+|             601 |         401 | 1-0-1  |             5 |       10 |
+|             601 |         403 | 1-0-0  |             5 |        5 |
+|             602 |         403 | 1-0-0  |             7 |        7 |
+|             602 |         406 | 0-0-1  |             5 |        5 |
+|             603 |         403 | 1-0-0  |             5 |        5 |
+|             603 |         405 | 1-0-1  |             5 |       10 |
+|             604 |         401 | 1-0-1  |             3 |        6 |
+|             604 |         403 | 1-0-0  |             3 |        3 |
+|             605 |         405 | 1-0-1  |             7 |       14 |
++-----------------+-------------+--------+---------------+----------+
+9 rows in set (0.00 sec)
+
+mysql>
+TASK 9
+------
+
+Test INVALID FOREIGN KEY.
+
+Try inserting a child record using a parent ID that does not exist.
+
+Example:
+
+patient_id = 999
+
+Observe the error and explain why MySQL rejected the record.
+mysql> insert into appointment (appointment_id , appointment_date , appointment_time , patient_id , doctor_id , department_id , status) values (509,'2026-09-22','11:34:34',307,202,101,'completed');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`hos_manage`.`appointment`, CONSTRAINT `fk_appointment_patient` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`) ON DELETE CASCADE ON UPDATE CASCADE)
+mysql>
+
+TASK 10
+-------
+
+Test ON DELETE CASCADE.
+
+Delete a patient having appointments.
+
+Check the appointment table before and after deletion.
+
+Explain what happened.
+
+mysql> select * from   appointment;
++----------------+------------------+------------------+------------+-----------+---------------+-----------+
+| appointment_id | appointment_date | appointment_time | patient_id | doctor_id | department_id | status    |
++----------------+------------------+------------------+------------+-----------+---------------+-----------+
+|            501 | 2026-09-01       | 10:00:00         |        301 |       201 |           101 | Completed |
+|            502 | 2026-09-01       | 11:00:00         |        302 |       202 |           102 | Completed |
+|            503 | 2026-09-02       | 09:30:00         |        303 |       203 |           103 | Completed |
+|            504 | 2026-09-02       | 12:00:00         |        304 |       204 |           104 | Cancelled |
+|            505 | 2026-09-03       | 10:30:00         |        301 |       205 |           101 | Completed |
+|            506 | 2026-09-03       | 11:30:00         |        305 |       203 |           103 | Completed |
+|            507 | 2026-09-04       | 09:00:00         |        306 |       201 |           101 | Scheduled |
+|            508 | 2026-09-04       | 14:00:00         |        302 |       202 |           102 | Scheduled |
++----------------+------------------+------------------+------------+-----------+---------------+-----------+
+8 rows in set (0.00 sec)
+
+mysql> delete from patient where patient_id=301;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from   appointment;
++----------------+------------------+------------------+------------+-----------+---------------+-----------+
+| appointment_id | appointment_date | appointment_time | patient_id | doctor_id | department_id | status    |
++----------------+------------------+------------------+------------+-----------+---------------+-----------+
+|            502 | 2026-09-01       | 11:00:00         |        302 |       202 |           102 | Completed |
+|            503 | 2026-09-02       | 09:30:00         |        303 |       203 |           103 | Completed |
+|            504 | 2026-09-02       | 12:00:00         |        304 |       204 |           104 | Cancelled |
+|            506 | 2026-09-03       | 11:30:00         |        305 |       203 |           103 | Completed |
+|            507 | 2026-09-04       | 09:00:00         |        306 |       201 |           101 | Scheduled |
+|            508 | 2026-09-04       | 14:00:00         |        302 |       202 |           102 | Scheduled |
++----------------+------------------+------------------+------------+-----------+---------------+-----------+
+6 rows in set (0.00 sec)
+
+mysql>
+TASK 11
+-------
+
+Test ON DELETE SET NULL.
+
+Delete a doctor.
+
+Check the appointment table.
+
+Verify that the appointment remains but doctor_id becomes NULL.
+
+mysql> select * from   appointment;
++----------------+------------------+------------------+------------+-----------+---------------+-----------+
+| appointment_id | appointment_date | appointment_time | patient_id | doctor_id | department_id | status    |
++----------------+------------------+------------------+------------+-----------+---------------+-----------+
+|            502 | 2026-09-01       | 11:00:00         |        302 |       202 |           102 | Completed |
+|            503 | 2026-09-02       | 09:30:00         |        303 |       203 |           103 | Completed |
+|            504 | 2026-09-02       | 12:00:00         |        304 |       204 |           104 | Cancelled |
+|            506 | 2026-09-03       | 11:30:00         |        305 |       203 |           103 | Completed |
+|            507 | 2026-09-04       | 09:00:00         |        306 |       201 |           101 | Scheduled |
+|            508 | 2026-09-04       | 14:00:00         |        302 |       202 |           102 | Scheduled |
++----------------+------------------+------------------+------------+-----------+---------------+-----------+
+6 rows in set (0.00 sec)
+
+mysql> delete from doctor where doctor_id=202;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from   appointment;
++----------------+------------------+------------------+------------+-----------+---------------+-----------+
+| appointment_id | appointment_date | appointment_time | patient_id | doctor_id | department_id | status    |
++----------------+------------------+------------------+------------+-----------+---------------+-----------+
+|            502 | 2026-09-01       | 11:00:00         |        302 |      NULL |           102 | Completed |
+|            503 | 2026-09-02       | 09:30:00         |        303 |       203 |           103 | Completed |
+|            504 | 2026-09-02       | 12:00:00         |        304 |       204 |           104 | Cancelled |
+|            506 | 2026-09-03       | 11:30:00         |        305 |       203 |           103 | Completed |
+|            507 | 2026-09-04       | 09:00:00         |        306 |       201 |           101 | Scheduled |
+|            508 | 2026-09-04       | 14:00:00         |        302 |      NULL |           102 | Scheduled |
++----------------+------------------+------------------+------------+-----------+---------------+-----------+
+6 rows in set (0.00 sec)
+
+mysql>
+TASK 12
+-------
+
+Test ON DELETE RESTRICT.
+
+Try deleting a medicine that is referenced by
+prescription_medicine.
+
+Observe the error.
+
+Explain why MySQL rejected the deletion.
+
+mysql> select * from medicine;
++-------------+---------------+-------------------+--------+
+| medicine_id | medicine_name | manufacturer      | price  |
++-------------+---------------+-------------------+--------+
+|         401 | Paracetamol   | ABC Pharma        |  30.00 |
+|         402 | Azithromycin  | XYZ Pharma        | 120.00 |
+|         403 | Pantoprazole  | MedLife           |  80.00 |
+|         404 | Amoxicillin   | HealthCare Pharma | 150.00 |
+|         405 | Ibuprofen     |  ABC Pharma       |  60.00 |
+|         406 | Cetirizine    | MedLife           |  45.00 |
++-------------+---------------+-------------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select * from prescription_medicine;
++-----------------+-------------+--------+---------------+----------+
+| prescription_id | medicine_id | dosage | duration_days | quantity |
++-----------------+-------------+--------+---------------+----------+
+|             602 |         403 | 1-0-0  |             7 |        7 |
+|             602 |         406 | 0-0-1  |             5 |        5 |
+|             603 |         403 | 1-0-0  |             5 |        5 |
+|             603 |         405 | 1-0-1  |             5 |       10 |
+|             605 |         405 | 1-0-1  |             7 |       14 |
++-----------------+-------------+--------+---------------+----------+
+5 rows in set (0.00 sec)
+
+mysql> delete from ^C
+mysql> delete from medicine where medicine_id=402;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from prescription_medicine;
++-----------------+-------------+--------+---------------+----------+
+| prescription_id | medicine_id | dosage | duration_days | quantity |
++-----------------+-------------+--------+---------------+----------+
+|             602 |         403 | 1-0-0  |             7 |        7 |
+|             602 |         406 | 0-0-1  |             5 |        5 |
+|             603 |         403 | 1-0-0  |             5 |        5 |
+|             603 |         405 | 1-0-1  |             5 |       10 |
+|             605 |         405 | 1-0-1  |             7 |       14 |
++-----------------+-------------+--------+---------------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from medicine;
++-------------+---------------+-------------------+--------+
+| medicine_id | medicine_name | manufacturer      | price  |
++-------------+---------------+-------------------+--------+
+|         401 | Paracetamol   | ABC Pharma        |  30.00 |
+|         403 | Pantoprazole  | MedLife           |  80.00 |
+|         404 | Amoxicillin   | HealthCare Pharma | 150.00 |
+|         405 | Ibuprofen     |  ABC Pharma       |  60.00 |
+|         406 | Cetirizine    | MedLife           |  45.00 |
++-------------+---------------+-------------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from prescription_medicine;
++-----------------+-------------+--------+---------------+----------+
+| prescription_id | medicine_id | dosage | duration_days | quantity |
++-----------------+-------------+--------+---------------+----------+
+|             602 |         403 | 1-0-0  |             7 |        7 |
+|             602 |         406 | 0-0-1  |             5 |        5 |
+|             603 |         403 | 1-0-0  |             5 |        5 |
+|             603 |         405 | 1-0-1  |             5 |       10 |
+|             605 |         405 | 1-0-1  |             7 |       14 |
++-----------------+-------------+--------+---------------+----------+
+5 rows in set (0.00 sec)
+
+TASK 13
+-------
+
+Test ON UPDATE CASCADE.
+
+Change a department primary key.
+
+Verify that the related foreign keys are automatically updated.
+
+ysql> select * from department
+    -> ;
++---------------+-----------------+----------+
+| department_id | department_name | floor_no |
++---------------+-----------------+----------+
+|           101 | cardiology      |        3 |
+|           102 | Neurology       |        4 |
+|           103 | Orthopedics     |        2 |
+|           104 | dermatology     |        1 |
++---------------+-----------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from doctor;
++-----------+-------------------+----------------+---------------+
+| doctor_id | doctor_name       | specialization | department_id |
++-----------+-------------------+----------------+---------------+
+|       201 | Dr. Rajesh Sharma | Cardiologist   |           101 |
+|       203 | Dr. Amit Jain     | Orthopedic     |           103 |
+|       204 | Dr. Priya Singh   | Dermatologist  |           104 |
+|       205 | Dr. Karan Mehta   | Cardiologist   |           101 |
++-----------+-------------------+----------------+---------------+
+4 rows in set (0.00 sec)
+
+mysql> update department set doctor_id=106 where doctor_id=103
+    -> ;
+ERROR 1054 (42S22): Unknown column 'doctor_id' in 'where clause'
+ ysql> update department set department_id=106 where department_id=103
+    -> ;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from doctor;
++-----------+-------------------+----------------+---------------+
+| doctor_id | doctor_name       | specialization | department_id |
++-----------+-------------------+----------------+---------------+
+|       201 | Dr. Rajesh Sharma | Cardiologist   |           101 |
+|       203 | Dr. Amit Jain     | Orthopedic     |           106 |
+|       204 | Dr. Priya Singh   | Dermatologist  |           104 |
+|       205 | Dr. Karan Mehta   | Cardiologist   |           101 |
++-----------+-------------------+----------------+---------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from department
+    -> ;
++---------------+-----------------+----------+
+| department_id | department_name | floor_no |
++---------------+-----------------+----------+
+|           101 | cardiology      |        3 |
+|           102 | Neurology       |        4 |
+|           104 | dermatology     |        1 |
+|           106 | Orthopedics     |        2 |
++---------------+-----------------+----------+
+4 rows in set (0.00 sec)
+
+mysql>
+
+TASK 14
+-------
+
+Test ON UPDATE SET NULL.
+
+Change a doctor primary key.
+
+Verify that the configured child foreign key becomes NULL.
+
+mysql> update doctor set doctor_id =101 where doctor_id=202;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> select * from medicine;
++-------------+---------------+-------------------+--------+
+| medicine_id | medicine_name | manufacturer      | price  |
++-------------+---------------+-------------------+--------+
+|         401 | Paracetamol   | ABC Pharma        |  30.00 |
+|         403 | Pantoprazole  | MedLife           |  80.00 |
+|         404 | Amoxicillin   | HealthCare Pharma | 150.00 |
+|         405 | Ibuprofen     |  ABC Pharma       |  60.00 |
+|         406 | Cetirizine    | MedLife           |  45.00 |
++-------------+---------------+-------------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from   appointment;
++----------------+------------------+------------------+------------+-----------+---------------+-----------+
+| appointment_id | appointment_date | appointment_time | patient_id | doctor_id | department_id | status    |
++----------------+------------------+------------------+------------+-----------+---------------+-----------+
+|            502 | 2026-09-01       | 11:00:00         |        302 |      NULL |           102 | Completed |
+|            503 | 2026-09-02       | 09:30:00         |        303 |       203 |           106 | Completed |
+|            504 | 2026-09-02       | 12:00:00         |        304 |       204 |           104 | Cancelled |
+|            506 | 2026-09-03       | 11:30:00         |        305 |       203 |           106 | Completed |
+|            507 | 2026-09-04       | 09:00:00         |        306 |       201 |           101 | Scheduled |
+|            508 | 2026-09-04       | 14:00:00         |        302 |      NULL |           102 | Scheduled |
++----------------+------------------+------------------+------------+-----------+---------------+-----------+
+6 rows in set (0.00 sec)
+
+mysql>
+============================================================
+14. IMPORTANT QUESTIONS TO ANSWER
+============================================================
+
+Answer the following questions in your submission.
+
+1. Why does the appointment table contain multiple foreign keys?
+
+2. Which tables are parent tables and which are child tables?
+
+3. What is the relationship between Patient and Appointment?
+
+4. What is the relationship between Doctor and Appointment?
+
+5. What is the relationship between Prescription and Medicine?
+
+6. Why is prescription_medicine required?
+
+7. Why is prescription_medicine using a composite primary key?
+
+8. Why should deleting a doctor NOT delete historical appointments?
+
+9. Why is ON DELETE SET NULL suitable for Department -> Doctor?
+
+10. Why is ON DELETE CASCADE suitable for Patient -> Appointment
+    in the given test-data scenario?
+
+11. Why can ON DELETE CASCADE be dangerous for Medicine ->
+    Prescription_Medicine?
+
+12. What is the difference between ON DELETE CASCADE and
+    ON DELETE SET NULL?
+
+13. What is the difference between ON UPDATE CASCADE and
+    ON UPDATE SET NULL?
+
+14. What happens if you try to insert a child record with a
+    non-existing parent ID?
+
+15. What happens if you try to delete a parent record when
+    ON DELETE RESTRICT is configured?
+
+
+============================================================
+15. SUBMISSION REQUIREMENTS
+============================================================
+
+Your submission must contain:
+
+1. Database creation command
+2. CREATE TABLE statements
+3. PRIMARY KEY definitions
+4. FOREIGN KEY definitions
+5. ON DELETE definitions
+6. ON UPDATE definitions
+7. INSERT statements
+8. SELECT * output for all tables
+9. Invalid FK test
+10. ON DELETE CASCADE test
+11. ON DELETE SET NULL test
+12. ON DELETE RESTRICT test
+13. ON UPDATE CASCADE test
+14. ON UPDATE SET NULL test
+15. Answers to all theory questions
+
+
+============================================================
+GOOD LUCK!
+
+
+
+mysql> CREATE TABLE department(
+    ->     department_id INT PRIMARY KEY,
+    ->     department_name VARCHAR(40) NOT NULL,
+    ->     floor_no INT
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> CREATE TABLE doctor(
+    ->     doctor_id INT PRIMARY KEY,
+    ->     doctor_name VARCHAR(40),
+    ->     specialization VARCHAR(30),
+    ->     department_id INT,
+    ->
+    ->     CONSTRAINT fk_doctor_department
+    ->     FOREIGN KEY (department_id)
+    ->     REFERENCES department(department_id)
+    ->     ON DELETE SET NULL
+    ->     ON UPDATE CASCADE
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> CREATE TABLE patient(
+    ->     patient_id INT PRIMARY KEY,
+    ->     patient_name VARCHAR(50) NOT NULL,
+    ->     gender ENUM('Male','Female'),
+    ->     city VARCHAR(30)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE medicine(
+    ->     medicine_id INT PRIMARY KEY,
+    ->     medicine_name VARCHAR(40),
+    ->     manufacturer VARCHAR(50),
+    ->     price DECIMAL(10,2)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> CREATE TABLE appointment(
+    ->     appointment_id INT PRIMARY KEY,
+    ->     appointment_date DATE,
+    ->     appointment_time TIME,
+    ->     patient_id INT,
+    ->     doctor_id INT,
+    ->     department_id INT,
+    ->
+    ->     status ENUM('Completed','Cancelled','Scheduled'),
+    ->
+    ->     CONSTRAINT fk_appointment_patient
+    ->     FOREIGN KEY (patient_id)
+    ->     REFERENCES patient(patient_id)
+    ->     ON DELETE CASCADE
+    ->     ON UPDATE CASCADE,
+    ->
+    ->     CONSTRAINT fk_appointment_doctor
+    ->     FOREIGN KEY (doctor_id)
+    ->     REFERENCES doctor(doctor_id)
+    ->     ON DELETE SET NULL
+    ->     ON UPDATE CASCADE,
+    ->
+    ->     CONSTRAINT fk_appointment_department
+    ->     FOREIGN KEY (department_id)
+    ->     REFERENCES department(department_id)
+    ->     ON DELETE RESTRICT
+    ->     ON UPDATE CASCADE
+    -> );
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> CREATE TABLE prescription(
+    ->     prescription_id INT PRIMARY KEY,
+    ->     prescription_date DATE,
+    ->     appointment_id INT,
+    ->     patient_id INT,
+    ->     doctor_id INT,
+    ->     remarks TEXT,
+    ->
+    ->     CONSTRAINT fk_prescription_appointment
+    ->     FOREIGN KEY (appointment_id)
+    ->     REFERENCES appointment(appointment_id)
+    ->     ON DELETE CASCADE
+    ->     ON UPDATE CASCADE,
+    ->
+    ->     CONSTRAINT fk_prescription_patient
+    ->     FOREIGN KEY (patient_id)
+    ->     REFERENCES patient(patient_id)
+    ->     ON DELETE CASCADE
+    ->     ON UPDATE CASCADE,
+    ->
+    ->     CONSTRAINT fk_prescription_doctor
+    ->     FOREIGN KEY (doctor_id)
+    ->     REFERENCES doctor(doctor_id)
+    ->     ON DELETE SET NULL
+    ->     ON UPDATE CASCADE
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> CREATE TABLE pres_med(
+    ->     prescription_id INT,
+    ->     medicine_id INT,
+    ->     dosage VARCHAR(5),
+    ->     duration_days INT,
+    ->     quantity INT,
+    ->     PRIMARY KEY (prescription_id,medicine_id)
+    ->     ON DELETE CASCADE
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ON DELETE CASCADE
+)' at line 8
+mysql> CREATE TABLE prescription_medicine(
+    ->     prescription_id INT,
+    ->     medicine_id INT,
+    ->     dosage VARCHAR(10),
+    ->     duration_days INT,
+    ->     quantity INT,
+    ->
+    ->     PRIMARY KEY (prescription_id, medicine_id),
+    ->
+    ->     CONSTRAINT fk_pm_prescription
+    ->     FOREIGN KEY (prescription_id)
+    ->     REFERENCES prescription(prescription_id)
+    ->     ON DELETE CASCADE
+    ->     ON UPDATE CASCADE,
+    ->
+    ->     CONSTRAINT fk_pm_medicine
+    ->     FOREIGN KEY (medicine_id)
+    ->     REFERENCES medicine(medicine_id)
+    ->     ON DELETE RESTRICT
+    ->     ON UPDATE CASCADE
+    -> );
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> show table
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> show tables;
++-----------------------+
+| Tables_in_hos_manage  |
++-----------------------+
+| appointment           |
+| department            |
+| doctor                |
+| medicine              |
+| patient               |
+| prescription          |
+| prescription_medicine |
++-----------------------+
+7 rows in set (0.02 sec)
+
+mysql> desc department;
++-----------------+-------------+------+-----+---------+-------+
+| Field           | Type        | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| department_id   | int         | NO   | PRI | NULL    |       |
+| department_name | varchar(40) | NO   |     | NULL    |       |
+| floor_no        | int         | YES  |     | NULL    |       |
++-----------------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql>

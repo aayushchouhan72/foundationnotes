@@ -1,0 +1,201 @@
+QNO 1:
+A company wants to manage its employees and their respective departments. Each employee must belong to a department. If a department is deleted, all employees in that department should also be removed automatically.
+Tasks:
+1. Create the Departments Table
+Each department has a unique ID (DepartmentID).
+The department name must be unique.
+The department name cannot be NULL.
+2. Create the Employees Table
+Each employee has a unique ID (EmployeeID).
+Each employee has a name and salary, both cannot be NULL.
+Each employee must be assigned to a department (DepartmentID), which is a FOREIGN KEY referencing Departments(DepartmentID).
+If a department is deleted, all employees in that department should also be deleted.
+3. Insert Sample Data
+Insert at least 3 departments.
+Insert at least 5 employees (make sure at least two employees belong to the same department).
+4. Implement Query Constraints (Without Using JOIN)
+Write a query to list all employees and their department names (without using JOIN).
+Write a query to update an employee's department.
+Try deleting a department and observe what happens to the employees under that department.
+
+
+create table depart(id  int PRIMARY key ,dep_name varchar(20) not null);
+
+create table empl(id int PRIMARY key ,sal decimal(10,2) not null ,dep_id int, Constraint fk_key FOREIGN KEY (dep_id) refernces depart(id) on delete cascade);
+
+
+
+mysql>
+mysql> create table depart(id  int PRIMARY key ,dep_name varchar(20) not null);
+ERROR 1046 (3D000): No database selected
+mysql> use batch19
+Database changed
+mysql>
+mysql> create table depart(id  int PRIMARY key ,dep_name varchar(20) not null);
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> create table empl(id int PRIMARY key ,sal decimal(10,2) not null ,dep_id int, Constraint fk_key FOREIGN KEY (dep_id) refernces depart(id) on delete cascade);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'refernces depart(id) on delete cascade)' at line 1
+mysql> create table empl(id int PRIMARY key ,sal decimal(10,2) not null ,dep_id int, Constraint fk_key FOREIGN KEY (dep_id) references depart(id) on delete cascade);
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> desc depart;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| id       | int         | NO   | PRI | NULL    |       |
+| dep_name | varchar(20) | NO   |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+2 rows in set (0.02 sec)
+
+mysql> desc empl;
++--------+---------------+------+-----+---------+-------+
+| Field  | Type          | Null | Key | Default | Extra |
++--------+---------------+------+-----+---------+-------+
+| id     | int           | NO   | PRI | NULL    |       |
+| sal    | decimal(10,2) | NO   |     | NULL    |       |
+| dep_id | int           | YES  | MUL | NULL    |       |
++--------+---------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into depart values(1,'cse'),(2,'it'),(3,'csit');
+Query OK, 3 rows affected (0.02 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from depart;
++----+----------+
+| id | dep_name |
++----+----------+
+|  1 | cse      |
+|  2 | it       |
+|  3 | csit     |
++----+----------+
+3 rows in set (0.00 sec)
+
+mysql> insert into  empl values(101,123.3,1),(102,23434.44,3),(103,22234.34,1),(104,23456.14,1),(105,23234.94,3)
+    -> ;
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from empl
+    -> ;
++-----+----------+--------+
+| id  | sal      | dep_id |
++-----+----------+--------+
+| 101 |   123.30 |      1 |
+| 102 | 23434.44 |      3 |
+| 103 | 22234.34 |      1 |
+| 104 | 23456.14 |      1 |
+| 105 | 23234.94 |      3 |
++-----+----------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select id ,sal ,dep_id,dep_name from empl,depart;
+ERROR 1052 (23000): Column 'id' in field list is ambiguous
+mysql> alter table empl rename column to e_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'to e_id' at line 1
+mysql> alter table empl rename column id to e_id;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select id ,sal ,dep_id,dep_name from empl,depart;
++----+----------+--------+----------+
+| id | sal      | dep_id | dep_name |
++----+----------+--------+----------+
+|  3 |   123.30 |      1 | csit     |
+|  2 |   123.30 |      1 | it       |
+|  1 |   123.30 |      1 | cse      |
+|  3 | 23434.44 |      3 | csit     |
+|  2 | 23434.44 |      3 | it       |
+|  1 | 23434.44 |      3 | cse      |
+|  3 | 22234.34 |      1 | csit     |
+|  2 | 22234.34 |      1 | it       |
+|  1 | 22234.34 |      1 | cse      |
+|  3 | 23456.14 |      1 | csit     |
+|  2 | 23456.14 |      1 | it       |
+|  1 | 23456.14 |      1 | cse      |
+|  3 | 23234.94 |      3 | csit     |
+|  2 | 23234.94 |      3 | it       |
+|  1 | 23234.94 |      3 | cse      |
++----+----------+--------+----------+
+15 rows in set (0.00 sec)
+
+mysql> select id ,sal ,dep_id,dep_name from empl,depart where id=e_id;
+Empty set (0.00 sec)
+
+mysql> select id ,sal ,dep_id,dep_name from empl,depart where 1;
++----+----------+--------+----------+
+| id | sal      | dep_id | dep_name |
++----+----------+--------+----------+
+|  3 |   123.30 |      1 | csit     |
+|  2 |   123.30 |      1 | it       |
+|  1 |   123.30 |      1 | cse      |
+|  3 | 23434.44 |      3 | csit     |
+|  2 | 23434.44 |      3 | it       |
+|  1 | 23434.44 |      3 | cse      |
+|  3 | 22234.34 |      1 | csit     |
+|  2 | 22234.34 |      1 | it       |
+|  1 | 22234.34 |      1 | cse      |
+|  3 | 23456.14 |      1 | csit     |
+|  2 | 23456.14 |      1 | it       |
+|  1 | 23456.14 |      1 | cse      |
+|  3 | 23234.94 |      3 | csit     |
+|  2 | 23234.94 |      3 | it       |
+|  1 | 23234.94 |      3 | cse      |
++----+----------+--------+----------+
+15 rows in set (0.00 sec)
+
+mysql> update table depart set dep_name='cse' where id=1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table depart set dep_name='cse' where id=1' at line 1
+mysql> update table depart set dep_name='cs' where id=1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table depart set dep_name='cs' where id=1' at line 1
+mysql> update depart set dep_name='cs' where id=1;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from depart;
++----+----------+
+| id | dep_name |
++----+----------+
+|  1 | cs       |
+|  2 | it       |
+|  3 | csit     |
++----+----------+
+3 rows in set (0.00 sec)
+
+mysql> delete depart where id=1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where id=1' at line 1
+mysql> delete  from depart where id=1;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from depart;
++----+----------+
+| id | dep_name |
++----+----------+
+|  2 | it       |
+|  3 | csit     |
++----+----------+
+2 rows in set (0.00 sec)
+
+mysql> select id ,sal ,dep_id,dep_name from empl,depart where 1;
++----+----------+--------+----------+
+| id | sal      | dep_id | dep_name |
++----+----------+--------+----------+
+|  2 | 23234.94 |      3 | it       |
+|  2 | 23434.44 |      3 | it       |
+|  3 | 23234.94 |      3 | csit     |
+|  3 | 23434.44 |      3 | csit     |
++----+----------+--------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from empl
+    -> ;
++------+----------+--------+
+| e_id | sal      | dep_id |
++------+----------+--------+
+|  102 | 23434.44 |      3 |
+|  105 | 23234.94 |      3 |
++------+----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> ^A

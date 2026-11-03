@@ -1,0 +1,128 @@
+QNO 2:-
+
+A hospital wants to store patient records and their assigned doctors. If a doctor leaves, all related patient records should be deleted.
+
+Tasks:
+Create a Doctors table:
+
+DoctorID (PRIMARY KEY, AUTO_INCREMENT)
+DoctorName (NOT NULL)
+Specialization (NOT NULL, UNIQUE)
+Create a Patients table:
+
+PatientID (PRIMARY KEY, AUTO_INCREMENT)
+PatientName (NOT NULL)
+DoctorID (FOREIGN KEY)
+Insert sample data (at least 3 doctors and 5 patients).
+
+Delete a doctor and check if related patients are removed automatically.
+
+Update a patient’s doctor to a new doctor.
+
+
+create table doctor(d_id int primary key AUTO_INCREMENT,doc_name varchar(30) not null,Specialization varchar(30) not null unique);
+
+create table patient(p_id int primary key AUTO_INCREMENT,p_name varchar(50) not null ,doc_id int,Constraint fk_key FOREIGN key (doc_id) references doctor(d_id) on delete cascade);
+
+
+
+mysql> create table doctor(d_id int primary key AUTO_INCREMENT,doc_name varchar(30) not null,Specialization varchar(30) not null unique);
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> create table patient(p_id int primary key AUTO_INCREMENT,p_name varchar(50) not null ,doc_id int,Constraint fk_key FOREIGN key (doc_id) references doctor(d_id) on delete cascade);
+ERROR 1826 (HY000): Duplicate foreign key constraint name 'fk_key'
+mysql> create table patient(p_id int primary key AUTO_INCREMENT,p_name varchar(50) not null ,doc_id int,Constraint fk_key_doc FOREIGN key (doc_id) references doctor(d_id) on delete cascade);
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> desc doctor;
++----------------+-------------+------+-----+---------+----------------+
+| Field          | Type        | Null | Key | Default | Extra          |
++----------------+-------------+------+-----+---------+----------------+
+| d_id           | int         | NO   | PRI | NULL    | auto_increment |
+| doc_name       | varchar(30) | NO   |     | NULL    |                |
+| Specialization | varchar(30) | NO   | UNI | NULL    |                |
++----------------+-------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into doctor(doc_name,Specialization) values('Aayush','heart'),('komal','brain'),('piyush','bone'),('gopal','backchodi')
+    -> ;
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from doctor;
++------+----------+----------------+
+| d_id | doc_name | Specialization |
++------+----------+----------------+
+|    1 | Aayush   | heart          |
+|    2 | komal    | brain          |
+|    3 | piyush   | bone           |
+|    4 | gopal    | backchodi      |
++------+----------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> desc patient;
++--------+-------------+------+-----+---------+----------------+
+| Field  | Type        | Null | Key | Default | Extra          |
++--------+-------------+------+-----+---------+----------------+
+| p_id   | int         | NO   | PRI | NULL    | auto_increment |
+| p_name | varchar(50) | NO   |     | NULL    |                |
+| doc_id | int         | YES  | MUL | NULL    |                |
++--------+-------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into patient(p_name,doc_id) values('khushi',1),('priya',2),('yush',4),('jaypal',2)
+    -> ;
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from patient;
++------+--------+--------+
+| p_id | p_name | doc_id |
++------+--------+--------+
+|    1 | khushi |      1 |
+|    2 | priya  |      2 |
+|    3 | yush   |      4 |
+|    4 | jaypal |      2 |
++------+--------+--------+
+4 rows in set (0.00 sec)
+
+mysql> delete from doctor where id=1;
+ERROR 1054 (42S22): Unknown column 'id' in 'where clause'
+mysql> delete from doctor where d_id=1;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from patient;
++------+--------+--------+
+| p_id | p_name | doc_id |
++------+--------+--------+
+|    2 | priya  |      2 |
+|    3 | yush   |      4 |
+|    4 | jaypal |      2 |
++------+--------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from doctor;
++------+----------+----------------+
+| d_id | doc_name | Specialization |
++------+----------+----------------+
+|    2 | komal    | brain          |
+|    3 | piyush   | bone           |
+|    4 | gopal    | backchodi      |
++------+----------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> update patient set doc_id=3 where doc_id =  4;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from patient;
++------+--------+--------+
+| p_id | p_name | doc_id |
++------+--------+--------+
+|    2 | priya  |      2 |
+|    3 | yush   |      3 |
+|    4 | jaypal |      2 |
++------+--------+--------+
+3 rows in set (0.00 sec)
+
+mysql>

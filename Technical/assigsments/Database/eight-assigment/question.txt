@@ -490,56 +490,307 @@ mysql> SELECT
 mysql>
 27. Find each category's average sales amount where quantity is greater than or equal to 3 and status is Completed. Display categories whose average sales amount is greater than ₹5,000.
 
+mysql> select  category,avg(price) as a from sales where quantity>=3 and status='completed' group by category having a>5000;
++-------------+--------------+
+| category    | a            |
++-------------+--------------+
+| Electronics | 16000.000000 |
+| Furniture   |  8000.000000 |
++-------------+--------------+
+2 rows in set (0.00 sec)
 
 28. Find each customer type's maximum price where payment method is Card and status is Completed. Display only customer types whose maximum price exceeds ₹20,000.
 
+
+mysql> select  customer_type,max(price) from sales where payment_method='card' and status='completed' group by customer_type having max(price)>20000;
++---------------+------------+
+| customer_type | max(price) |
++---------------+------------+
+| Premium       |   60000.00 |
+| Regular       |   55000.00 |
++---------------+------------+
+2 rows in set (0.00 sec)
+
+
+
 29. Find each city's total quantity for Electronics and Clothing products where status is Completed. Display cities having total quantity greater than 5.
 
+
+mysql> select city,sum(quantity) from sales where category in ('Electronics','Clothing') and status='completed' group by city having sum(quantity)>5;
++--------+---------------+
+| city   | sum(quantity) |
++--------+---------------+
+| Indore |            13 |
+| Delhi  |             8 |
++--------+---------------+
+2 rows in set (0.00 sec)
+
+
 30. Find each payment method's total sales where status is Completed and discount is greater than ₹400. Display payment methods having total sales greater than ₹20,000.
+
+mysql> select  payment_method,sum(price) as q from sales where status='completed' and discount>400 group by  payment_method having q>20000;
++----------------+-----------+
+| payment_method | q         |
++----------------+-----------+
+| Card           | 167000.00 |
+| UPI            |  27700.00 |
++----------------+-----------+
+2 rows in set (0.00 sec)
+
+
+
+
 Section D: Advanced GROUP BY and HAVING Questions
 Q31–Q40
  Multiple aggregate conditions
 
 31. Find cities having more than 2 completed transactions and total sales greater than ₹50,000. Sort by total sales descending.
 
+
+mysql> select city,count(*) as count,sum(price) as t_sale from sales group by city order by t_sale desc;
++--------+-------+----------+
+| city   | count | t_sale   |
++--------+-------+----------+
+| Indore |     4 | 67000.00 |
+| Pune   |     2 | 55900.00 |
+| Delhi  |     3 | 47700.00 |
+| Bhopal |     3 | 33600.00 |
+| Mumbai |     3 | 10800.00 |
++--------+-------+----------+
+5 rows in set (0.01 sec)
+
+
 32. Find categories having total quantity greater than 8 and average price greater than ₹2,000. Sort by total quantity descending.
+
+
+mysql> select category,sum(quantity) as c,avg(price) as a from sales group by category having c>8 and a>2000 order by c;
++-------------+------+--------------+
+| category    | c    | a            |
++-------------+------+--------------+
+| Electronics |   16 | 32500.000000 |
++-------------+------+--------------+
+1 row in set (0.00 sec)
+
+
 
 33. Find customer types having more than 2 transactions and total discount greater than ₹2,000. Sort by total discount descending.
 
+mysql> select customer_type,count(*),sum(discount) from sales group by customer_type having count(*)>2 and sum(discount)>2000 order by sum(discount) desc;
++---------------+----------+---------------+
+| customer_type | count(*) | sum(discount) |
++---------------+----------+---------------+
+| Premium       |        6 |      12800.00 |
+| Regular       |        6 |       8900.00 |
++---------------+----------+---------------+
+2 rows in set (0.00 sec)
+
 34. Find cities having average quantity greater than 3 and maximum product price greater than ₹20,000. Sort by average quantity descending.
+
+
+
+mysql> select city,avg(quantity),max(price) from sales group by city having avg(quantity)>3 and max(price)>20000 order by avg(quantity) desc;
++--------+---------------+------------+
+| city   | avg(quantity) | max(price) |
++--------+---------------+------------+
+| Pune   |        6.5000 |   55000.00 |
+| Bhopal |        5.3333 |   25000.00 |
+| Delhi  |        5.0000 |   45000.00 |
+| Indore |        4.2500 |   60000.00 |
++--------+---------------+------------+
+4 rows in set (0.00 sec)
+
+
 
 35. Find categories having more than 2 completed transactions and total sales greater than ₹20,000. Sort by total sales descending.
 
-36. Find payment methods having more than 2 completed transactions and average price greater than ₹10,000. Sort by average price descending.
+mysql> select category,count(*) as c,sum(price) as a from sales group by category having c>2 and a>20000 order by a desc;
++-------------+---+-----------+
+| category    | c | a         |
++-------------+---+-----------+
+| Electronics | 6 | 195000.00 |
++-------------+---+-----------+
+1 row in set (0.00 sec)
 
+36. Find payment methods having more than 2 completed transactions and average price greater than ₹10,000. Sort by average price descending.
+mysql> select payment_method,count(*) as c,avg(price) as a from sales group by payment_method having c>2 and a>10000 order by a desc;
++----------------+---+--------------+
+| payment_method | c | a            |
++----------------+---+--------------+
+| Card           | 5 | 34000.000000 |
++----------------+---+--------------+
+1 row in set (0.00 sec)
 37. Find cities having total quantity greater than 8 and average discount greater than ₹300. Sort by total quantity descending.
+
+mysql> select city,sum(quantity) as c,avg(discount) as a from sales group by city having c>8 and a>300 order by a desc;
++--------+------+-------------+
+| city   | c    | a           |
++--------+------+-------------+
+| Pune   |   13 | 2250.000000 |
+| Delhi  |   15 | 1933.333333 |
+| Indore |   17 | 1625.000000 |
+| Bhopal |   16 | 1433.333333 |
+| Mumbai |   16 |  566.666667 |
++--------+------+-------------+
+5 rows in set (0.00 sec)
+
 
 38. Find customer types having average price greater than ₹5,000 and total quantity greater than 8. Sort by total quantity descending.
 
+
+mysql> select customer_type,avg(price),sum(quantity) from sales group by customer_type having avg(price)>5000 and sum(quantity)>8 order by sum(quantity) desc;
++---------------+--------------+---------------+
+| customer_type | avg(price)   | sum(quantity) |
++---------------+--------------+---------------+
+| Regular       | 14716.666667 |            32 |
+| Premium       | 20433.333333 |            24 |
++---------------+--------------+---------------+
+2 rows in set (0.00 sec)
+
+
 39. Find categories having minimum price below ₹2,000 and maximum price above ₹20,000. Sort by maximum price descending.
 
+
+mysql> select customer_type,min(price) as m ,max(price) as ma from sales group by customer_type having m<2000 and ma>20000 order by ma desc;
++---------------+--------+----------+
+| customer_type | m      | ma       |
++---------------+--------+----------+
+| Premium       | 800.00 | 60000.00 |
+| Regular       | 900.00 | 55000.00 |
++---------------+--------+----------+
+2 rows in set (0.00 sec)
+
+
+
 40. Find cities having total discount greater than ₹1,000 and total sales greater than ₹30,000. Sort by total sales descending.
+
+
+mysql> select city,sum(discount) as c,sum(price) as a from sales group by city having c>1000 and a>30000 order by a desc;
++--------+---------+----------+
+| city   | c       | a        |
++--------+---------+----------+
+| Indore | 6500.00 | 67000.00 |
+| Pune   | 4500.00 | 55900.00 |
+| Delhi  | 5800.00 | 47700.00 |
+| Bhopal | 4300.00 | 33600.00 |
++--------+---------+----------+
+4 rows in set (0.00 sec)
+
+
+
 Section E: TOP N, LIMIT and Ranking Questions
 Q41–Q49
  ORDER BY + LIMIT + Advanced Aggregation
 
 41. Find the top 3 cities based on total sales, considering only completed transactions with quantity greater than 1 and displaying only cities having more than 1 transaction.
 
+mysql> select city,sum(price),count(*) from sales where status='completed' and quantity>1 group by city having count(*)>1 limit 3;
++--------+------------+----------+
+| city   | sum(price) | count(*) |
++--------+------------+----------+
+| Indore |   67000.00 |        4 |
+| Bhopal |   33600.00 |        3 |
+| Mumbai |    7800.00 |        2 |
++--------+------------+----------+
+3 rows in set (0.00 sec)
+
+
 42. Find the top 3 categories based on total quantity where discount is greater than 300 and total quantity is greater than 5.
 
+mysql> select category,sum(quantity) from sales where discount>300  group by category having sum(quantity)>5 limit 3;
++-------------+---------------+
+| category    | sum(quantity) |
++-------------+---------------+
+| Electronics |            16 |
+| Clothing    |            11 |
+| Beauty      |             8 |
++-------------+---------------+
+3 rows in set (0.00 sec)
+
+mysql>
+
+
 43. Find the top 3 customer types based on average sales amount where status is Completed and transaction count is greater than 1.
+mysql> select category,avg(price) ,count(*) from sales where status='completed'  group by category having count(*)>1 limit 3;
++-------------+--------------+----------+
+| category    | avg(price)   | count(*) |
++-------------+--------------+----------+
+| Electronics | 38400.000000 |        5 |
+| Clothing    |  1766.666667 |        3 |
+| Beauty      |   700.000000 |        2 |
++-------------+--------------+----------+
+3 rows in set (0.00 sec)
 
 44. Find the top 3 cities based on total discount for UPI transactions where status is Completed and total discount is greater than ₹500.
-
+mysql> select city,sum(discount)  from sales where payment_method='upi' and status='completed'  group by city having sum(discount)>500 limit 3;
++--------+---------------+
+| city   | sum(discount) |
++--------+---------------+
+| Bhopal |       3300.00 |
+| Delhi  |        600.00 |
++--------+---------------+
+2 rows in set (0.00 sec)
 45. Find the top 3 categories based on total sales where quantity is greater than 2, average price is greater than ₹1,000, and total sales exceed ₹10,000.
+
+mysql> select category,sum(price) ,avg(price) from sales where quantity>2 group by category having avg(price)>1000 and sum(price)>10000 limit 3;
++-------------+------------+--------------+
+| category    | sum(price) | avg(price)   |
++-------------+------------+--------------+
+| Electronics |   35000.00 | 11666.666667 |
++-------------+------------+--------------+
+1 row in set (0.00 sec)
+
 
 46. Find the top 3 cities based on average order value where status is Completed, total quantity is greater than 5, and transaction count is greater than 1.
 
+
+
+mysql> select city,avg(price) as a,sum(quantity) as q ,count(*) as t from sales where status='completed'  group by city having q>5 and t>1 limit 3;
++--------+--------------+------+---+
+| city   | a            | q    | t |
++--------+--------------+------+---+
+| Indore | 16750.000000 |   17 | 4 |
+| Bhopal | 11200.000000 |   16 | 3 |
+| Mumbai |  3900.000000 |   11 | 2 |
++--------+--------------+------+---+
+3 rows in set (0.00 sec)
+
+
+
 47. Find the second-highest city based on total sales after considering only completed transactions and cities having at least 2 transactions.
+
+
+mysql> select city,sum(price),count(*) from sales where status='completed' and quantity>1 group by city having count(*)>2 limit 1 offset 1;
++--------+------------+----------+
+| city   | sum(price) | count(*) |
++--------+------------+----------+
+| Bhopal |   33600.00 |        3 |
++--------+------------+----------+
+1 row in set (0.00 sec)
+
+
 
 48. Find the third-highest category based on total quantity where quantity is greater than 2 and total discount exceeds ₹500.
 
+mysql> select category,sum(quantity) as q,sum(discount) as d from sales where quantity>2 group by category having d>500 limit 2,2;
++----------+------+--------+
+| category | q    | d      |
++----------+------+--------+
+| Beauty   |   18 | 700.00 |
+| Sports   |    4 | 700.00 |
++----------+------+--------+
+2 rows in set (0.00 sec)
+
+mysql>
 49. Find the 2nd and 3rd highest customer types based on total sales where status is Completed and average price is greater than ₹5,000.
+mysql> select customer_type ,sum(price),avg(price) from sales where status='completed' group by customer_type having avg(price)>5000;
++---------------+------------+--------------+
+| customer_type | sum(price) | avg(price)   |
++---------------+------------+--------------+
+| Premium       |  122600.00 | 20433.333333 |
+| Regular       |   85300.00 | 17060.000000 |
++---------------+------------+--------------+
+2 rows in set (0.00 sec)
+
 Section F: Combined Advanced Challenge
 Q50
  Complete SQL Challenge
@@ -552,6 +803,22 @@ Q50
 - Total quantity must be greater than 5.
 - Total sales must be greater than ₹20,000.
 Sort the result by total sales in descending order.
+
+
+mysql> select city,sum(quantity) as q,sum(price) as p ,count(*) as c from sales where status='completed' and payment_method in ('upi','card') and quantity>1 group by city having c>1 order by p desc
+    -> ;
++--------+------+----------+---+
+| city   | q    | p        | c |
++--------+------+----------+---+
+| Indore |    8 | 61500.00 | 2 |
+| Delhi  |    8 | 46800.00 | 2 |
+| Bhopal |   13 | 25600.00 | 2 |
+| Mumbai |   11 |  7800.00 | 2 |
++--------+------+----------+---+
+4 rows in set (0.01 sec)
+
+mysql>
+
 
 Important SQL Concepts Used
 Concept	Purpose
