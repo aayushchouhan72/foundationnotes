@@ -1,0 +1,522 @@
+Assignment 1:
+ Understanding INNER JOIN
+Problem Statement:
+Consider the following tables:
+Employees
+emp_id emp_name dept_id
+1 Alice 101
+2 Bob 102
+3 Charlie 103
+4 David 101
+Departments
+dept_id  dept_name
+101      HR
+102     IT
+104     Finance
+
+Tasks:
+
+Write a query to display employees and their corresponding department names using INNER JOIN.
+Modify the query to display only employees who belong to the "HR" department.
+
+Assignment 2: LEFT JOIN Practice
+
+Using the same Employees and Departments tables, answer the following:
+Tasks:
+Write a query using LEFT JOIN to display all employees and their department names, including employees with no department.
+Modify the query to count how many employees are without a department.
+
+
+
+Assignment 3: RIGHT JOIN Practice
+Problem Statement:
+Consider the same tables.
+Tasks:
+Write a query using RIGHT JOIN to display all departments and their employees, including departments with no employees.
+Find the names of departments that have no employees assigned.
+Assignment 4: FULL OUTER JOIN Simulation
+Problem Statement:
+Since MySQL does not support FULL OUTER JOIN directly, use a combination of LEFT JOIN and RIGHT JOIN to display all employees and departments, ensuring that unmatched records are also included.
+
+
+
+
+mysql> create table dep(dep_id int primary key auto_increment,dep_name varchar(30));
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> create table emp(emp_id int primary key auto_increment,emp_name varchar(30),dept_id int ,constraint fk_dept_id  foreign key (dept_id) refrences dep(dep_id) );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'refrences dep(dep_id) )' at line 1
+mysql> create table emp(emp_id int primary key auto_increment,emp_name varchar(30),dept_id int ,constraint fk_dept_id  foreign key (dept_id) references dep(dep_id) );
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> desc emp;
++----------+-------------+------+-----+---------+----------------+
+| Field    | Type        | Null | Key | Default | Extra          |
++----------+-------------+------+-----+---------+----------------+
+| emp_id   | int         | NO   | PRI | NULL    | auto_increment |
+| emp_name | varchar(30) | YES  |     | NULL    |                |
+| dept_id  | int         | YES  | MUL | NULL    |                |
++----------+-------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> desc dep;
++----------+-------------+------+-----+---------+----------------+
+| Field    | Type        | Null | Key | Default | Extra          |
++----------+-------------+------+-----+---------+----------------+
+| dep_id   | int         | NO   | PRI | NULL    | auto_increment |
+| dep_name | varchar(30) | YES  |     | NULL    |                |
++----------+-------------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> insert into dep(dep_name) values('hr'),('it'),('forntend'),('backend');
+Query OK, 4 rows affected (0.02 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> insert into dep(emp_name) values('Aayush',2),('komal',2),('abhinav',1),('krishna',2),('ajay',1),('kapil',3);
+ERROR 1054 (42S22): Unknown column 'emp_name' in 'field list'
+mysql> insert into dep(emp_name,dept_id) values('Aayush',2),('komal',2),('abhinav',1),('krishna',2),('ajay',1),('kapil',3);
+ERROR 1054 (42S22): Unknown column 'emp_name' in 'field list'
+mysql> insert into emp(emp_name,dept_id) values('Aayush',2),('komal',2),('abhinav',1),('krishna',2),('ajay',1),('kapil',3);
+Query OK, 6 rows affected (0.01 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> select * fron dep
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'fron dep' at line 1
+mysql> select * from dep
+    -> ;
++--------+----------+
+| dep_id | dep_name |
++--------+----------+
+|      1 | hr       |
+|      2 | it       |
+|      3 | forntend |
+|      4 | backend  |
++--------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from emp;
++--------+----------+---------+
+| emp_id | emp_name | dept_id |
++--------+----------+---------+
+|      1 | Aayush   |       2 |
+|      2 | komal    |       2 |
+|      3 | abhinav  |       1 |
+|      4 | krishna  |       2 |
+|      5 | ajay     |       1 |
+|      6 | kapil    |       3 |
++--------+----------+---------+
+6 rows in set (0.00 sec)
+
+mysql> insert into emp(emp_name,dept_id) values('khushi',NULL),('priya',NULL);
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from emp;
++--------+----------+---------+
+| emp_id | emp_name | dept_id |
++--------+----------+---------+
+|      1 | Aayush   |       2 |
+|      2 | komal    |       2 |
+|      3 | abhinav  |       1 |
+|      4 | krishna  |       2 |
+|      5 | ajay     |       1 |
+|      6 | kapil    |       3 |
+|      7 | khushi   |    NULL |
+|      8 | priya    |    NULL |
++--------+----------+---------+
+8 rows in set (0.00 sec)
+
+mysql> insert into dep(dep_name) values(),(),();
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into dep(dep_name) values(NULL),(NULL);
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from dep;
++--------+----------+
+| dep_id | dep_name |
++--------+----------+
+|      1 | hr       |
+|      2 | it       |
+|      3 | forntend |
+|      4 | backend  |
+|      5 | NULL     |
+|      6 | NULL     |
++--------+----------+
+6 rows in set (0.00 sec)
+
+mysql> select e.emp_name,d.dep_name from emp as e left join dep as d on e.dept_id=d.dep_id;
++----------+----------+
+| emp_name | dep_name |
++----------+----------+
+| Aayush   | it       |
+| komal    | it       |
+| abhinav  | hr       |
+| krishna  | it       |
+| ajay     | hr       |
+| kapil    | forntend |
+| khushi   | NULL     |
+| priya    | NULL     |
++----------+----------+
+8 rows in set (0.00 sec)
+
+mysql> select d.dep_name,count(d.dep_name) from emp as e left join dep as d on e.dept_id=d.dep_id and d.dep_name is null;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'exam.d.dep_name'; this is incompatible with sql_mode=only_full_group_by
+mysql> select d.dep_name,count(d.dep_name) from emp as e left join dep as d on e.dept_id=d.dep_id and d.dep_name is null group by  d.dep_name;
++----------+-------------------+
+| dep_name | count(d.dep_name) |
++----------+-------------------+
+| NULL     |                 0 |
++----------+-------------------+
+1 row in set (0.01 sec)
+
+mysql> select d.dep_name,count(d.dep_name) from emp as e rignt join dep as d on e.dept_id=d.dep_id and d.dep_name is null group by  d.dep_name;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'rignt join dep as d on e.dept_id=d.dep_id and d.dep_name is null group by  d.dep' at line 1
+mysql> select d.dep_name,count(d.dep_name) from emp as e rignt join dep as d on e.dept_id=d.dep_id and d.dep_name is null group by  d.dep_name;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'rignt join dep as d on e.dept_id=d.dep_id and d.dep_name is null group by  d.dep' at line 1
+mysql> select d.dep_name,count(d.dep_name) from emp as e right join dep as d on e.dept_id=d.dep_id and d.dep_name is null group by  d.dep_name;
++----------+-------------------+
+| dep_name | count(d.dep_name) |
++----------+-------------------+
+| hr       |                 1 |
+| it       |                 1 |
+| forntend |                 1 |
+| backend  |                 1 |
+| NULL     |                 0 |
++----------+-------------------+
+5 rows in set (0.00 sec)
+
+mysql> select d.dep_name,count(d.dep_name) from emp as e right join dep as d on e.dept_id<>d.dep_id and d.dep_name is null group by  d.dep_name;
++----------+-------------------+
+| dep_name | count(d.dep_name) |
++----------+-------------------+
+| hr       |                 1 |
+| it       |                 1 |
+| forntend |                 1 |
+| backend  |                 1 |
+| NULL     |                 0 |
++----------+-------------------+
+5 rows in set (0.00 sec)
+
+mysql> select d.dep_name,count(d.dep_name) from emp as e left join dep as d on e.dept_id<>d.dep_id and d.dep_name is null group by  d.dep_name;
++----------+-------------------+
+| dep_name | count(d.dep_name) |
++----------+-------------------+
+| NULL     |                 0 |
++----------+-------------------+
+1 row in set (0.00 sec)
+
+mysql> select d.dep_name,count(d.dep_name) from emp as e left join dep as d on e.dept_id<>d.dep_id group by  d.dep_name;
++----------+-------------------+
+| dep_name | count(d.dep_name) |
++----------+-------------------+
+| NULL     |                 0 |
+| backend  |                 6 |
+| forntend |                 5 |
+| it       |                 3 |
+| hr       |                 4 |
++----------+-------------------+
+5 rows in set (0.00 sec)
+
+mysql> select e.emp_name,d.dep_name from emp as e left join dep as d on e.dept_id=d.dep_id;
++----------+----------+
+| emp_name | dep_name |
++----------+----------+
+| Aayush   | it       |
+| komal    | it       |
+| abhinav  | hr       |
+| krishna  | it       |
+| ajay     | hr       |
+| kapil    | forntend |
+| khushi   | NULL     |
+| priya    | NULL     |
++----------+----------+
+8 rows in set (0.00 sec)
+
+mysql> select d.dep_name,count(d.dep_name) from emp as e left join dep as d on e.dept_id=d.dep_id and e.dept_it is null;
+ERROR 1054 (42S22): Unknown column 'e.dept_it' in 'on clause'
+mysql> select d.dep_name,count(d.dep_name) from emp as e left join dep as d on e.dept_id=d.dep_id and e.dept_id is null;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'exam.d.dep_name'; this is incompatible with sql_mode=only_full_group_by
+mysql> select d.dep_name,count(d.dep_name) from emp as e left join dep as d on  e.dept_id is null;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'exam.d.dep_name'; this is incompatible with sql_mode=only_full_group_by
+mysql> select d.dep_name,count(d.dep_name) from emp as e left join dep as d on e.dept_id=d.dep_id and e.dept_id is null group by d.dep_name;
++----------+-------------------+
+| dep_name | count(d.dep_name) |
++----------+-------------------+
+| NULL     |                 0 |
++----------+-------------------+
+1 row in set (0.00 sec)
+
+mysql> select d.dep_name,count(d.dep_name) from emp as e left join dep as d on e.dept_id<>d.dep_id and e.dept_id is null group by d.dep_name;
++----------+-------------------+
+| dep_name | count(d.dep_name) |
++----------+-------------------+
+| NULL     |                 0 |
++----------+-------------------+
+1 row in set (0.00 sec)
+
+mysql> select e.emp_name from emp as e left join dep as d on e.dept_id<>d.dep_id and e.dept_id is null group by d.dep_name;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'exam.e.emp_name' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select e.emp_name from emp as e left join dep as d on e.dept_id<>d.dep_id and e.dept_id is null group by e.emp_name;
++----------+
+| emp_name |
++----------+
+| Aayush   |
+| komal    |
+| abhinav  |
+| krishna  |
+| ajay     |
+| kapil    |
+| khushi   |
+| priya    |
++----------+
+8 rows in set (0.00 sec)
+
+mysql> select e.emp_name from emp as e left join dep as d on e.dept_id=d.dep_id and e.dept_id is null group by e.emp_name;
++----------+
+| emp_name |
++----------+
+| Aayush   |
+| komal    |
+| abhinav  |
+| krishna  |
+| ajay     |
+| kapil    |
+| khushi   |
+| priya    |
++----------+
+8 rows in set (0.00 sec)
+
+mysql> select e.emp_name from emp as e left join dep as d on e.dept_id is null  group by e.emp_name;
++----------+
+| emp_name |
++----------+
+| Aayush   |
+| komal    |
+| abhinav  |
+| krishna  |
+| ajay     |
+| kapil    |
+| khushi   |
+| priya    |
++----------+
+8 rows in set (0.00 sec)
+
+mysql> select e.emp_name from emp as e left join dep as d on e.dept_id is null ;
++----------+
+| emp_name |
++----------+
+| Aayush   |
+| komal    |
+| abhinav  |
+| krishna  |
+| ajay     |
+| kapil    |
+| khushi   |
+| khushi   |
+| khushi   |
+| khushi   |
+| khushi   |
+| khushi   |
+| priya    |
+| priya    |
+| priya    |
+| priya    |
+| priya    |
+| priya    |
++----------+
+18 rows in set (0.00 sec)
+
+mysql> select e.emp_name from emp as e left join dep as d on e.dept_id <> d.dep_id ;
++----------+
+| emp_name |
++----------+
+| Aayush   |
+| Aayush   |
+| Aayush   |
+| Aayush   |
+| Aayush   |
+| komal    |
+| komal    |
+| komal    |
+| komal    |
+| komal    |
+| abhinav  |
+| abhinav  |
+| abhinav  |
+| abhinav  |
+| abhinav  |
+| krishna  |
+| krishna  |
+| krishna  |
+| krishna  |
+| krishna  |
+| ajay     |
+| ajay     |
+| ajay     |
+| ajay     |
+| ajay     |
+| kapil    |
+| kapil    |
+| kapil    |
+| kapil    |
+| kapil    |
+| khushi   |
+| priya    |
++----------+
+32 rows in set (0.00 sec)
+
+mysql> select e.emp_name,d.dep_name from emp as e left join dep as d on e.dept_id <> d.dep_id ;
++----------+----------+
+| emp_name | dep_name |
++----------+----------+
+| Aayush   | NULL     |
+| Aayush   | NULL     |
+| Aayush   | backend  |
+| Aayush   | forntend |
+| Aayush   | hr       |
+| komal    | NULL     |
+| komal    | NULL     |
+| komal    | backend  |
+| komal    | forntend |
+| komal    | hr       |
+| abhinav  | NULL     |
+| abhinav  | NULL     |
+| abhinav  | backend  |
+| abhinav  | forntend |
+| abhinav  | it       |
+| krishna  | NULL     |
+| krishna  | NULL     |
+| krishna  | backend  |
+| krishna  | forntend |
+| krishna  | hr       |
+| ajay     | NULL     |
+| ajay     | NULL     |
+| ajay     | backend  |
+| ajay     | forntend |
+| ajay     | it       |
+| kapil    | NULL     |
+| kapil    | NULL     |
+| kapil    | backend  |
+| kapil    | it       |
+| kapil    | hr       |
+| khushi   | NULL     |
+| priya    | NULL     |
++----------+----------+
+32 rows in set (0.00 sec)
+
+mysql> select e.emp_name,d.dep_name from emp as e left join dep as d on e.dept_id <> d.dep_id WHERE d.dep_id IS NULL;
++----------+----------+
+| emp_name | dep_name |
++----------+----------+
+| khushi   | NULL     |
+| priya    | NULL     |
++----------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select e.emp_name,d.dep_name from emp as e left join dep as d on e.dept_id = d.dep_id WHERE d.dep_id IS NULL;
++----------+----------+
+| emp_name | dep_name |
++----------+----------+
+| khushi   | NULL     |
+| priya    | NULL     |
++----------+----------+
+2 rows in set (0.00 sec)
+
+mysql>
+
+
+
+
+mysql> select d.dep_name,e.emp_name from emp as e right join dep as d on e.dept_id = d.dep_id;
++----------+----------+
+| dep_name | emp_name |
++----------+----------+
+| hr       | abhinav  |
+| hr       | ajay     |
+| it       | Aayush   |
+| it       | komal    |
+| it       | krishna  |
+| forntend | kapil    |
+| backend  | NULL     |
+| NULL     | NULL     |
+| NULL     | NULL     |
++----------+----------+
+9 rows in set (0.00 sec)
+
+mysql> select d.dep_name,count(d.dep_name) from emp as e right join dep as d on e.dept_id = d.dep_id group by dep_name;
++----------+-------------------+
+| dep_name | count(d.dep_name) |
++----------+-------------------+
+| hr       |                 2 |
+| it       |                 3 |
+| forntend |                 1 |
+| backend  |                 1 |
+| NULL     |                 0 |
++----------+-------------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT e.emp_name, d.dep_name
+    -> FROM emp AS e
+    -> LEFT JOIN dep AS d
+    -> ON e.dept_id = d.dep_id
+    ->
+    -> UNION ALL
+    ->
+    -> SELECT e.emp_name, d.dep_name
+    -> FROM emp AS e
+    -> RIGHT JOIN dep AS d
+    -> ON e.dept_id = d.dep_id
+    -> WHERE e.dept_id IS NULL;
++----------+----------+
+| emp_name | dep_name |
++----------+----------+
+| Aayush   | it       |
+| komal    | it       |
+| abhinav  | hr       |
+| krishna  | it       |
+| ajay     | hr       |
+| kapil    | forntend |
+| khushi   | NULL     |
+| priya    | NULL     |
+| NULL     | backend  |
+| NULL     | NULL     |
+| NULL     | NULL     |
++----------+----------+
+11 rows in set (0.01 sec)
+
+mysql> SELECT e.emp_name, d.dep_name
+    -> FROM emp AS e
+    -> LEFT JOIN dep AS d
+    -> ON e.dept_id = d.dep_id
+    -> ;
++----------+----------+
+| emp_name | dep_name |
++----------+----------+
+| Aayush   | it       |
+| komal    | it       |
+| abhinav  | hr       |
+| krishna  | it       |
+| ajay     | hr       |
+| kapil    | forntend |
+| khushi   | NULL     |
+| priya    | NULL     |
++----------+----------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT e.emp_name, d.dep_name
+    -> FROM emp AS e
+    -> RIGHT JOIN dep AS d
+    -> ON e.dept_id = d.dep_id
+    -> WHERE e.dept_id IS NULL;
++----------+----------+
+| emp_name | dep_name |
++----------+----------+
+| NULL     | backend  |
+| NULL     | NULL     |
+| NULL     | NULL     |
++----------+----------+
+3 rows in set (0.00 sec)
+
+mysql>

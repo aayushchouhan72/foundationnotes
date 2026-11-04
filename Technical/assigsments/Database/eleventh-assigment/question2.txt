@@ -1,0 +1,337 @@
+
+
+QNO 2:
+
+Customer and Orders
+Problem Statement:
+A retail store wants to generate a report displaying all customers and their latest order details. The report should include customers who have not placed any orders.
+
+Tables:
+Customer (cust_id, cust_name)
+Orders (order_id, cust_id, order_date, total_amount)
+Query 1:
+Write an SQL query using LEFT JOIN to display all customers with their order details, ensuring that customers with no orders are still included in the result.
+
+
+mysql> select * from customer as c left join orders as o on c.cust_id = o.cust_id;
++---------+-----------+----------+---------+------------+--------------+
+| cust_id | cust_name | order_id | cust_id | order_date | total_amount |
++---------+-----------+----------+---------+------------+--------------+
+|       1 | Aayush    |      101 |       1 | 2026-01-05 |      2500.00 |
+|       1 | Aayush    |      102 |       1 | 2026-01-10 |      3500.00 |
+|       2 | Komal     |      103 |       2 | 2026-01-12 |      1500.00 |
+|       3 | Abhinav   |      104 |       3 | 2026-01-15 |      5000.00 |
+|       3 | Abhinav   |      105 |       3 | 2026-01-20 |      2000.00 |
+|       4 | Krishna   |     NULL |    NULL | NULL       |         NULL |
+|       5 | Ajay      |      106 |       5 | 2026-02-01 |      4500.00 |
+|       6 | Priya     |     NULL |    NULL | NULL       |         NULL |
+|       7 | Rahul     |      107 |       7 | 2026-02-05 |      3000.00 |
+|       8 | Sneha     |     NULL |    NULL | NULL       |         NULL |
++---------+-----------+----------+---------+------------+--------------+  
+
+
+Query 2:
+Problem Statement:
+The store wants to generate a report including all orders placed, even if the customer record is missing (i.e., orphan orders due to data inconsistency).
+
+mysql> select o.order_id,o.cust_id,o.order_date,o.total_amount from customer as c right join orders as o on o.cust_id=c.cust_id;
++----------+---------+------------+--------------+
+| order_id | cust_id | order_date | total_amount |
++----------+---------+------------+--------------+
+|      101 |       1 | 2026-01-05 |      2500.00 |
+|      102 |       1 | 2026-01-10 |      3500.00 |
+|      103 |       2 | 2026-01-12 |      1500.00 |
+|      104 |       3 | 2026-01-15 |      5000.00 |
+|      105 |       3 | 2026-01-20 |      2000.00 |
+|      106 |       5 | 2026-02-01 |      4500.00 |
+|      107 |       7 | 2026-02-05 |      3000.00 |
+|      108 |      10 | 2026-02-10 |      6000.00 |
+|      109 |      11 | 2026-02-15 |      7000.00 |
+|      110 |    NULL | 2026-02-20 |      2500.00 |
+|      111 |       4 | NULL       |      3500.00 |
+|      112 |       6 | 2026-02-22 |         NULL |
+|      113 |    NULL | NULL       |         NULL |
++----------+---------+------------+--------------+
+13 rows in set (0.00 sec)
+
+mysql>
+Query 3:
+The store wants a comprehensive report showing all customers and all orders, even if some customers have no orders and some orders have missing customer details.
+
+mysql> select * from customer as c  join orders as o on o.cust_id=c.cust_id;
+
++---------+-----------+----------+--------------+
+| cust_id | cust_name | order_id | total_amount |
++---------+-----------+----------+--------------+
+|       1 | Aayush    |      101 |      2500.00 |
+|       1 | Aayush    |      102 |      3500.00 |
+|       2 | Komal     |      103 |      1500.00 |
+|       3 | Abhinav   |      104 |      5000.00 |
+|       3 | Abhinav   |      105 |      2000.00 |
+|       4 | Krishna   |      111 |      3500.00 |
+|       5 | Ajay      |      106 |      4500.00 |
+|       6 | Priya     |      112 |         NULL |
+|       7 | Rahul     |      107 |      3000.00 |
+|       8 | Sneha     |     NULL |         NULL |
+|       9 | NULL      |     NULL |         NULL |
+|      10 | Rohit     |      108 |      6000.00 |
+|      11 | NULL      |      109 |      7000.00 |
+|    NULL | NULL      |      110 |      2500.00 |
+|    NULL | NULL      |      113 |         NULL |
++---------+-----------+----------+--------------+
+15 rows in set (0.01 sec)
+
+
+mysql>
+Query 4:
+Problem Statement:
+The store wants to analyze all possible customer-order pairings, regardless of actual transactions.
+
+
+mysql> select * from customer cross join orders ;
++---------+-----------+----------+---------+------------+--------------+
+| cust_id | cust_name | order_id | cust_id | order_date | total_amount |
++---------+-----------+----------+---------+------------+--------------+
+|      11 | NULL      |      101 |       1 | 2026-01-05 |      2500.00 |
+|      10 | Rohit     |      101 |       1 | 2026-01-05 |      2500.00 |
+|       9 | NULL      |      101 |       1 | 2026-01-05 |      2500.00 |
+|       8 | Sneha     |      101 |       1 | 2026-01-05 |      2500.00 |
+|       7 | Rahul     |      101 |       1 | 2026-01-05 |      2500.00 |
+|       6 | Priya     |      101 |       1 | 2026-01-05 |      2500.00 |
+|       5 | Ajay      |      101 |       1 | 2026-01-05 |      2500.00 |
+|       4 | Krishna   |      101 |       1 | 2026-01-05 |      2500.00 |
+|       3 | Abhinav   |      101 |       1 | 2026-01-05 |      2500.00 |
+|       2 | Komal     |      101 |       1 | 2026-01-05 |      2500.00 |
+|       1 | Aayush    |      101 |       1 | 2026-01-05 |      2500.00 |
+|      11 | NULL      |      102 |       1 | 2026-01-10 |      3500.00 |
+|      10 | Rohit     |      102 |       1 | 2026-01-10 |      3500.00 |
+|       9 | NULL      |      102 |       1 | 2026-01-10 |      3500.00 |
+|       8 | Sneha     |      102 |       1 | 2026-01-10 |      3500.00 |
+|       7 | Rahul     |      102 |       1 | 2026-01-10 |      3500.00 |
+|       6 | Priya     |      102 |       1 | 2026-01-10 |      3500.00 |
+|       5 | Ajay      |      102 |       1 | 2026-01-10 |      3500.00 |
+|       4 | Krishna   |      102 |       1 | 2026-01-10 |      3500.00 |
+|       3 | Abhinav   |      102 |       1 | 2026-01-10 |      3500.00 |
+|       2 | Komal     |      102 |       1 | 2026-01-10 |      3500.00 |
+|       1 | Aayush    |      102 |       1 | 2026-01-10 |      3500.00 |
+|      11 | NULL      |      103 |       2 | 2026-01-12 |      1500.00 |
+|      10 | Rohit     |      103 |       2 | 2026-01-12 |      1500.00 |
+|       9 | NULL      |      103 |       2 | 2026-01-12 |      1500.00 |
+|       8 | Sneha     |      103 |       2 | 2026-01-12 |      1500.00 |
+|       7 | Rahul     |      103 |       2 | 2026-01-12 |      1500.00 |
+|       6 | Priya     |      103 |       2 | 2026-01-12 |      1500.00 |
+|       5 | Ajay      |      103 |       2 | 2026-01-12 |      1500.00 |
+|       4 | Krishna   |      103 |       2 | 2026-01-12 |      1500.00 |
+|       3 | Abhinav   |      103 |       2 | 2026-01-12 |      1500.00 |
+|       2 | Komal     |      103 |       2 | 2026-01-12 |      1500.00 |
+|       1 | Aayush    |      103 |       2 | 2026-01-12 |      1500.00 |
+|      11 | NULL      |      104 |       3 | 2026-01-15 |      5000.00 |
+|      10 | Rohit     |      104 |       3 | 2026-01-15 |      5000.00 |
+|       9 | NULL      |      104 |       3 | 2026-01-15 |      5000.00 |
+|       8 | Sneha     |      104 |       3 | 2026-01-15 |      5000.00 |
+|       7 | Rahul     |      104 |       3 | 2026-01-15 |      5000.00 |
+|       6 | Priya     |      104 |       3 | 2026-01-15 |      5000.00 |
+|       5 | Ajay      |      104 |       3 | 2026-01-15 |      5000.00 |
+|       4 | Krishna   |      104 |       3 | 2026-01-15 |      5000.00 |
+|       3 | Abhinav   |      104 |       3 | 2026-01-15 |      5000.00 |
+|       2 | Komal     |      104 |       3 | 2026-01-15 |      5000.00 |
+|       1 | Aayush    |      104 |       3 | 2026-01-15 |      5000.00 |
+|      11 | NULL      |      105 |       3 | 2026-01-20 |      2000.00 |
+|      10 | Rohit     |      105 |       3 | 2026-01-20 |      2000.00 |
+|       9 | NULL      |      105 |       3 | 2026-01-20 |      2000.00 |
+|       8 | Sneha     |      105 |       3 | 2026-01-20 |      2000.00 |
+|       7 | Rahul     |      105 |       3 | 2026-01-20 |      2000.00 |
+|       6 | Priya     |      105 |       3 | 2026-01-20 |      2000.00 |
+|       5 | Ajay      |      105 |       3 | 2026-01-20 |      2000.00 |
+|       4 | Krishna   |      105 |       3 | 2026-01-20 |      2000.00 |
+|       3 | Abhinav   |      105 |       3 | 2026-01-20 |      2000.00 |
+|       2 | Komal     |      105 |       3 | 2026-01-20 |      2000.00 |
+|       1 | Aayush    |      105 |       3 | 2026-01-20 |      2000.00 |
+|      11 | NULL      |      106 |       5 | 2026-02-01 |      4500.00 |
+|      10 | Rohit     |      106 |       5 | 2026-02-01 |      4500.00 |
+|       9 | NULL      |      106 |       5 | 2026-02-01 |      4500.00 |
+|       8 | Sneha     |      106 |       5 | 2026-02-01 |      4500.00 |
+|       7 | Rahul     |      106 |       5 | 2026-02-01 |      4500.00 |
+|       6 | Priya     |      106 |       5 | 2026-02-01 |      4500.00 |
+|       5 | Ajay      |      106 |       5 | 2026-02-01 |      4500.00 |
+|       4 | Krishna   |      106 |       5 | 2026-02-01 |      4500.00 |
+|       3 | Abhinav   |      106 |       5 | 2026-02-01 |      4500.00 |
+|       2 | Komal     |      106 |       5 | 2026-02-01 |      4500.00 |
+|       1 | Aayush    |      106 |       5 | 2026-02-01 |      4500.00 |
+|      11 | NULL      |      107 |       7 | 2026-02-05 |      3000.00 |
+|      10 | Rohit     |      107 |       7 | 2026-02-05 |      3000.00 |
+|       9 | NULL      |      107 |       7 | 2026-02-05 |      3000.00 |
+|       8 | Sneha     |      107 |       7 | 2026-02-05 |      3000.00 |
+|       7 | Rahul     |      107 |       7 | 2026-02-05 |      3000.00 |
+|       6 | Priya     |      107 |       7 | 2026-02-05 |      3000.00 |
+|       5 | Ajay      |      107 |       7 | 2026-02-05 |      3000.00 |
+|       4 | Krishna   |      107 |       7 | 2026-02-05 |      3000.00 |
+|       3 | Abhinav   |      107 |       7 | 2026-02-05 |      3000.00 |
+|       2 | Komal     |      107 |       7 | 2026-02-05 |      3000.00 |
+|       1 | Aayush    |      107 |       7 | 2026-02-05 |      3000.00 |
+|      11 | NULL      |      108 |      10 | 2026-02-10 |      6000.00 |
+|      10 | Rohit     |      108 |      10 | 2026-02-10 |      6000.00 |
+|       9 | NULL      |      108 |      10 | 2026-02-10 |      6000.00 |
+|       8 | Sneha     |      108 |      10 | 2026-02-10 |      6000.00 |
+|       7 | Rahul     |      108 |      10 | 2026-02-10 |      6000.00 |
+|       6 | Priya     |      108 |      10 | 2026-02-10 |      6000.00 |
+|       5 | Ajay      |      108 |      10 | 2026-02-10 |      6000.00 |
+|       4 | Krishna   |      108 |      10 | 2026-02-10 |      6000.00 |
+|       3 | Abhinav   |      108 |      10 | 2026-02-10 |      6000.00 |
+|       2 | Komal     |      108 |      10 | 2026-02-10 |      6000.00 |
+|       1 | Aayush    |      108 |      10 | 2026-02-10 |      6000.00 |
+|      11 | NULL      |      109 |      11 | 2026-02-15 |      7000.00 |
+|      10 | Rohit     |      109 |      11 | 2026-02-15 |      7000.00 |
+|       9 | NULL      |      109 |      11 | 2026-02-15 |      7000.00 |
+|       8 | Sneha     |      109 |      11 | 2026-02-15 |      7000.00 |
+|       7 | Rahul     |      109 |      11 | 2026-02-15 |      7000.00 |
+|       6 | Priya     |      109 |      11 | 2026-02-15 |      7000.00 |
+|       5 | Ajay      |      109 |      11 | 2026-02-15 |      7000.00 |
+|       4 | Krishna   |      109 |      11 | 2026-02-15 |      7000.00 |
+|       3 | Abhinav   |      109 |      11 | 2026-02-15 |      7000.00 |
+|       2 | Komal     |      109 |      11 | 2026-02-15 |      7000.00 |
+|       1 | Aayush    |      109 |      11 | 2026-02-15 |      7000.00 |
+|      11 | NULL      |      110 |    NULL | 2026-02-20 |      2500.00 |
+|      10 | Rohit     |      110 |    NULL | 2026-02-20 |      2500.00 |
+|       9 | NULL      |      110 |    NULL | 2026-02-20 |      2500.00 |
+|       8 | Sneha     |      110 |    NULL | 2026-02-20 |      2500.00 |
+|       7 | Rahul     |      110 |    NULL | 2026-02-20 |      2500.00 |
+|       6 | Priya     |      110 |    NULL | 2026-02-20 |      2500.00 |
+|       5 | Ajay      |      110 |    NULL | 2026-02-20 |      2500.00 |
+|       4 | Krishna   |      110 |    NULL | 2026-02-20 |      2500.00 |
+|       3 | Abhinav   |      110 |    NULL | 2026-02-20 |      2500.00 |
+|       2 | Komal     |      110 |    NULL | 2026-02-20 |      2500.00 |
+|       1 | Aayush    |      110 |    NULL | 2026-02-20 |      2500.00 |
+|      11 | NULL      |      111 |       4 | NULL       |      3500.00 |
+|      10 | Rohit     |      111 |       4 | NULL       |      3500.00 |
+|       9 | NULL      |      111 |       4 | NULL       |      3500.00 |
+|       8 | Sneha     |      111 |       4 | NULL       |      3500.00 |
+|       7 | Rahul     |      111 |       4 | NULL       |      3500.00 |
+|       6 | Priya     |      111 |       4 | NULL       |      3500.00 |
+|       5 | Ajay      |      111 |       4 | NULL       |      3500.00 |
+|       4 | Krishna   |      111 |       4 | NULL       |      3500.00 |
+|       3 | Abhinav   |      111 |       4 | NULL       |      3500.00 |
+|       2 | Komal     |      111 |       4 | NULL       |      3500.00 |
+|       1 | Aayush    |      111 |       4 | NULL       |      3500.00 |
+|      11 | NULL      |      112 |       6 | 2026-02-22 |         NULL |
+|      10 | Rohit     |      112 |       6 | 2026-02-22 |         NULL |
+|       9 | NULL      |      112 |       6 | 2026-02-22 |         NULL |
+|       8 | Sneha     |      112 |       6 | 2026-02-22 |         NULL |
+|       7 | Rahul     |      112 |       6 | 2026-02-22 |         NULL |
+|       6 | Priya     |      112 |       6 | 2026-02-22 |         NULL |
+|       5 | Ajay      |      112 |       6 | 2026-02-22 |         NULL |
+|       4 | Krishna   |      112 |       6 | 2026-02-22 |         NULL |
+|       3 | Abhinav   |      112 |       6 | 2026-02-22 |         NULL |
+|       2 | Komal     |      112 |       6 | 2026-02-22 |         NULL |
+|       1 | Aayush    |      112 |       6 | 2026-02-22 |         NULL |
+|      11 | NULL      |      113 |    NULL | NULL       |         NULL |
+|      10 | Rohit     |      113 |    NULL | NULL       |         NULL |
+|       9 | NULL      |      113 |    NULL | NULL       |         NULL |
+|       8 | Sneha     |      113 |    NULL | NULL       |         NULL |
+|       7 | Rahul     |      113 |    NULL | NULL       |         NULL |
+|       6 | Priya     |      113 |    NULL | NULL       |         NULL |
+|       5 | Ajay      |      113 |    NULL | NULL       |         NULL |
+|       4 | Krishna   |      113 |    NULL | NULL       |         NULL |
+|       3 | Abhinav   |      113 |    NULL | NULL       |         NULL |
+|       2 | Komal     |      113 |    NULL | NULL       |         NULL |
+|       1 | Aayush    |      113 |    NULL | NULL       |         NULL |
++---------+-----------+----------+---------+------------+--------------+
+143 rows in set (0.00 sec)
+
+mysql>
+
+
+mysql> create table  customer((cust_id int primary key, cust_name varchar(30)));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'cust_id int primary key, cust_name varchar(30)))' at line 1
+mysql> create table  customer(cust_id int primary key, cust_name varchar(30));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> create table  orders (order_id int primary key, cust_id int, order_date date, total_amount decimal(10,2) constraint fk_key_ord foreign key (cust_id) references customer(cust_id)) ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'foreign key (cust_id) references customer(cust_id))' at line 1
+mysql> create table  orders (order_id int primary key, cus_id int, order_date date, total_amount decimal(10,2) constraint fk_key_ord foreign key (cus_id) references customer(cust_id)) ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'foreign key (cus_id) references customer(cust_id))' at line 1
+mysql> create table  orders (order_id int primary key, cus_id int, order_date date, total_amount decimal(10,2) ,constraint fk_key_ord foreign key (cus_id) references customer(cust_id)) ;
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> create table  orders (order_id int primary key, cus_id int, order_date date, total_amount decimal(10,2) ,constraint fk_key_ord foreign key (cus_id) references customer(cust_id)) ;
+ERROR 1050 (42S01): Table 'orders' already exists
+mysql> drop orders
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'orders' at line 1
+mysql> drop table orders
+    -> ;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> create table  orders (order_id int primary key, cust_id int, order_date date, total_amount decimal(10,2) ,constraint fk_key_ord foreign key (cust_id) references customer(cust_id)) ;
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> INSERT INTO Customer VALUES
+    -> (1, 'Aayush'),
+    -> (2, 'Komal'),
+    -> (3, 'Abhinav'),
+    -> (4, 'Krishna'),
+    -> (5, 'Ajay'),
+    -> (6, 'Priya'),
+    -> (7, 'Rahul'),
+    -> (8, 'Sneha');
+Query OK, 8 rows affected (0.01 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO Orders VALUES
+    -> (101, 1, '2026-01-05', 2500.00),
+    -> (102, 1, '2026-01-10', 3500.00),
+    -> (103, 2, '2026-01-12', 1500.00),
+    -> (104, 3, '2026-01-15', 5000.00),
+    -> (105, 3, '2026-01-20', 2000.00),
+    -> (106, 5, '2026-02-01', 4500.00),
+    -> (107, 7, '2026-02-05', 3000.00),
+    -> (108, 10, '2026-02-10', 6000.00),
+    -> (109, 11, '2026-02-15', 7000.00);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`exam`.`orders`, CONSTRAINT `fk_key_ord` FOREIGN KEY (`cust_id`) REFERENCES `customer` (`cust_id`))
+mysql> ALTER TABLE Orders
+    -> ADD CONSTRAINT fk_key_ord
+    -> FOREIGN KEY (cust_id)
+    -> REFERENCES Customer(cust_id);
+ERROR 1826 (HY000): Duplicate foreign key constraint name 'fk_key_ord'
+mysql> REFERENCES Customer(cust_id);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'REFERENCES Customer(cust_id)' at line 1
+mysql> ALTER TABLE Orders
+    -> DROP FOREIGN KEY fk_key_ord;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO Orders VALUES
+    -> (101, 1, '2026-01-05', 2500.00),
+    -> (102, 1, '2026-01-10', 3500.00),
+    -> (103, 2, '2026-01-12', 1500.00),
+    -> (104, 3, '2026-01-15', 5000.00),
+    -> (105, 3, '2026-01-20', 2000.00),
+    -> (106, 5, '2026-02-01', 4500.00),
+    -> (107, 7, '2026-02-05', 3000.00),
+    -> (108, 10, '2026-02-10', 6000.00),
+    -> (109, 11, '2026-02-15', 7000.00);
+Query OK, 9 rows affected (0.01 sec)
+Records: 9  Duplicates: 0  Warnings: 0
+
+mysql> select * from customer as c left join orders as o on c.cust_id = o.cust_id;
++---------+-----------+----------+---------+------------+--------------+
+| cust_id | cust_name | order_id | cust_id | order_date | total_amount |
++---------+-----------+----------+---------+------------+--------------+
+|       1 | Aayush    |      101 |       1 | 2026-01-05 |      2500.00 |
+|       1 | Aayush    |      102 |       1 | 2026-01-10 |      3500.00 |
+|       2 | Komal     |      103 |       2 | 2026-01-12 |      1500.00 |
+|       3 | Abhinav   |      104 |       3 | 2026-01-15 |      5000.00 |
+|       3 | Abhinav   |      105 |       3 | 2026-01-20 |      2000.00 |
+|       4 | Krishna   |     NULL |    NULL | NULL       |         NULL |
+|       5 | Ajay      |      106 |       5 | 2026-02-01 |      4500.00 |
+|       6 | Priya     |     NULL |    NULL | NULL       |         NULL |
+|       7 | Rahul     |      107 |       7 | 2026-02-05 |      3000.00 |
+|       8 | Sneha     |     NULL |    NULL | NULL       |         NULL |
++---------+-----------+----------+---------+------------+--------------+
+10 rows in set (0.00 sec)
+
+mysql> select cust_name,total_amount as bill ,sum(total_amount) from customer as c left join orders as o c.cust_id = o.cust_id group by cust_name;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'c.cust_id = o.cust_id group by cust_name' at line 1
+mysql> select cust_name,total_amount as bill ,sum(total_amount) from customer as c left join orders as o c.cust_id = o.cust_id group by order_date;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'c.cust_id = o.cust_id group by order_date' at line 1
+mysql> select cust_name,total_amount as bill ,sum(total_amount) from customer as c left join orders as o c.cust_id = o.cust_id group by order_date;
