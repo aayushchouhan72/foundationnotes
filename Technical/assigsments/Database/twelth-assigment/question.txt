@@ -86,9 +86,32 @@ Display all employees whose salary is greater than the average
 salary of all employees.
 
 
+mysql> select * from emp where salary>(select avg(salary) from emp);
++--------+----------+----------+---------+
+| emp_id | emp_name | salary   | dept_id |
++--------+----------+----------+---------+
+|    102 | Rahul    | 50000.00 |       2 |
+|    104 | Neha     | 60000.00 |       3 |
+|    106 | Sneha    | 45000.00 |       4 |
+|    107 | Karan    | 55000.00 |       4 |
+|    109 | Vijay    | 70000.00 |       2 |
+|    111 | Meena    | 65000.00 |       3 |
++--------+----------+----------+---------+
+6 rows in set (0.01 sec)
+
 Q2.
 Display the employee or employees who receive the highest salary
 in the company.
+
+mysql> select * from emp where salary=(select max(salary) from emp);
++--------+----------+----------+---------+
+| emp_id | emp_name | salary   | dept_id |
++--------+----------+----------+---------+
+|    109 | Vijay    | 70000.00 |       2 |
++--------+----------+----------+---------+
+1 row in set (0.00 sec)
+
+mysql>
 
 
 Q3.
@@ -96,15 +119,56 @@ Display the employee or employees who receive the lowest salary
 in the company.
 
 
+mysql> select * from emp where salary=(select min(salary) from emp);
++--------+----------+----------+---------+
+| emp_id | emp_name | salary   | dept_id |
++--------+----------+----------+---------+
+|    112 | Arjun    | 25000.00 |       5 |
++--------+----------+----------+---------+
+1 row in set (0.00 sec)
+
+
+
 Q4.
 Display all employees whose salary is greater than the salary
 of Amit.
 
 
+mysql> select * from emp where salary>(select salary from emp where emp_name='Amit');
++--------+----------+----------+---------+
+| emp_id | emp_name | salary   | dept_id |
++--------+----------+----------+---------+
+|    102 | Rahul    | 50000.00 |       2 |
+|    103 | Priya    | 40000.00 |       2 |
+|    104 | Neha     | 60000.00 |       3 |
+|    105 | Rohit    | 35000.00 |       3 |
+|    106 | Sneha    | 45000.00 |       4 |
+|    107 | Karan    | 55000.00 |       4 |
+|    109 | Vijay    | 70000.00 |       2 |
+|    110 | Ankit    | 32000.00 |       5 |
+|    111 | Meena    | 65000.00 |       3 |
++--------+----------+----------+---------+
+9 rows in set (0.00 sec)
+
+mysql>
+
 Q5.
 Display all employees whose salary is less than the salary
 of Rahul.
 
+mysql> select * from emp where salary<(select salary from emp where emp_name='Rahul');
++--------+----------+----------+---------+
+| emp_id | emp_name | salary   | dept_id |
++--------+----------+----------+---------+
+|    101 | Amit     | 30000.00 |       1 |
+|    103 | Priya    | 40000.00 |       2 |
+|    105 | Rohit    | 35000.00 |       3 |
+|    106 | Sneha    | 45000.00 |       4 |
+|    108 | Pooja    | 28000.00 |       1 |
+|    110 | Ankit    | 32000.00 |       5 |
+|    112 | Arjun    | 25000.00 |       5 |
++--------+----------+----------+---------+
+7 rows in set (0.00)
 
 Q6.
 Display employees who work in departments located in Indore.
@@ -117,31 +181,104 @@ salary
 dept_id
 
 
+mysql> select emp_id,emp_name,salary,dept_id from emp where dept_id in(select dep_id from dep where loc='indore');
++--------+----------+----------+---------+
+| emp_id | emp_name | salary   | dept_id |
++--------+----------+----------+---------+
+|    101 | Amit     | 30000.00 |       1 |
+|    108 | Pooja    | 28000.00 |       1 |
+|    106 | Sneha    | 45000.00 |       4 |
+|    107 | Karan    | 55000.00 |       4 |
++--------+----------+----------+---------+
+4 rows in set (0.00 sec)
 Q7.
 Display employees who work in the IT or Finance departments.
 
 Do not directly specify department IDs such as 2,3.
 Obtain the department IDs using a subquery.
 
+mysql> select emp_id,emp_name,salary,dept_id from emp where dept_id in(select dep_id from dep where dep_name in ('it','finance'));
++--------+----------+----------+---------+
+| emp_id | emp_name | salary   | dept_id |
++--------+----------+----------+---------+
+|    102 | Rahul    | 50000.00 |       2 |
+|    103 | Priya    | 40000.00 |       2 |
+|    109 | Vijay    | 70000.00 |       2 |
+|    104 | Neha     | 60000.00 |       3 |
+|    105 | Rohit    | 35000.00 |       3 |
+|    111 | Meena    | 65000.00 |       3 |
++--------+----------+----------+---------+
+6 rows in set (0.00 sec)
+
+mysql>
 
 Q8.
 Display employees who do not work in departments located in
 Indore.
 
 
+mysql> select emp_id,emp_name,salary,dept_id from emp where dept_id in(select dep_id from dep where not loc='indore');
++--------+----------+----------+---------+
+| emp_id | emp_name | salary   | dept_id |
++--------+----------+----------+---------+
+|    102 | Rahul    | 50000.00 |       2 |
+|    103 | Priya    | 40000.00 |       2 |
+|    109 | Vijay    | 70000.00 |       2 |
+|    104 | Neha     | 60000.00 |       3 |
+|    105 | Rohit    | 35000.00 |       3 |
+|    111 | Meena    | 65000.00 |       3 |
+|    110 | Ankit    | 32000.00 |       5 |
+|    112 | Arjun    | 25000.00 |       5 |
++--------+----------+----------+---------+
+8 rows in set (0.00 sec)
+
 Q9.
 Display departments that currently have no employees.
+
+
+mysql> select dep_name from dep where dep_id not in (select dept_id from emp);
++----------+
+| dep_name |
++----------+
+| Research |
++----------+
+1 row in set (0.01 sec)
 
 
 Q10.
 Display employees whose salary is greater than the average salary
 of the IT department.
 
+mysql> select * from emp where salary > (select avg(salary) from emp where dept_id=(select dep_id from dep where dep_name='it'))
+    -> ;
++--------+----------+----------+---------+
+| emp_id | emp_name | salary   | dept_id |
++--------+----------+----------+---------+
+|    104 | Neha     | 60000.00 |       3 |
+|    107 | Karan    | 55000.00 |       4 |
+|    109 | Vijay    | 70000.00 |       2 |
+|    111 | Meena    | 65000.00 |       3 |
++--------+----------+----------+---------+
+4 rows in set (0.00 sec)
+
+mysql>
 
 Q11.
 Display employees whose salary is greater than the average salary
 of the Finance department.
 
+mysql> select * from emp where salary > (select avg(salary) from emp where dept_id=(select dep_id from dep where dep_name='Finance'));
++--------+----------+----------+---------+
+| emp_id | emp_name | salary   | dept_id |
++--------+----------+----------+---------+
+|    104 | Neha     | 60000.00 |       3 |
+|    107 | Karan    | 55000.00 |       4 |
+|    109 | Vijay    | 70000.00 |       2 |
+|    111 | Meena    | 65000.00 |       3 |
++--------+----------+----------+---------+
+4 rows in set (0.00 sec)
+
+mysql>
 
 Q12.
 Display employees whose salary is equal to the highest salary
