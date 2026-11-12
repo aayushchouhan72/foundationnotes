@@ -284,50 +284,175 @@ Q12.
 Display employees whose salary is equal to the highest salary
 in the IT department.
 
+mysql> select * from emp where dept_id=(select dep_id from dep where dep_name='it') and salary = (select max(salary) from emp);
++--------+----------+----------+---------+
+| emp_id | emp_name | salary   | dept_id |
++--------+----------+----------+---------+
+|    109 | Vijay    | 70000.00 |       2 |
++--------+----------+----------+---------+
+1 row in set (0.02 sec)
+
+mysql> select * from emp ;
 
 Q13.
 Display employees whose salary is less than the lowest salary
 in the Sales department.
+t_id=(select dep_id from dep where dep_name='sales'));
++--------+----------+----------+---------+
+| emp_id | emp_name | salary   | dept_id |
++--------+----------+----------+---------+
+|    101 | Amit     | 30000.00 |       1 |
+|    103 | Priya    | 40000.00 |       2 |
+|    105 | Rohit    | 35000.00 |       3 |
+|    108 | Pooja    | 28000.00 |       1 |
+|    110 | Ankit    | 32000.00 |       5 |
+|    112 | Arjun    | 25000.00 |       5 |
++--------+----------+----------+---------+
+6 rows in set (0.00 sec)
 
+mysql>
 
 Q14.
 Display employees whose salary is greater than at least one
 employee working in the HR department.
+mysql> select * from emp where salary> any (select salary from emp where dept_id=(select dep_id from  dep where dep_name='HR'));
++--------+----------+----------+---------+
+| emp_id | emp_name | salary   | dept_id |
++--------+----------+----------+---------+
+|    101 | Amit     | 30000.00 |       1 |
+|    102 | Rahul    | 50000.00 |       2 |
+|    103 | Priya    | 40000.00 |       2 |
+|    104 | Neha     | 60000.00 |       3 |
+|    105 | Rohit    | 35000.00 |       3 |
+|    106 | Sneha    | 45000.00 |       4 |
+|    107 | Karan    | 55000.00 |       4 |
+|    109 | Vijay    | 70000.00 |       2 |
+|    110 | Ankit    | 32000.00 |       5 |
+|    111 | Meena    | 65000.00 |       3 |
++--------+----------+----------+---------+
+10 rows in set (0.00 sec)
 
+mysql>
 
 Q15.
 Display employees whose salary is greater than every employee
 working in the HR department.
 
+mysql> SELECT *
+    -> FROM emp
+    -> WHERE salary > ALL (
+    ->     SELECT salary
+    ->     FROM emp
+    ->     WHERE dept_id = (
+    ->         SELECT dep_id
+    ->         FROM dep
+    ->         WHERE dep_name = 'HR'
+    ->     )
+    -> );
++--------+----------+----------+---------+
+| emp_id | emp_name | salary   | dept_id |
++--------+----------+----------+---------+
+|    102 | Rahul    | 50000.00 |       2 |
+|    103 | Priya    | 40000.00 |       2 |
+|    104 | Neha     | 60000.00 |       3 |
+|    105 | Rohit    | 35000.00 |       3 |
+|    106 | Sneha    | 45000.00 |       4 |
+|    107 | Karan    | 55000.00 |       4 |
+|    109 | Vijay    | 70000.00 |       2 |
+|    110 | Ankit    | 32000.00 |       5 |
+|    111 | Meena    | 65000.00 |       3 |
++--------+----------+----------+---------+
+9 rows in set (0.00 sec)
+
+mysql>
 
 Q16.
 Display employees whose salary is less than at least one
 employee working in the IT department.
-
+mysql> SELECT * FROM emp WHERE salary > ALL (SELECT salary FROM emp WHERE dept_id = (SELECT dep_id FROM dep WHERE dep_name = 'Finance'));
++--------+----------+----------+---------+
+| emp_id | emp_name | salary   | dept_id |
++--------+----------+----------+---------+
+|    109 | Vijay    | 70000.00 |       2 |
++--------+----------+----------+---------+
+1 row in set (0.00 sec)
 
 Q17.
 Display employees whose salary is greater than every employee
 working in the Finance department.
 
+mysql> select * from emp where salary> all( select salary from emp where dept_id=(select dep_id from dep where dep_name='finance'));
++--------+----------+----------+---------+
+| emp_id | emp_name | salary   | dept_id |
++--------+----------+----------+---------+
+|    109 | Vijay    | 70000.00 |       2 |
++--------+----------+----------+---------+
+1 row in set (0.00 sec)
 
+mysql>
 Q18.
 Display employees whose salary is below the salary of every
 employee working in the IT department.
 
+mysql> select * from emp where salary <all( select salary from emp where dept_id=(select dep_id from dep where dep_name='it'));
++--------+----------+----------+---------+
+| emp_id | emp_name | salary   | dept_id |
++--------+----------+----------+---------+
+|    101 | Amit     | 30000.00 |       1 |
+|    105 | Rohit    | 35000.00 |       3 |
+|    108 | Pooja    | 28000.00 |       1 |
+|    110 | Ankit    | 32000.00 |       5 |
+|    112 | Arjun    | 25000.00 |       5 |
++--------+----------+----------+---------+
+5 rows in set (0.00 sec)
+
+mysql>
 
 Q19.
 Display employees whose salary is greater than their own
 department's average salary.
-
+mysql> SELECT * FROM emp e WHERE e.salary > (SELECT AVG(e2.salary) FROM emp e2 WHERE e2.dept_id = e.dept_id);
++--------+----------+----------+---------+
+| emp_id | emp_name | salary   | dept_id |
++--------+----------+----------+---------+
+|    101 | Amit     | 30000.00 |       1 |
+|    104 | Neha     | 60000.00 |       3 |
+|    107 | Karan    | 55000.00 |       4 |
+|    109 | Vijay    | 70000.00 |       2 |
+|    110 | Ankit    | 32000.00 |       5 |
+|    111 | Meena    | 65000.00 |       3 |
++--------+----------+----------+---------+
 
 Q20.
 Display employees whose salary is less than their own
 department's average salary.
 
+mysql> SELECT * FROM emp e WHERE e.salary < (SELECT AVG(e2.salary) FROM emp e2 WHERE e2.dept_id = e.dept_id);
++--------+----------+----------+---------+
+| emp_id | emp_name | salary   | dept_id |
++--------+----------+----------+---------+
+|    102 | Rahul    | 50000.00 |       2 |
+|    103 | Priya    | 40000.00 |       2 |
+|    105 | Rohit    | 35000.00 |       3 |
+|    106 | Sneha    | 45000.00 |       4 |
+|    108 | Pooja    | 28000.00 |       1 |
+|    112 | Arjun    | 25000.00 |       5 |
++--------+----------+----------+---------+
+6 rows in set (0.00 sec)
+
+mysql>
+
 
 Q21.
 Display employees whose salary is exactly equal to their own
 department's average salary.
+
+
+
+mysql> SELECT * FROM emp e WHERE e.salary = (SELECT AVG(e2.salary) FROM emp e2 WHERE e2.dept_id = e.dept_id);
+Empty set (0.00 sec)
+
+mysql>
 
 
 Q22.
@@ -342,44 +467,130 @@ salary
 dept_id
 
 
+mysql> SELECT * FROM emp e WHERE e.salary = (SELECT MAX(e2.salary) FROM emp e2 WHERE e2.dept_id = e.dept_id);
++--------+----------+----------+---------+
+| emp_id | emp_name | salary   | dept_id |
++--------+----------+----------+---------+
+|    101 | Amit     | 30000.00 |       1 |
+|    107 | Karan    | 55000.00 |       4 |
+|    109 | Vijay    | 70000.00 |       2 |
+|    110 | Ankit    | 32000.00 |       5 |
+|    111 | Meena    | 65000.00 |       3 |
++--------+----------+----------+---------+
+5 rows in set (0.01 sec)
+
 Q23.
 Display the employee or employees who receive the lowest salary
 in each department.
 
+
+mysql> SELECT * FROM emp e WHERE e.salary = (SELECT min(e2.salary) FROM emp e2 WHERE e2.dept_id = e.dept_id);
++--------+----------+----------+---------+
+| emp_id | emp_name | salary   | dept_id |
++--------+----------+----------+---------+
+|    103 | Priya    | 40000.00 |       2 |
+|    105 | Rohit    | 35000.00 |       3 |
+|    106 | Sneha    | 45000.00 |       4 |
+|    108 | Pooja    | 28000.00 |       1 |
+|    112 | Arjun    | 25000.00 |       5 |
++--------+----------+----------+---------+
+5 rows in set (0.00 sec)
+
+mysql>
 
 Q24.
 Display employees who are not the highest-paid employees of
 their respective departments.
 
 
+mysql> SELECT * FROM emp e WHERE e.salary !=(SELECT max(e2.salary) FROM emp e2 WHERE e2.dept_id = e.dept_id);
++--------+----------+----------+---------+
+| emp_id | emp_name | salary   | dept_id |
++--------+----------+----------+---------+
+|    102 | Rahul    | 50000.00 |       2 |
+|    103 | Priya    | 40000.00 |       2 |
+|    104 | Neha     | 60000.00 |       3 |
+|    105 | Rohit    | 35000.00 |       3 |
+|    106 | Sneha    | 45000.00 |       4 |
+|    108 | Pooja    | 28000.00 |       1 |
+|    112 | Arjun    | 25000.00 |       5 |
++--------+----------+----------+---------+
+7 rows in set (0.00 sec)
+
+
 Q25.
 Display employees who are not the lowest-paid employees of
 their respective departments.
 
+mysql> SELECT * FROM emp e WHERE e.salary !=(SELECT min(e2.salary) FROM emp e2 WHERE e2.dept_id = e.dept_id);
++--------+----------+----------+---------+
+| emp_id | emp_name | salary   | dept_id |
++--------+----------+----------+---------+
+|    101 | Amit     | 30000.00 |       1 |
+|    102 | Rahul    | 50000.00 |       2 |
+|    104 | Neha     | 60000.00 |       3 |
+|    107 | Karan    | 55000.00 |       4 |
+|    109 | Vijay    | 70000.00 |       2 |
+|    110 | Ankit    | 32000.00 |       5 |
+|    111 | Meena    | 65000.00 |       3 |
++--------+----------+----------+---------+
+7 rows in set (0.00 sec)
+
+mysql>
 
 Q26.
 Display the second-highest salary in the company.
 
 Do not use LIMIT.
 
-
+mysql> select max(salary) as sec_max from emp where salary<(select max(salary) from emp);
++----------+
+| sec_max  |
++----------+
+| 65000.00 |
++----------+
+1 row in set (0.01 sec)
 Q27.
 Display the employee or employees having the second-highest
 salary.
 
 Do not use LIMIT.
 
+mysql> select * from emp where salary=(select max(salary) as sec_max from emp where salary=(select max(salary) from emp));
++--------+----------+----------+---------+
+| emp_id | emp_name | salary   | dept_id |
++--------+----------+----------+---------+
+|    109 | Vijay    | 70000.00 |       2 |
++--------+----------+----------+---------+
+1 row in set (0.00 sec)
+
+mysql>
 
 Q28.
 Display the third-highest salary in the company.
 
 Do not use LIMIT.
 
+mysql> SELECT MAX(salary) AS third_highest_salary FROM emp WHERE salary < (SELECT MAX(salary) FROM emp WHERE salary < (SELECT MAX(salary) FROM emp));
++----------------------+
+| third_highest_salary |
++----------------------+
+|             60000.00 |
++----------------------+
+1 row in set (0.00 sec)
 
 Q29.
 Display the employee or employees having the third-highest
 salary.
+mysql> SELECT * FROM emp WHERE salary = (SELECT MAX(salary) FROM emp WHERE salary < (SELECT MAX(salary) FROM emp));
++--------+----------+----------+---------+
+| emp_id | emp_name | salary   | dept_id |
++--------+----------+----------+---------+
+|    111 | Meena    | 65000.00 |       3 |
++--------+----------+----------+---------+
+1 row in set (0.00 sec)
 
+mysql>
 
 Q30.
 Display all departments for which at least one employee exists.
@@ -387,24 +598,72 @@ Display all departments for which at least one employee exists.
 
 Q31.
 Display all departments for which no employee exists.
+SELECT * FROM dep d WHERE NOT EXISTS (SELECT 1 FROM emp e WHERE e.dept_id = d.dep_id);
+
++--------+----------+-----------+
+| dep_id | dep_name | loc       |
++--------+----------+-----------+
+|      6 | Research | Bangalore |
++--------+----------+-----------+
+1 row in set (0.00 sec)
 
 
 Q32.
 Display departments where at least one employee earns more
 than 60000.
+SELECT * FROM dep d WHERE EXISTS (SELECT 1 FROM emp e WHERE e.dept_id = d.dep_id AND e.salary > 60000);
 
++--------+----------+--------+
+| dep_id | dep_name | loc    |
++--------+----------+--------+
+|      2 | IT       | Pune   |
+|      3 | Finance  | Mumbai |
++--------+----------+--------+
+2 rows in set (0.00 sec)
 
 Q33.
 Display departments where no employee earns more than 60000.
 
+SELECT * FROM dep d WHERE NOT EXISTS (SELECT 1 FROM emp e WHERE e.dept_id = d.dep_id AND e.salary > 60000);
+
++--------+----------+-----------+
+| dep_id | dep_name | loc       |
++--------+----------+-----------+
+|      1 | HR       | Indore    |
+|      4 | Sales    | Indore    |
+|      5 | Admin    | Delhi     |
+|      6 | Research | Bangalore |
++--------+----------+-----------+
+4 rows in set (0.00 sec)
 
 Q34.
 Display departments where at least one employee earns less
 than 30000.
 
+SELECT * FROM dep d WHERE EXISTS (SELECT 1 FROM emp e WHERE e.dept_id = d.dep_id AND e.salary < 30000);
+
++--------+----------+--------+
+| dep_id | dep_name | loc    |
++--------+----------+--------+
+|      1 | HR       | Indore |
+|      5 | Admin    | Delhi  |
++--------+----------+--------+
+2 
 
 Q35.
 Display departments where no employee earns less than 30000.
+
+SELECT * FROM dep d WHERE NOT EXISTS (SELECT 1 FROM emp e WHERE e.dept_id = d.dep_id AND e.salary < 30000);
+
++--------+----------+-----------+
+| dep_id | dep_name | loc       |
++--------+----------+-----------+
+|      2 | IT       | Pune      |
+|      3 | Finance  | Mumbai    |
+|      4 | Sales    | Indore    |
+|      6 | Research | Bangalore |
++--------+----------+-----------+
+4 rows in set (0.00 sec)
 
 
 Q36.
@@ -412,11 +671,46 @@ Display employees who belong to a department that exists in
 the department table.
 
 
+SELECT * FROM emp e WHERE EXISTS (SELECT 1 FROM dep d WHERE d.dep_id = e.dept_id);
+
++--------+----------+----------+---------+
+| emp_id | emp_name | salary   | dept_id |
++--------+----------+----------+---------+
+|    101 | Amit     | 30000.00 |       1 |
+|    102 | Rahul    | 50000.00 |       2 |
+|    103 | Priya    | 40000.00 |       2 |
+|    104 | Neha     | 60000.00 |       3 |
+|    105 | Rohit    | 35000.00 |       3 |
+|    106 | Sneha    | 45000.00 |       4 |
+|    107 | Karan    | 55000.00 |       4 |
+|    108 | Pooja    | 28000.00 |       1 |
+|    109 | Vijay    | 70000.00 |       2 |
+|    110 | Ankit    | 32000.00 |       5 |
+|    111 | Meena    | 65000.00 |       3 |
+|    112 | Arjun    | 25000.00 |       5 |
++--------+----------+----------+---------+
+12 rows in set (0.00 sec)
+
+
+
 Q37.
 Display employees whose salary is greater than their own
 department's average salary.
 
 Use a correlated subquery.
+
+SELECT * FROM emp e WHERE e.salary > (SELECT AVG(e2.salary) FROM emp e2 WHERE e2.dept_id = e.dept_id);
+
++--------+----------+----------+---------+
+| emp_id | emp_name | salary   | dept_id |
++--------+----------+----------+---------+
+|    101 | Amit     | 30000.00 |       1 |
+|    107 | Karan    | 55000.00 |       4 |
+|    109 | Vijay    | 70000.00 |       2 |
+|    111 | Meena    | 65000.00 |       3 |
+|    112 | Arjun    | 25000.00 |       5 |
++--------+----------+----------+---------+
+5 rows in set (0.00 sec)
 
 
 Q38.
@@ -426,12 +720,38 @@ department.
 Use a correlated subquery.
 
 
+SELECT * FROM emp e WHERE e.salary = (SELECT MAX(e2.salary) FROM emp e2 WHERE e2.dept_id = e.dept_id);
+
++--------+----------+----------+---------+
+| emp_id | emp_name | salary   | dept_id |
++--------+----------+----------+---------+
+|    101 | Amit     | 30000.00 |       1 |
+|    109 | Vijay    | 70000.00 |       2 |
+|    111 | Meena    | 65000.00 |       3 |
+|    107 | Karan    | 55000.00 |       4 |
+|    110 | Ankit    | 32000.00 |       5 |
++--------+----------+----------+---------+
+5 rows in set (0.00 sec)
+
 Q39.
 Display employees whose salary is the minimum salary of their
 department.
 
 Use a correlated subquery.
 
+Q39
+SELECT * FROM emp e WHERE e.salary = (SELECT MIN(e2.salary) FROM emp e2 WHERE e2.dept_id = e.dept_id);
+
++--------+----------+----------+---------+
+| emp_id | emp_name | salary   | dept_id |
++--------+----------+----------+---------+
+|    108 | Pooja    | 28000.00 |       1 |
+|    103 | Priya    | 40000.00 |       2 |
+|    105 | Rohit    | 35000.00 |       3 |
+|    106 | Sneha    | 45000.00 |       4 |
+|    112 | Arjun    | 25000.00 |       5 |
++--------+----------+----------+---------+
+5 rows in set (0.00 sec)
 
 Q40.
 Display each employee along with the average salary of his/her
@@ -446,18 +766,25 @@ dept_id
 department_average_salary
 
 
-Q41.
-Display each employee along with the highest salary in his/her
-department.
+SELECT e.emp_id,e.emp_name,e.salary,e.dept_id,(SELECT AVG(e2.salary) FROM emp e2 WHERE e2.dept_id = e.dept_id) AS department_average_salary FROM emp e;
 
-Expected columns:
-
-emp_id
-emp_name
-salary
-dept_id
-department_highest_salary
-
++--------+----------+----------+---------+--------------------------+
+| emp_id | emp_name | salary   | dept_id | department_average_salary |
++--------+----------+----------+---------+--------------------------+
+|    101 | Amit     | 30000.00 |       1 |                 29000.00 |
+|    102 | Rahul    | 50000.00 |       2 |                 53333.33 |
+|    103 | Priya    | 40000.00 |       2 |                 53333.33 |
+|    104 | Neha     | 60000.00 |       3 |                 53333.33 |
+|    105 | Rohit    | 35000.00 |       3 |                 53333.33 |
+|    106 | Sneha    | 45000.00 |       4 |                 50000.00 |
+|    107 | Karan    | 55000.00 |       4 |                 50000.00 |
+|    108 | Pooja    | 28000.00 |       1 |                 29000.00 |
+|    109 | Vijay    | 70000.00 |       2 |                 53333.33 |
+|    110 | Ankit    | 32000.00 |       5 |                 28500.00 |
+|    111 | Meena    | 65000.00 |       3 |                 53333.33 |
+|    112 | Arjun    | 25000.00 |       5 |                 28500.00 |
++--------+----------+----------+---------+--------------------------+
+12 rows in set (0.00 sec)
 
 Q42.
 Display each employee along with the lowest salary in his/her
@@ -470,7 +797,25 @@ emp_name
 salary
 dept_id
 department_lowest_salary
+SELECT e.emp_id,e.emp_name,e.salary,e.dept_id,(SELECT MAX(e2.salary) FROM emp e2 WHERE e2.dept_id = e.dept_id) AS department_highest_salary FROM emp e;
 
++--------+----------+----------+---------+---------------------------+
+| emp_id | emp_name | salary   | dept_id | department_highest_salary |
++--------+----------+----------+---------+---------------------------+
+|    101 | Amit     | 30000.00 |       1 |                  30000.00 |
+|    102 | Rahul    | 50000.00 |       2 |                  70000.00 |
+|    103 | Priya    | 40000.00 |       2 |                  70000.00 |
+|    104 | Neha     | 60000.00 |       3 |                  65000.00 |
+|    105 | Rohit    | 35000.00 |       3 |                  65000.00 |
+|    106 | Sneha    | 45000.00 |       4 |                  55000.00 |
+|    107 | Karan    | 55000.00 |       4 |                  55000.00 |
+|    108 | Pooja    | 28000.00 |       1 |                  30000.00 |
+|    109 | Vijay    | 70000.00 |       2 |                  70000.00 |
+|    110 | Ankit    | 32000.00 |       5 |                  32000.00 |
+|    111 | Meena    | 65000.00 |       3 |                  65000.00 |
+|    112 | Arjun    | 25000.00 |       5 |                  32000.00 |
++--------+----------+----------+---------+---------------------------+
+12
 
 Q43.
 Display each employee along with the company's overall average
@@ -483,6 +828,25 @@ emp_name
 salary
 company_average_salary
 
+SELECT e.emp_id,e.emp_name,e.salary,(SELECT AVG(salary) FROM emp) AS company_average_salary FROM emp e;
+
++--------+----------+----------+-------------------------+
+| emp_id | emp_name | salary   | company_average_salary |
++--------+----------+----------+-------------------------+
+|    101 | Amit     | 30000.00 |                44166.67 |
+|    102 | Rahul    | 50000.00 |                44166.67 |
+|    103 | Priya    | 40000.00 |                44166.67 |
+|    104 | Neha     | 60000.00 |                44166.67 |
+|    105 | Rohit    | 35000.00 |                44166.67 |
+|    106 | Sneha    | 45000.00 |                44166.67 |
+|    107 | Karan    | 55000.00 |                44166.67 |
+|    108 | Pooja    | 28000.00 |                44166.67 |
+|    109 | Vijay    | 70000.00 |                44166.67 |
+|    110 | Ankit    | 32000.00 |                44166.67 |
+|    111 | Meena    | 65000.00 |                44166.67 |
+|    112 | Arjun    | 25000.00 |                44166.67 |
++--------+----------+----------+-------------------------+
+12 rows in set (0.00 sec)
 
 Q44.
 Display each employee along with the difference between his/her
@@ -495,6 +859,25 @@ emp_name
 salary
 salary_difference
 
+SELECT e.emp_id,e.emp_name,e.salary,e.salary - (SELECT AVG(salary) FROM emp) AS salary_difference FROM emp e;
+
++--------+----------+----------+------------------+
+| emp_id | emp_name | salary   | salary_difference |
++--------+----------+----------+------------------+
+|    101 | Amit     | 30000.00 |        -14166.67 |
+|    102 | Rahul    | 50000.00 |          5833.33 |
+|    103 | Priya    | 40000.00 |         -4166.67 |
+|    104 | Neha     | 60000.00 |         15833.33 |
+|    105 | Rohit    | 35000.00 |         -9166.67 |
+|    106 | Sneha    | 45000.00 |           833.33 |
+|    107 | Karan    | 55000.00 |         10833.33 |
+|    108 | Pooja    | 28000.00 |        -16166.67 |
+|    109 | Vijay    | 70000.00 |         25833.33 |
+|    110 | Ankit    | 32000.00 |        -12166.67 |
+|    111 | Meena    | 65000.00 |         20833.33 |
+|    112 | Arjun    | 25000.00 |        -19166.67 |
++--------+----------+----------+------------------+
+12 rows in set (0.00 sec)
 
 Q45.
 Display each employee along with the name of his/her department.
@@ -508,33 +891,96 @@ emp_name
 salary
 dept_name
 
+SELECT e.emp_id,e.emp_name,e.salary,(SELECT d.dep_name FROM dep d WHERE d.dep_id = e.dept_id) AS dept_name FROM emp e;
+
++--------+----------+----------+----------+
+| emp_id | emp_name | salary   | dept_name |
++--------+----------+----------+----------+
+|    101 | Amit     | 30000.00 | HR       |
+|    102 | Rahul    | 50000.00 | IT       |
+|    103 | Priya    | 40000.00 | IT       |
+|    104 | Neha     | 60000.00 | Finance  |
+|    105 | Rohit    | 35000.00 | Finance  |
+|    106 | Sneha    | 45000.00 | Sales    |
+|    107 | Karan    | 55000.00 | Sales    |
+|    108 | Pooja    | 28000.00 | HR       |
+|    109 | Vijay    | 70000.00 | IT       |
+|    110 | Ankit    | 32000.00 | Admin    |
+|    111 | Meena    | 65000.00 | Finance  |
+|    112 | Arjun    | 25000.00 | Admin    |
++--------+----------+----------+----------+
+12 rows in set (0.00 sec)
 
 Q46.
 Display departments whose average salary is greater than the
 average salary of the entire company.
 
 
+SELECT d.dep_id,d.dep_name FROM dep d WHERE (SELECT AVG(e.salary) FROM emp e WHERE e.dept_id = d.dep_id) > (SELECT AVG(salary) FROM emp);
+
++--------+----------+
+| dep_id | dep_name |
++--------+----------+
+|      2 | IT       |
+|      3 | Finance  |
+|      4 | Sales    |
++--------+----------+
+3 rows in set (0.00 sec)
+
 Q47.
 Display departments whose average salary is less than the
 average salary of the entire company.
 
+SELECT d.dep_id,d.dep_name FROM dep d WHERE (SELECT AVG(e.salary) FROM emp e WHERE e.dept_id = d.dep_id) < (SELECT AVG(salary) FROM emp);
 
++--------+----------+
+| dep_id | dep_name |
++--------+----------+
+|      1 | HR       |
+|      5 | Admin    |
++--------+----------+
+2 rows in set (0.00 sec)
 Q48.
 Display the department having the highest average salary.
 
+SELECT d.* FROM dep d WHERE (SELECT AVG(e.salary) FROM emp e WHERE e.dept_id = d.dep_id) = (SELECT MAX(avg_salary) FROM (SELECT AVG(salary) AS avg_salary FROM emp GROUP BY dept_id) x);
+
++--------+----------+--------+
+| dep_id | dep_name | loc    |
++--------+----------+--------+
+|      2 | IT       | Pune   |
+|      3 | Finance  | Mumbai |
++--------+----------+--------+
+2 rows in set (0.00 sec)
 
 Q49.
 Display the department having the lowest average salary.
 
+SELECT d.* FROM dep d WHERE (SELECT AVG(e.salary) FROM emp e WHERE e.dept_id = d.dep_id) = (SELECT MIN(avg_salary) FROM (SELECT AVG(salary) AS avg_salary FROM emp GROUP BY dept_id) x);
+
++--------+----------+-------+
+| dep_id | dep_name | loc   |
++--------+----------+-------+
+|      5 | Admin    | Delhi |
++--------+----------+-------+
+1 row in set (0.00 sec)
 
 Q50.
 Display employees who work in the department having the
 highest average salary.
+SELECT * FROM emp WHERE dept_id IN (SELECT dept_id FROM emp GROUP BY dept_id HAVING AVG(salary) = (SELECT MAX(avg_salary) FROM (SELECT AVG(salary) AS avg_salary FROM emp GROUP BY dept_id) x));
 
-
-Q51.
-Display employees who work in the department having the
-lowest average salary.
++--------+----------+----------+---------+
+| emp_id | emp_name | salary   | dept_id |
++--------+----------+----------+---------+
+|    102 | Rahul    | 50000.00 |       2 |
+|    103 | Priya    | 40000.00 |       2 |
+|    104 | Neha     | 60000.00 |       3 |
+|    105 | Rohit    | 35000.00 |       3 |
+|    109 | Vijay    | 70000.00 |       2 |
+|    111 | Meena    | 65000.00 |       3 |
++--------+----------+----------+---------+
+6 rows in set (0.00 sec)
 
 
 Q52.
@@ -811,6 +1257,3 @@ emp_id
 emp_name
 salary
 dept_id
-
-
-============================================================
