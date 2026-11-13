@@ -598,7 +598,7 @@ Display all departments for which at least one employee exists.
 
 Q31.
 Display all departments for which no employee exists.
-SELECT * FROM dep d WHERE NOT EXISTS (SELECT 1 FROM emp e WHERE e.dept_id = d.dep_id);
+select * from dep d where not exists (SELECT 1 FROM emp e WHERE e.dept_id = d.dep_id);
 
 +--------+----------+-----------+
 | dep_id | dep_name | loc       |
@@ -991,6 +991,15 @@ number of employees per department.
 Q53.
 Display departments where every employee earns more than 30000.
 
+mysql> SELECT dep_name FROM dep d WHERE NOT EXISTS (SELECT 1 FROM emp e WHERE e.dept_id = d.dep_id AND e.salary <= 30000 );
++----------+
+| dep_name |
++----------+
+| IT       |
+| Finance  |
+| Sales    |
+| Research |
++----------+
 
 Q54.
 Display departments where at least one employee earns more
@@ -1000,7 +1009,19 @@ than 50000 and at least one employee earns less than 35000.
 Q55.
 Display departments where every employee earns less than 70000.
 
+mysql> select dep_name from dep d where dep_id in all(select dept_id from emp where salary>50000 or salary<35000);
++----------+
+| dep_name |
++----------+
+| HR       |
+| IT       |
+| Finance  |
+| Sales    |
+| Admin    |
++----------+
+5 rows in set (0.00 sec)
 
+mysql>
 Q56.
 Display employees whose salary is greater than the average of
 all department average salaries.
