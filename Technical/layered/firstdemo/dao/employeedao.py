@@ -7,6 +7,7 @@ class Employeedao:
         print("salary",employee.salary)
         db=Database()
         conn=db.connect()
-        cursor =  conn.cursor()
+        cursor =  conn.cursor()  
         query='insert into dbemp(id,name,salary) values (%s,%s,%s)'
         cursor.execute(query,(employee.id,employee.name,employee.salary))
+
