@@ -3,7 +3,7 @@ class Studentservice:
     def __init__(self):
         self.daoobj=Studentdao()
     def add_student(self,conn,data):
-        if (data.age>0 or 0<data.marks<=100):
+        if (data.age>0 or 0<=data.marks<=100):
              return "Invalid Age or marks "
         if not( data.name and  data.age and data.marks and data.roll):
             return "All field are required "

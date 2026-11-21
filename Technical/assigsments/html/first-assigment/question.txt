@@ -1,0 +1,305 @@
+1.
+Assignment 1: Article Layout
+Create an HTML page to display a news article.
+Requirements:
+
+Use <h1> for the main article title.
+Use <h2> for subheadings.
+Write at least two paragraphs about the article.
+Include a "Read more" link using the <a> tag that points to a related webpage.
+
+2.
+Assignment 2: Personal Introduction
+Design an HTML page about yourself.
+Requirements:
+
+Add a main heading with your name (<h1>).
+Include subheadings (<h2> or <h3>) for sections like "About Me", "Hobbies", and "Favorite Books".
+Write short paragraphs about each section.
+Add links (<a>) to your social media profiles or favorite websites.
+
+3.
+
+ Profile Page
+Design a personal profile page.
+Requirements:
+
+Use the <img> tag to display your profile picture.
+Add a brief description about yourself in a paragraph below the image.
+Use the alt attribute to describe the image.
+Set the image width to 200px for consistency.
+==============
+
+1.
+You are designing a more detailed travel blog page to provide a rich user experience. The page should include a header, navigation links, multiple destinations with images, headings, descriptions, and interactive elements like "Read More" links and a footer.
+
+Requirements
+Header Section:
+
+Use an <h1> tag for the blog title, e.g., "Global Adventures Blog."
+Add a brief tagline using an <h2> tag, e.g., "Discover the world's most amazing places."
+Navigation Bar:
+
+Create a simple navigation bar at the top using anchor tags to navigate to different sections:
+"Home"
+"Destinations"
+"Contact Us"
+Featured Section:
+
+Add a prominent image (<img> tag) at the top of the page to act as a banner.
+Include a caption under the image using an <h3> tag, describing the featured destination.
+Destination Sections:
+
+Divide the content into four destinations, each with:
+An <h2> heading for the name of the destination.
+A paragraph describing the destination.
+A small image of the destination with a descriptive alt tag.
+A "Read More" link (<a> tag) to an external site for detailed information.
+Highlight Section:
+
+Include an <h3> tag for a special destination highlight.
+Add a larger image for this destination and describe what makes it unique.
+Back to Top Link:
+
+Add a "Back to Top" anchor link at the bottom of the page.
+Footer Section:
+
+Add a footer with:
+Contact information (e.g., email or social media links using anchor tags).
+Copyright information.
+A small logo image
+
+
+2.
+
+1. Restaurant Menu Page
+Scenario: Create a restaurant menu page for a fictional restaurant.
+
+Requirements:
+
+Use an <h1> for the restaurant name, e.g., "Gourmet Delights."
+Add sections for "Appetizers," "Main Courses," and "Desserts" using <h2> headings.
+For each section:
+Include a short description of the dishes.
+Add images of the dishes using <img> tags.
+Use <a> tags to link to a page for each dish with more details.
+Add a "Contact Us" section at the bottom with a mailto link.
+========================
+
+1.
+ Image with Links
+Create an HTML page where clicking on an image redirects the user to another website or page.
+Use the <a> tag to wrap the <img> tag.
+Add multiple linked images with different destinations.
+
+
+2.
+
+Requirements
+Page Title and Introduction:
+
+Add a heading (<h1>) as the title of the blog, e.g., "Adventurer's Travel Blog."
+Include a brief introductory paragraph under the title to welcome visitors.
+Featured Image:
+
+Add a large, visually appealing image (<img> tag) of a famous travel destination.
+Use the alt attribute to describe the image (e.g., "A scenic view of the Alps").
+Destination Sections:
+
+Create three sections, each representing a different travel destination.
+Use <h2> for the destination names (e.g., "Paris," "Bali," "New York").
+Add a short description (1-2 lines) under each heading about what makes the destination special.
+Images for Each Destination:
+
+Add an image for each destination with descriptive alt attributes.
+Learn More Links:
+
+Add a link (<a> tag) under each destination's description to redirect the user to a website for more details about that destination.
+Use meaningful text for the links (e.g., "Learn more about Paris").
+Back to Top:
+
+Add an anchor link at the bottom of the page that, when clicked, scrolls the user back to the top of the page (use a fragment identifier).
+===========================
+1.
+Create a nested list to represent the following structure:
+
+Subjects:
+Mathematics:
+Algebra
+Geometry
+Science:
+Physics
+Chemistry
+Arts:
+Painting
+Music
+Use appropriate HTML tags to create the nested structure.
+
+2.
+Create an ordered list of tasks for your daily routine:
+
+Each task should include a title and a description (use <li> and <span> or <p>).
+Use custom numbering for the tasks (e.g., start from 101 instead of 1 using the start attribute of <ol>).
+
+3.
+
+Package Details (Nested List)
+The company offers three packages for events:
+
+Basic Package
+Venue booking
+Basic decorations
+Standard Package
+Includes everything in the Basic Package
+Catering for up to 50 guests
+Premium Package
+Includes everything in the Standard Package
+Entertainment and photography
+Task:
+
+Use a nested list to display the details of each package.
+Apply inline styles to differentiate the package titles (e.g., bold or larger font).
+
+
+4.
+You are building the itinerary section for a travel booking website.
+
+Daily Activities (Nested List)
+Display an itinerary for a 3-day tour package:
+
+Day 1:
+Morning: Arrival and hotel check-in
+Afternoon: City tour
+Evening: Welcome dinner
+Day 2:
+Morning: Guided hike
+Afternoon: Museum visit
+Evening: Free time
+Day 3:
+Morning: Breakfast and checkout
+Afternoon: Departure
+Task:
+
+Use a nested list to structure the itinerary.
+===========================
+1.
+Objective: Create a simple HTML table to display a list of student names and their marks.
+
+Requirements:
+
+Create a table with three columns: Roll Number, Student Name, and Marks.
+Add at least five rows of data.
+Use the <table>, <tr>, <th>, and <td> tags.
+2.
+Scenario: A teacher wants to display a class's grades in a tabular format. The table should include:
+
+Student ID
+Name
+Subject
+Marks
+Assignment: Create an HTML table with 5 rows of data. Add a heading row with proper column names.
+
+
+
+
+
+3.
+Scenario:
+You are tasked with creating a web page for a community center that hosts weekly activities. The community center wants to display a schedule table for their visitors. Some activities span multiple time slots, and you need to use the rowspan attribute to represent this visually in the table.
+
+Instructions:
+File Setup:
+Create a new HTML file and name it community_schedule.html.
+
+Create a Schedule Table:
+Use only basic HTML to create a table representing the activity schedule. Do not use any CSS.
+
+Table Structure Requirements:
+
+The table must have 7 rows for each day of the week (Monday to Sunday).
+It should have 4 columns:
+Day
+Time
+Activity
+Location
+Use the rowspan attribute where an activity spans multiple time slots.
+Activity Details: Use the following schedule (or create your own):
+
+Day           Time             Activity   Location
+Monday 8:00 AM - 9:00 AM Yoga         Room A
+9:00 AM - 11:00 AM Painting Workshop Room B
+Tuesday 10:00 AM - 12:00 PM Cooking Class (2 hrs) Kitchen
+Wednesday 8:00 AM - 9:00 AM Meditation Room C
+Thursday 1:00 PM - 3:00 PM Dance Class (2 hrs) Studio
+        9:00 AM - 12:00 PM Photography Basics Room D
+Note: Ensure that the rowspan attribute is used for activities spanning multiple time slots.
+
+Additional Requirements:
+
+Add a meaningful <caption> for the table.
+Use <thead> for the table headers (Day, Time, Activity, Location).
+Use <tfoot> to add a note, e.g., "Schedule is subject to change."
+File Submission:
+
+Save your file with the name community_schedule.html.
+Ensure the HTML is properly indented and includes comments explaining how rowspan is applied.
+
+4.
+
+ Project Team and Task Management
+Scenario:
+You are working as a web developer for a software company. Your manager has asked you to create a web page that displays the team structure for a project, including each team member's tasks. To organize the information, you must use a nested table to display tasks assigned to each team member.
+
+Assignment Instructions:
+File Setup:
+Create an HTML file named team_tasks.html.
+
+Project Team Table:
+Use basic HTML to create a table representing the project team and their respective tasks.
+
+The outer table will list team members, their roles, and their assigned tasks.
+The tasks for each member will be presented in a nested table.
+Table Structure Requirements:
+
+The outer table should have the following columns:
+Team Member Name
+Role
+Tasks
+Each nested table inside the "Tasks" column should have the following columns:
+Task Name
+Deadline
+Sample Data: Use the following sample data to populate the tables:
+
+Outer Table:
+
+Team Member Name Role Tasks
+Alice        Project Manager See nested table
+Bob        Developer See nested table
+Carol          Tester See nested table
+
+Nested Tables for Tasks:
+
+Alice (Project Manager):
+
+Task Name        Deadline
+Prepare Project Plan 2025-01-20
+Client Communication 2025-01-22
+
+
+Bob (Developer):
+
+Task Name        Deadline
+Develop Login Module 2025-01-25
+Fix Bug #1234        2025-01-27
+
+Carol (Tester):
+
+Task Name      Deadline
+Test Login Module 2025-01-28
+Create Test Report 2025-01-30
+Additional Requirements:
+
+Add a <caption> to the outer table: "Project Team and Task Overview."
+Add a <caption> to each nested table: "Tasks Assigned to [Team Member Name]."
+Ensure the HTML is properly indented for readability.
+Do not use CSS.
